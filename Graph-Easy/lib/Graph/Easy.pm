@@ -2565,8 +2565,8 @@ more nodes into a group:
 	$group->add_node($rom);
 	$group->add_nodes($rom,$bonn);
 
-For more options please see the
-L<online manual|http://bloodgate.com/perl/graph/manual/>.
+For more options please see the online manual: 
+L<http://bloodgate.com/perl/graph/manual/> .
 
 =head2 Output
 
