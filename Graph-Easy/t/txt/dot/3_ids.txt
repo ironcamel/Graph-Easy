@@ -1,0 +1,9 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: G;
+}
+
+[ 123 ]
+[ abc ] --> [ test ]

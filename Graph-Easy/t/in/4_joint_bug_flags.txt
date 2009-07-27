@@ -1,0 +1,8 @@
+
+[ B ], [ C ],  [ D ]
+
+<--> { start: west; end: south, 0; } [ E ] { origin: B; offset: -2,-2; }
+
+[ C ] { origin: B; offset: 0,2; }
+[ D ] { origin: C; offset: 0,2; }
+

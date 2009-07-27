@@ -1,0 +1,1926 @@
+Revision history for Graph::Easy (formerly known as Graph::Simple):
+
+2008-08-10 v0.64 Tels 2933 tests
+  * fix bug #37534 - overwrites input without warning (Thanx C. Khan!)
+  * fix bug #37566 - Graphviz (v2.16) output broken (Thanx C. Khan!)
+  * fix bug #37842 - typo in README (Thanx Craig Sparks!)
+  * fix add_nodes(), would return instead of skipping existing nodes
+  * as_graphml:
+    + fix #36533: GraphML end tag (Thanx Thiago M. Venancio!)
+    + fix indent and endtag of groups (Thanx Thiago M. Venancio!)
+    + properly escape special characters in group/graph names
+    + add format => 'yED' to output as yED compatible (Thanx to
+      Thiago M. Venancio for requesting and testing this!)
+  * Groups:
+    + nodes added to the group are also put into the same graph as the group
+    + add_node('A') etc. (add with non-object) works now
+    + add_node('A') returns node, not group
+    + add_edge('A','B) and add_edge_once('A','B') work now
+  * Graph::Easy:
+    + add compatibility methods to mimick the interface of Graph:
+	add_edges, add_cycle, add_path, add_vertices, add_vertex,
+	set_vertex_attribute, and has_edge
+      (Thanx to Matt Spear for requesting this!)
+
+2008-05-22 v0.63 Tels 2895 tests
+  * require Perl v5.8.2 (it fails badly on 5.8.1; due to hash order?)
+  * add examples/wikicrawl.pl - thanx integral from forum.xkcd.com!
+  * Parser/Graphviz:
+    + HTML-like attributes can also appear in lower-case
+    + generate the base name for HTML-like nodes from the actual name,
+      this allows things like "11 [ label=<<..>> ]\n 11:e -> 1" to work
+    + try to handle <font> tags inside HTML-like labels
+  * graph-easy: 
+    + change default timeout to 240 seconds
+    + --version also prints Perl and Graph::Easy::As_svg versions
+    + handle UTF-8 output when piping to graphviz renders
+  * Base:
+    + fix main_class() (caused lost group attributes in graphviz output)
+  * Group:
+    + class for inner cells is "group gi", not "groupgi"
+    + adding a node to a group via add_node() or add_member() also sets
+      the "group" attribute on that node
+    + add_nodes() correctly registers nodes with the group
+  * Node:
+    + add get_raw_attribute() as alias for raw_attribute()
+  * Attributes: also accept "auto-title", "auto-link" and "auto-label"
+  * _class_styles: fix graph class attribute output for SVG
+  * Layout:
+    + A*: when we can't find a path, warn and continue gracefully
+    + A*: raise max. number of tries from 50_000 to 2_000_000
+    + make Heap do binary search upon insert, instead of sort upon extract,
+      this makes complex layouts much faster because the A* algorithm does
+      no longer spent 90% of its time to manage the heap
+    + streamline _astar_distance() to be 50% faster
+  * as_graphviz():
+    + quote "name":"portname" for HTML-like nodes
+    + properly output arrows on bidirectional edges that join/split
+      (aka no more arrow heads on the invisible helper node)
+    + put invisible helper nodes for join/split edges into the subcluster
+      if both from/to are in the same cluster
+    + fix output of spacer TDs in HTML-like labels for relative nodes
+
+2008-03-30 v0.62 Tels 2813 tests
+  * graph-easy:
+    + better error handling, now dies on errors in the input text
+  * added the following options to graph-easy:
+    + --jpg, --ps, --bmp etc.: support a lot more formats for dot
+    + --renderer: set the program to render PNG, JPG etc. output
+      (to change "dot" to "neato" etc.)
+  * Parser:
+    + fix autosplitting nodes with "empty" parts like "|  |"
+      (was also broken in DOT parsing as the same code was used)
+    + don't remove spaces at front of lines to support "\n  || B" 
+  * Parser/Graphviz:
+    + detect missing "}" at end of file
+    + bail out if "digraph {" is found twice in the input
+    + better parsing of attributes in scopes (inside "{" and "}")
+    + support ".7" (no leading zero) in color notation
+    + fix parsing of shape=record labels like "{A||B}"
+  * Parser/VCG (also for GDL):
+    + "layout_segments" is actually "linear_segments"
+    + support "status" attribute for subgraphs
+    + support "textmode" attribute for nodes
+    + support "orientation" attribute on graphs
+    + support "invisible" on nodes
+    + handle "colorentry  7: ..." (more than one space)
+    + port_sharing, inport_sharing and outport_sharing => autojoin/autosplit
+    + fix attribute remapping to go through custom filter
+    + strip out \\f- (hor line), \\f01 (colors) for now until we can
+      support them for real
+    + improve detection of multi-line labels
+    + better support for node shapes
+    + handle both "0x0c" (aka ^L) and \\f in input
+  * as_vcg()/as_gdl():
+    + remap flow to orientation for graph flows
+    + remap align to textmode
+    + output class attributes for edges/nodes
+    + support "invisible" nodes
+  * as_graphviz():
+    + handle "align" attribute on nodes properly
+  * unify error handling for unknown attributes
+  * remove Build.PL support (updated Module::Build to 0.71)
+
+2008-03-16 v0.61 Tels 2778 tests
+  * graph-easy:
+    + reject unknown input format specifications
+    + support --from_vcg and --from_gdl, too
+  * various POD fixes
+  * relax rules for custom attributes by also allowing digits anywhere
+  * fix bug #32206: Fix for as_vcg.t test failures when disk io is very slow
+  * fix bug #31958: Missing methods in Edge class
+    + add as_ascii() (and simplify it)
+    + add as_txt() stub (require Graph::Easy::As_txt and call _as_txt)
+    + add nodes()
+    + remove the to_nodes() and from_nodes() POD entries
+  * disallow border attributes on edges (it was ignored in all output formats)
+  * make it possible to call Graph::Easy->new('[A]->[B]');
+  * add: 
+    + $graph->copy() - clone the entire graph
+    + get_custom_attributes()
+    + merge_nodes() takes a third parameter: the string to join the label
+      of the second node to the label of the first node (thanx Brad Bowman!)
+  * Parser/Graphviz:
+    + handle "border: 0"
+    + handle graph attributes: maxiter, minquit and pagedir
+    + handle edge attribute: weight
+    + better parsing of attributes on HTML-like labels (no longer generates
+      bogus attribute names like "balign" and warns about unknown ones)
+    + convert <BR/> in HTML-like labels to line breaks
+    + re-connect edges between nodes with HTML-like labels to the generated
+      autosplit parts (formerly, these edges were simply lost)
+  * Parser/VGC:
+    + attributes like "node.color:" are valid for all following nodes only
+  * as_graphviz():
+    + suppress style and peripheries for borderwidth == 0
+
+2007-11-19 v0.60 Tels 2700 tests
+  * Base:
+    + prepend 'Warning: ' to warnings    
+  * Graph::Easy:
+    + add add_anon_node()
+    + _class_styles(): allow extra class names in overlay (for SVG)
+    + fix typo in SYNOPSIS (thanx skim!)
+  * Graph::Easy::Node:
+    + set attributes for origin/offset properly, too, so that get_attribute()
+      works for these (Thanx Amanda B Hickman!)
+    + allow numbers on custom attributes so "infoname1" in VCG works correctly
+  * Parser:
+    + warn on nodes with offset, but no origin (Thanx Amanda B Hickman!)
+  * Parser/VCG:
+    + allow "layoutalgorithm" (Thanx Sid Touati for the report!)
+    + handle 'classname 1: "foo"' correctly (Thanx Sid Touati again!)
+  * Layout:
+    + remove one call to ->attribute() per Node by re-using the shape
+    + fix A* boundaries cache: create it if it doesn't exist yet, otherwise
+      edges went missing (see t/in/3_cache_bug.txt for an example)
+  * as_vcg:
+    + output classname attributes correctly (Thanx Sid Touati!)
+  * as_graphviz:
+    + remap "\c" to "\n" since graphviz doesn't know "\c"
+  * Tests:
+    + fix test failures in t/graphml.t when second changes while comparing
+      as_graphml() and as_graphml_file() output
+    + fix test failures with Pod-Coverage v0.19 - a few alias routines in
+      Graph::Easy::Node need to have POD replicated from Graph::Easy
+    + require Pod-Coverage v0.19
+
+2007-09-10 v0.59 Tels 2686 tests
+  * fix test failures in t/graphml.t (oops)
+
+2007-09-09 v0.58 Tels 2686 tests
+  * add Graph/Easy/As_graphml.pm - output graph as GraphML text
+  * bin/graph-easy:
+    + make "graph-easy --png input.txt output.png" work
+    + fix POD structure for example outputs
+    + expand section about conversion limits and problems
+  * Parser: speed up all parsers by:
+    + making the regexp for empty/commented lines simpler and by combining
+      two regexps to replace/remove tabs and 0x0d into one tr// (~ 5%)
+    + cache regexps needed for _parse_attributes() as these calls can be
+      expensive and occur frequently per graph (~ 10% for Graphviz)
+  * Parser/VCG:
+    + about 3x as fast by swapping out the matchstack while we are in
+      matching multi-line labels. The speedup depends on how many lines
+      are in multi-line labels compared to the rest of the graph.
+  * Graph:
+    + fix rename_node() to work with plain node names
+  * Graph::Easy and Graph::Easy::Group:
+    + add: root_node(), type()
+  * Base:
+    + add:
+      + catch_messages(), catch_errors(), catch_warnings(), errors(), warnings()
+  * Layout:
+    + add a stub for force-directed layouts (doesn't work yet)
+    + fix bug #29039: hang in path-straighten code (Thanx mperilstein!)
+      (also fixes the hang reported in bug #27759)
+  * as_html:
+    + fix undef warning in Graph/Easy.pm line 1038
+
+2007-08-12 v0.57 Tels 2673 tests
+  * bin/graph-easy:
+    + don't die on non-fatal parser errors (good for unknown dot attributes)
+    + warn if both --as=txt and --as_foo or more than one --as_foo are given
+    + add --stats option: output various statistics about the input graph
+  * Graph:
+    + add rename_group()
+    + rename_node() turns anon nodes into normal nodes (with a name)
+  * Graph/Group:
+    + add a groups_within() method that returns recursively the contained
+      groups up to the specified level (-1 - infinite, 0 => level 0 etc.)
+  * Group:
+    + fix add_group() when called with a scalar as group name
+  * Parser:
+    + parse nested groups: "( Outer ( Inner [ A ] ) [ B ] )"
+  * Parser/VCG:
+    + support for multi-line labels (Thanx Ohad Ben-Cohen for the testcase)
+    + work around faulty inputs with unescaped double quotes in labels
+      (gconv, I am looking at you!) (Thanx Ohad Ben-Cohen for the testcase)
+    + speed up parsing of large graphs by ca. 50% by simplifying regexps
+    + add support for \fi065 (ISO-8859-1 characters)
+    + support subgraphs (aka nested graphs)
+  * Parser/Graphviz:
+    + speed up parsing of large graphs by ca. 45% by direct attribute lookup
+  * as_vcg:
+    + generate classname attribute for edge classes if nec.
+  * Attributes:
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    The attribute "pointstyle" has been redefined as to make it consistent
+    with "arrowshape" and "arrowstyle". The attribute "pointstyle" is now one
+    of "closed", or "filled" and the shape can be set with "pointshape" as
+    "diamond", "cross" etc.
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  * Misc:
+    + fix SYNOPSIS (Thanx Donuvi Tanoga!)
+
+2007-07-22 v0.56 Tels 2650 tests
+  * bin/graph-easy:
+    + add --version
+  * Parser/VCG:
+    + support more attributes, remap unknown/unsupported ones to "x-vcg-foo"
+  * Parser/Graphviz:
+    + allow style="setlinewidth(0.1)" (fractions) in attributes
+    + translate unknown or unsupported attributes into "x-dot-foo" style
+  * the following methods in Groups/Edges are only usefull during the layout
+    phase and are now internal and thus were renamed with an underscore
+    in front of them:
+    + add_cell, del_cell, clear_cells, cells
+  * POD:
+    + fix a few typos and duplicate some documentation into the
+      various POD files, as well as add some more doc
+  * Graph::Easy:
+    + add add_nodes(), is_simple(), is_directed(), is_undirected(),
+      edges_within()
+  * Graph::Easy::Group:
+    + fix add_nodes(), edges()
+    + add edges_within(), has_as_predecessor(), has_as_successor()
+  * Graph::Easy::Node:
+    + add has_as_predecessor(), has_as_successor()
+  * Misc:
+    + save a bit memory by not setting default values for edges and nodes
+  * Attributes:
+    + support "type" for graphs (directed or undirected)
+    + support custom attributes named like "x-foo", "x-bar-baz", "x-f-o-o"
+  * as_graphviz:
+    + use "--" for edges for undirected graphs
+    + translate "x-dot-foo" attributes back to "foo", making it round-trip
+  * as_vcg:
+    + translate "x-vcg-foo" attributes back to "foo", making it round-trip
+    + first stab at attribute remapping
+
+2007-05-05 v0.55 Tels 2433 tests
+  * bin/graph-easy:
+    + as_png and as=png
+    + add support for VCG/GDL
+    + do not clobber output file if we cannot read input file
+    + make --help work under older Pod::Usage versions
+    + make "echo '[A]' | graph-easy" work while "graph-easy" outputs help
+    + optimize startup to be about 10% faster if we don't have arguments
+  * add support for VCG/GDL (Parser/VCG)
+  * remove a few stray "use utf8;" in files with no high-bit bytes
+    (Thanx Juerd!)
+  * add rename_node()
+  * Attributes:
+    + an unset attribute in a subclass will cause the attribute to be
+      looked up in the base class, and not just use blindly the default
+      attribute from the base class:
+        node { align: left; }
+        [ L ] { class: foo; }    # L is be left-aligned and not center!
+      Due to the way CSS inheritance works and HTML+CSS is emitted, this
+      bug showed only up in as_ascii()
+    + properly support \N, \E, \G, \T, and \H in labels, links and titles
+    + support \L links and titles
+  * as_txt():
+    + quote characters like '[' for autosplit nodes, too
+    + remove spaces inside autosplit nodes to normalize their text output:
+      "[ Some   || test  | B ]" becomes "[ Some || test | B ]"
+    + attributes for autosplit nodes were not properly output, especially
+      if they were something like "color|" or "red|blue"
+  * as_html():
+    + fix undirected edges (unitialized warning and edges sticking too close
+      to the start node)
+    + adjust alignment of the edge arrows by using more relative positioning
+    + make the spacing of edges smaller, so they don't inflate node sizes
+  * as_graphviz():
+    + fix fillcolor on nodes with shape plaintext
+    + adjust the linewidth style to not be that overly huge
+    + handle fill for nodes with subclasses correctly
+  * Parser:
+    + support "\]" in node names like so: "[ char\[\] ]"
+    + attributes ending in '|' like "color|;" on autosplit nodes were ignored
+    + autosplit nodes with the attributes following on the next line had any
+      set basename attribute ignored (see t/in/4_bug_basename.txt)
+  * Parser/Graphviz:
+    + a lone "node:port" did not result in "node" to be created
+    + set the graph name as the default graph title
+    + handle a semicolon after "}" for subgraphs and graphs
+    + handle the variant "graph { A--B }"
+    + support the "output" attribute (for the Mediawiki integration)
+    + adjust for the changed linewidth styles
+    + remove the replacement of \E, \N, \T, \H and \G now that Graph::Easy
+      knows these, too. Allows proper roundtrips of these escapes.
+  * as_html()/as_svg:
+    + setting a colorscheme on the graph and some class color attribute to
+      the color "1" didn't result in the real color, but in "color: 1;" in
+      the generated CSS code
+  * Layouter:
+    + fix endless loop in the bend-optimizer due to a swapped X and Y
+
+2007-03-18 v0.54 Tels 2349 tests
+  * add some examples to bin/graph-easy
+  * fix borders on rounded/circle/ellipse nodes outside groups
+  * fix fill on edge class
+  * Parser/Graphviz:
+    + handle multi-line comments inside attributes
+    * handle an unquoted/unescaped "]" inside (HTML-like) attributes
+    * handle an multi-line comment followed by space as the last part
+  * Attributes: add labelpos (top/bottom) for groups
+  * as_graphviz():
+    + reinsert the labels on edges
+
+2007-02-19 v0.53 Tels 2342 tests
+  * add --timeout=N to graph-easy and set the default to 120 seconds
+  * handle "\|" inside nodes properly: "[ A \| B | C ]" works now
+  * add MANIFEST.SKIP to enable "make manifest"
+  * remove todos/
+  * add attribute "comment" for graphs, edges, nodes and groups
+  * add support for hsv() and hsl() colors
+  * add support for transparency (alpha channel) in colors
+  * colors are stored as input (but normalized), fixes the problem that
+    hsv() colors in graphviz were converted to RGB and thus lost precision
+  * add attribute "arrowshape" for edges, allowing triangle, dot, box, line,
+    inv, cross, x and diamond shaped arrows
+  * Base: setting a new subclass did not invalidate the cache
+  * as_html:
+    + use again "position: relative" to shift arrows to the proper place
+      (needs to be done for for most edge parts, tho)
+    + implement a few more missing edge pieces
+  * parser/Graphviz:
+    + groups have slightly different defaults in DOT, so set these: (Thanx
+      Michael Goldshteyn!)
+      + transparent background
+      + center aligned label
+  * as_graphviz:
+    + don't generate needless label attributes
+    + compound=true is the default, so we can omit it
+    + do not needless quote "#" characters
+    + handle fractional fontsizes better, and do not output wrongly "11px"
+    + output correct "labeljust" for groups (Thanx Michael Goldshteyn!)
+    + HSV colors are now preserved (formerly they were converted to RGB)
+    + the alpha channel on colors is no preserved if possible
+  * as_html/as_box_art:
+    + use LOGICAL AND and LOGICAL OR for open up/down arrows
+    + replace open arrows with nicer looking Unicode chars
+    + nodes with shape circle, rounded or ellipse are now rendered correctly
+      when having a different background color (or when inside a group)
+    + don't generate labels for nodes with empty labels (like anon nodes)
+    + default fill is white, so set it in CSS for pages with some backdrop
+  * Graph::Easy objects are now about 4K smaller (min. size was 6.5K on 64bit)
+
+2007-01-28 v0.52 Tels 2305 tests
+  * format INSTALL in POD and add notes about Windows
+  * Group::Cell: cache attributes to avoid overly many attribute() calls
+  * attribute(): do not call class() unless neccessary
+  * Layouter:
+    + cache the boundaries of the cells array for A*, avoid excessive
+      recalculaion of the used area (make big layouts about 30% faster)
+    + fix _optimize_layout() for reversed edges, that finally fixes the
+      garbled HTML output
+  * as_html(): 
+    + "vertical-align: center" must be "vertical-align: middle" - argh!
+    + better alignment of arrows on some edge/end pieces
+    + insert missing style="..." in all edge pieces (fixes missing group
+      backgrounds on some edge cells)
+  * remove dead code in Graph::Easy::Node::Empty
+ 
+2007-01-05 v0.51 Tels 2305 tests
+  * bin/graph-easy: add --parse option
+  * Parser:
+    + fix bug #24133: empty groups were wrongly put on the group stack,
+      thus aquiring some of the following nodes (Thanx to Paul Biggar!)
+    + allow class selector ".foo { ... }" - set attributes on all objects
+      (edges/nodes/groups) of subclass "foo"
+    + allow lists of class selectors like ".foo, node.bar, group { ... }"
+  * as_html:
+    + fix joint W_N_S (Thanx Florian Lindner!)
+  * as_graphviz:
+    + fix wrong output of group fill colors and style (Thanx Paul Biggar!)
+    + workaround the inability of DOT to have attributes for all subclusters
+  * attributes:
+    + setting the attribute "class" on a primary class puts all objects
+      without a specifically set class attributes into that class, so:
+        node { class: red; } node.red { color: green; }
+      colors all nodes without a specific subclass red.
+
+2006-12-17 v0.50 Tels 2273 tests
+  * added bin/graph-easy and make the build process install it into the system
+    This adds the ability to simple run "graph-easy" from anywhere
+  * attributes:
+    + textwrap: the default is inherit, to make setting it on a graph work
+    + allow "textwrap: N;" to wrap text automatically at N characters
+  * Base:
+    + add error_as_html() - return error message as escaped HTML
+  * Group:
+    + add add_nodes() - add multiple nodes to the group
+  * Graph:
+    + add flip_edges($A,$B); - transpose all edges going from A to B
+    + add flow() - return the flow of the graph in degrees
+  * Node: 
+    + edges() returns all the edges at that node; fix doc for it
+    + rename grow() to _grow() to make clear it is a private method
+  * Edge:
+    + add edge_flow() - return flow of this edge
+  * modifying an edge via the following methods did not invalidate the layout:
+    + flip(), bidirectional(), undirected(), start_at(), end_at()
+  * add a dummy shape() method for groups and group cells
+  * as_graphviz():
+    + don't output autolabel, rows, columns or group attributes
+  * as_html():
+    + output linebreaks as simple "<br>"
+    + support for textwrap: 10;
+  * as_ascii():
+    + write our own text wrap routine to replace the buggy Text::Wrap
+    + rewrote the border-collapse algorithm, as well as the logic to determine
+      if we need to draw a border. This makes nodes next to each other (like
+      via autosplit, or with origin/offset) work even when their borders are
+      different (like none/solid, dotted/solid etc). (Thanx Nick Jenkins!)
+  * Layouter:
+    + Rewrite the rank assigning code:
+      + for cycles in the graph, the rank assignment code did sort the nodes
+        alphabetically and put the node with the "lowest" in the first rank.
+        Now it uses the order in which the nodes were defined, thus this:
+          [ B ] -> [ C ] --> [ A ] --> [ B ]
+        starts now the layout with "B", instead of "A", as humans expect it.
+      + use a heap instead of ARRAY, so does less work but is more correct
+      + correctly assign user ranks and automatic ranks to nodes
+    + the layouter keeps track of where it placed the first node of a rank,
+      and then places nodes with the same user-set rank in the same column/row
+    + on nodes with more than one edge leading out, where one of the edges
+      has a flow, stop the chain tracking there. This prevents the non-flow
+      edge to be laid out first if its chain is longer than the flow-edge,
+      and thus prevents the non-flow edge from blocking the flow-edge.
+    + self-loops were not tried in the right order, unless the flow at the
+      node was east (Thanx Stéphane Bortzmeyer!)
+    + A*: don't put edge labels on EDGE_CROSS cells as they aren't rendered
+      there (Thanx Stéphane Bortzmeyer!)
+    + sink-nodes (no outgoing edges) get bigger so that there front side
+      is empty, preventing edges going "around" to the front side of the node
+    + paths generated by A* have a tendency to in-ward bends, these are now
+      removed and replaced by a simple corner, if possible
+  * Parser:
+    + improve robustness for alternate line endings (\x0d\x0a vs \x0a)
+    + a space in front of classes (" name { color: red; }") caused an error
+      (Thanx David R. Throop!)
+    + allow escaped ";" in attributes as in "{ label: \;\;; }"
+    + accidentily allowed "[a]--test -->[b]" (no space before edge label)
+    + properly handle non-string attributes like "[A|B] { shape: node|;}"
+  * Parser/Graphviz:
+    + support "setlinewidth(..)" in style attribute for nodes
+    + handle the following color forms correctly:
+      + hexadecimal RGB colors with spaces (like "#AA BB CC")
+      + HSV() colors ("1.0 1.0 1.0" and "0.0, 0.0, 1.0")
+      + colorschemes ("//red" and "/x11/red")
+    + first stab at parsing HTML-like labels
+    + support for "labeljust" on subgraphs
+  * set binmode(STDERR,'utf8') when in debug mode
+  * Group: include a modified add_group() to make nested groups work properly
+  * add attribute "group" for groups
+  * make $self->attribute('group') work on nodes and groups
+
+2006-10-29 v0.49 Tels 2182 tests
+  * fixed Synopsis
+  * add more modules to t/pod_cov.t and t/pod.t
+  * speedup loading: remove _u8() kludge, use utf8 in As_ascii.pm
+  * Node: added get_attribute() as alias for attribute()
+  * Completely rework the attributes code:
+    + attribute() now always returns the default value, and respects
+      inheritance for values that are "inherit". Instead of a hard-coded
+      attribute list, we now simple use 'inherit' for default values.
+    + 'inherit' is a valid colorscheme and edges, (anon) groups, and (anon)
+      nodes have "inherit" as default colorscheme
+    + add "autosplit" and "autojoin" for edges
+    + accept all attributes with a "-" in their name also without the "-"
+      (fontcolor, textwrap etc. are now valid inputs)
+    + make default_attribute() work, even when the object is not in a graph
+    + default_attribute() uses the info in $attributes to avoid double data
+    + add attributes "root" and "rank" for groups
+    + del_attribute() now works for virtual attributes like 'border' or 'size'
+    + add: raw_attribute(), raw_attributes(), get_attributes()
+  * Graph: del_node() didn't deregister a child node from parent
+  * support \; and \' (f.i. to escape single quotes if you want a label "''")
+  * Start working towards a recursive layouter:
+    + separate layout() into layout() (for graph only) and _layout()
+    + call edges_into_groups() before layout
+    + Group: store cells in {_cells} to avoid clash with {cells} from layout
+    + Group: in _layout() set {debug} for groups from parent graph {debug}
+  * Parser:
+    + make magic detection of Graphviz input much more robust
+    + parsing failed silently when there was only one invalid line of input
+    + fix parsing of empty groups and/or anonymous groups
+    + sort attributes before checking them to make tests more predictable
+  * Parser/Graphviz:
+    + a new scope start followed by a non-node (f.i. attributes) crashed
+      the parser. See t/in/dot/5_scope_atr.dot for an example.
+    + recognize (n|ne|e|se|s|sw|w|nw) as compass directions after nodes/ports
+    + recognize numbers as node names (like 0.11, 1.0, 0., 1., etc)
+    + the ID in "graph ID { }" is optional
+    + properly remap headport/tailport for edges
+    + make comment parsing more robust, especially against multiple multiline
+      comments or multiline comments without spaces around them
+    + recognize "setlinewidth(..)" for edge styles
+  * as_txt():
+    + don't insert superflous newline for empty groups
+    + properly output anonymous and empty groups
+    + output all attribute names w/o the "-", i.e. "fontsize: 80%;"
+  * as_html():
+    + properly quote "<", ">" and "&" in labels
+    + values of "inherit" work now, even when just set on a class/subclass
+  * as_graphviz():
+    + output nodes inside groups in sorted order to make tests more predictable
+    + add tests for proper colorscheme support
+  * attribute "autolabel": 
+    + allow and prefer/doc to use just "N" for specifying the length
+    + use "…" (ellipse) instead of just three dots (except in as_ascii)
+    + allow up to 99999 characters (was 9999)
+    + change doc to reflect that a set label will be shortened, too
+
+2006-09-13 v0.48 Tels 2020 tests
+  * Parser/Graphviz:
+    + handle attribute "URL" (opposed to "url")
+    + handle attribute "href" for graph/node/subgraph, too
+    + accept "\N" in titles and urls, too  
+    + accept "\E" for edges, too (\E is replaced by "Bonn->Berlin" f.i.)
+    + accept "\G", "\T", "\H" in labels/urls/titles, too
+    + parse HTML entities like &amp; in names/labels/titles/urls
+    + fix comment parsing, things like "http://example.com" didn't work
+  * Layout/Repair:
+    + fixup the code that inserts edge pieces
+    + fixup the code that combines long HOR/VER edges in case the edge goes
+      bottom-to-top or right-to-left (the code only expected the other dir)
+    + repair JOINT_E_N_S followed by an edge on the right/bottom side properly
+  * Edge:
+    + fix add_cell() to add a cell _after_ a given cell, not before
+      (this fixes those horrible messed up HTML layouts, esp. involving
+       groups - Thanx to Florian Lindner for testcases and bugging me! :)
+  * as_html:
+    + implemented edge type 1031 (joint south to east/west, starting west)
+    + CSS class names like "node-group" must be "node_group" to fully work
+      (fixes class-attributes on anon nodes etc. not showing up)
+    + fix output of group labels on groups parsed from Graphviz
+  * as_ascii:
+    + render anon nodes, too, since they might have class attributes making
+      them visible (fixed t/in/4_node_edge.txt among others)
+  * as_graphviz:
+    + fix rendering of anon nodes (setlinewidth(0) doesn't work, so use
+      style=filled and a color that equals the node background)
+    + don't output spurious "flow" for nodes
+    + the code to supress edge labels on helper edges was broken
+
+2006-09-03 v0.47 Tels 2013 tests
+  * Edge: add end_at(), the opposite of start_at()
+  * add node shape 'edge' - render node as a horizontal edge piece
+  * add node attribute 'rank' - 'auto', 'same' or positive number
+  * multiple spaces in edge labels were not collapsed together
+  * class names are case-insentive like in CSS, so we lowercase them on input:
+    + as_txt() renders them now unified as lowercase, always
+    + "node.SECOND { label: B; } [ A ] { class: Second; }" works now
+  * as_txt(): edges going to/starting at the first part of an autosplit node
+              are now correctly output: "[A|B] [ AB.0 ] -> [ T ]" now works.
+  * as_html(): arrow-style: filled; did not replace all "v" and "^" arrows
+  * Layouter:
+    + handle _trace_path() called with unplaced src node
+    + adding group cells makes it nec. to adjust size of multicelled nodes
+    + holes torn after splicing-in group cells where not closed when one
+      of the adjacent edge cells was of type EDGE_CROSS
+  * Parser:
+    + make detection of Graphviz code more robust against commented out text
+  * Parser/Graphviz:
+    + a scope end did not properly pop the group_stack, resulting
+      in nodes getting in the wrong group. t/in/dot/6_2_cluster.dot now
+      parses and renders correctly.
+    + "The keywords 'node', 'edge', 'graph', 'digraph', 'subgraph', and
+      'strict' are case-independent." So we accept that them way.
+    + handle the case of "strict digraph G { a -> b }" properly
+    + edge [ label=foo ] sets these attributes on edges, not nodes
+    + handle "style=dotted" for nodes (as well as "dashed")
+    + a "node [ style=invis ]" followed by "node [ style=filled ]" did
+      not set following nodes to a visible shape
+    + properly remap:
+       "arrowhead", "labeljust", "orientation"
+    + handle label="\N" for nodes
+    + the default arrow style is "filled"
+    + attribute values with a "|" inside them got wrongly split
+    + attribute values with ']' inside quoted strings like label="[P]" fixed
+    + implement parsing records of the form "<p1> A | <p2> B | C">
+    + "Bonn":"f1" now creates a node "Bonn", not "Bonn:f1", nor does it fail
+    + all boolean attributes are now recognized when appearing without a value
+    + handle string concatenation ("foo" + "" +  "bar")
+    + handle line continuation (a '\' as last character on line)
+
+2006-08-13 v0.46 Tels 1943 tests
+  * Output:
+    + add as_debug() and "output: debug"
+  * Layouter:
+    + fix layout with loops where the root node is part of the loop
+      (see t/in/6_split_join_loop.txt for an example)
+    + fix warning about uninitialized in Chain.pm line 423
+  * Parser:
+    + '\[', '\{', '\>' etc inside an edge label work now:
+    [ A ] -- \[ A \ ] \<\> --> [ B ]
+    + use _unquote() in more places instead of duplicated code
+    + allow rgb(10%,0,0.5) for colors, e.g. fractions and mixes
+    + allow \" in attributes ala 'label: "\"hello\"";'
+    + a comment inside attributes caused the parsing to fail:
+	{
+	color: 3; # this didn't work
+	}
+  * Parser/Graphviz handles the following:
+    + "root" on a graph 
+    + "graph G { init -- _run }" (graph vs digraph, \w+ as node)
+    + funky node names: node_0, Köln, "node" etc
+    + "subgraph G { .. }"
+    + scopes as in "{ node [ color=red ] Bonn -> Berlin }"
+    + node list as in "{ a b c } -> u; i -> { j k l }"
+    + digraph/subgraph attributes: "subgraph G { style=filled; }"
+    + node attribute 'label' no longer crashes the parser
+    + attributes without a value ("center truecolor")
+    + attributes w/ or w/o ";" at end, w/ or w/o "quotes"
+    + "subgraph test { } abc -- test" shouldn't add a spurious node "test"
+    + per default, the color scheme is x11 and the graph flows south
+    + "a1 -> a2\na2 -> a3" (no ";" at end of line and no spaces in between)
+    + undirected edges
+    + /* * style * / comments almost everywhere
+  * Parser/Graphviz maps/handles/ignores now the following attributes:
+    + nodes: shape, peripheries, z
+    + graph: ratio, labelloc
+    + edge: f, group, style
+    + all: style, fontsize, color ("0.99 0.8 0.24", #ff00ff00 etc)
+  * as_graphviz():
+    + output "rank=0" for root node
+    + fix output of headport/tailport for start/end attribute
+    + fix the creation of "invisible" joints to joining/splitting edges:
+      + created helper nodes no longer conflict with existing node names
+      + works for joints as well as splits
+      + suppress arrow heads leading to joint
+      + works in both east and west direction (aka with flipped edges)
+    + start/end: left; (aka relative starting/end side) results in correct
+      tail/headport attribute, too
+  * as_ascii():
+    + fix rendering of graph labels at bottom
+    + graph labels wider than the graph make output bigger and work now
+  * Attributes:
+    + support for different color schemes
+      + add X11 and ColorBrewer color definitions
+      + add attribute 'colorscheme' for all classes
+    + colors are now stored internally as they were written in the input
+  * License: include apache-style license for Brewer color schemes
+  * Misc: fatal errors produce a stack backtrace only under debug
+  * Node: further fixes flow(): properly cache the return value, reduce C&P
+
+2006-07-23 v0.45 Tels 1811 tests
+  * we dont need inc/Module/AutoInstall.pm (this dist has no dependencies)
+  * require at least Perl 5.8.1 for proper Unicode support
+  * add a Build.PL file
+  * fix bug with shared edges and joints (Thanx Florian Lindner!)
+  * fix reparing of edge joints that are next to a node inside a group
+  * add attribute 'root' for graphs
+  * Layouter: if given root node, start there
+  * fix "no_index" in Makefile.PL to not include spurious "directory"'s
+  * Node: fix flow()
+  * as_ascii: fix corners with start/end pieces (add spacing, to make
+	      consistent with all other start/end pieces)
+  * as_boxart: fix rendering of corner pieces (especially for joints)
+  * as_html: render invisible edges truly invisible
+  * adding a node with the name '0' and retrieving it via node('0') works now
+  * Parser/Graphviz: 
+    + 'Bonn' is a valid node name, too ([A-Z][a-z]+) 
+    + handle /* style comments */
+
+2006-04-17 v0.44 Tels 1801 tests
+  * new/changed attribute:
+    + add 'group' for nodes
+    + only allow /[a-z][a-z0-9_]+/i for classnames as documented
+  * Base: warn() uses Carp::carp instead of plain warn()
+  * we no longer need Heap: we have our own el-cheapo Heap class. And it is
+    faster, too, todos/big.txt takes 3.6s vs. 4.2s with v0.43 and Heap::Binary
+  * Layouter fixes:
+    + a short vertical edge starting from a multicell node was rendered as
+      horizontal instead
+    + an edge sharing an end point with another was generated incorrectly if
+      (one of) the other edge(s) was running alongside the starting node (e.g.
+      where we could immidiately create a joint and be done)
+    + likewise for edges splitting up, if a shared edge runs alongside a node,
+      then a joint will be created there immidiately
+    + fix bidirectional edges with a joint as start piece
+    + Don't warn on edges with no cells (on joints, under debug) about being
+      unable to find path
+    + improve placement for nodes where their edges share an end point
+    + improve placement of nodes for shared edges with labels
+  * cleaned up the POD a bit and added a few remarks and notes
+  * as_ascii:
+    + deal with invisible edges at cross sections
+  * as_html:
+    + implement joint types with start or end points
+  * fix the repair code that handles edges inside groups:
+    + repairs more cases
+    + is faster by reversing the checks and using grep
+    + cut down on copy&paste code
+  * Edge/Cell: fix arrow_count() for undirected and bidirectional edges
+  * Easy.pm:
+    + fix bug in class_styles() ignoring base class name for multiple
+      classes, affected SVG output
+  * Parser/Graphviz:
+    + relax parsing of node names (G, GROOVY etc are valid w/o quotes) 
+    + allow "graph [ ... ];" (semicolon after attribute section)
+    + remap attributes: graph: rankdir; edge: minlen, dir
+
+2006-03-19 v0.43 Tels 1755 tests
+  * add attributes:
+    + text-wrap: 'auto': auto wrap label, 'none' is the default
+    + id: unique identifier for each object (usefull for animation later on)
+    + font: comma-separated list of font family names/generic names
+    + format: 'none' (no special processing, default) or 'pod' (enables inline
+      text formatting ala B<bold>, I<italic> etc)
+  * Node.pm: avoid autovivify of ->{edge} in background() and use ->{group}
+  * Edge/Cell.pm: set {group} to edge's group to make things easier
+  * Layout/Path.pm: add some pods for the internal routines
+  * add more .pm files to t/pod_cov.t and t/pod.t
+  * it wasn't possible to set an edge label via a class or subclass:
+      edge { label: yes; }
+      edge.no { label: no; }
+      [ A ] --> [ B ] --> { class: no; } [ C ]
+  * as_html:
+    + table cells inherit some attributes like "color" from the table, this
+      caused all labels to be the same color as the graph if you set a color
+      there:
+        graph { color: red; } ( Cities: [ Bonn ] -- train --> [ Berlin ] )
+      Likewise for fill, align, font, font-size etc. These are all fixed and
+      tests make sure that this doesn't happen again.
+    + fix CSS
+      + "vertical-align: center;" has to be "vertical-align: middle;"
+      + don't output bogus "flow" attributes
+      + don't output spurious edge class "ha"
+      + merge classes "ve" and "el" into "el"
+      + draw arrows on short hor edges closer to the line
+    + graph and edge labels need to use _label_as_html() to properly
+      quote "<",">" and "&" as well as have support for \n,\r,\c and \l
+    + fill and background color for graphs were swapped
+    + do not combine table cells if the returned cell code contains two
+      successive cells
+    + fix EDGE_S_E + EDGE_START_S
+  * as_graphviz:
+    + add support for edge styles "double" and "double-dash" by emitting
+      "color:color" for the edge
+  * Edge.pm:
+    + add flip() - swap from/to for this edge
+    + remove dead code in flow() and fix POD for it
+  * Layouter:
+    + added a post-layout optimizer
+    + compact edges by combining VER or HOR edge cells into one cell
+      (fixes overly long edge labels stretching the layout)
+    + add a method to grow multiple column/row sizes to accomodate
+      a nec. multi-column cell (node/edge), this creates more compact
+      layouts with multi-cell objects in them.
+    + repairing edges after splicing in groups did not account for joints,
+      the joint and the next piece might not belong to the same edge.
+      Thanx to Florian Lindner for a testcase.
+    + Edge.pm: port() did falsely return ("east","0") for "east" instead of
+      (undef,undef), causing edges with "start: east" to get wrongly split up
+  * Parser: 
+    + refactor code to allow easier subclassing
+    + require and use Parser::Graphviz on detection of graphviz code
+    + allow quoted attributes that contain ";" like: 'label: "bar;baz";'
+  * Attributes:
+    + clarify rules when to quote, escape and encode
+    + only decode %xx for xx between 0x20 and 0x7e (to stop exploits)
+  * add Graph::Easy::Parser::Graphviz - parse graphviz text and convert it
+
+2006-02-21 v0.42 Tels 1674 tests
+  * add the missing testfiles to MANIFEST
+  * add a few examples to the doc
+  * remove the static classes "l" (a) and "i" (img) - these can be styled
+    by CSS selectors, so there is no need for them.
+  * as_html: 
+    + use unicode chars for filled/closed arrow heads
+    + fix garbled class names on undirected edges (caused by removing "v")
+    + fix output of default left-aligned group labels and add test for that
+    + output "<br \>" instead of "\n <br \>", because due to
+      "whitespace: nowrap;" this did insert spurious spaces before each line
+      break, throwing center-aligned labels off-center.
+  * as_graphviz:
+    + output correct minlen
+  * Parser:
+    + Reverse the removing of trailing/leading "|" in autosplit nodes,
+      introduced in v0.34.
+      [|G|] is " ", "G", " ", and not just "G". The unconditional removal
+      of leading/trailing empty parts meant you could never have an empty
+      trailing part, ever. Fixes also the regression from todos/hash.txt
+      no longer working. Adjust doc to reflect this change.
+    + add more tests for trailing/leading empty parts.
+  * Layout.pm:
+    + typo: {_chain} vs. {chain} (Thanx Jim Cromie)
+    + don't use alarm when under the debugger (Thanx Jim Cromie)
+ 
+2006-02-05 v0.41 Tels 1670 tests
+  * use Module::Install and bundle it in inc/
+  * add "point-style: invisible" for very small, invisible nodes - nodes with
+    "shape: invisible;" will still have a minimum size.
+  * add support for '\l', '\r' and '\c' as line breaks to align individual
+    label lines left, right or center
+  * as_ascii:
+    + support proper alignment on edge labels
+  * as_graphviz():
+    + fix invisible nodes to not show their label
+    + add support for nodes with "shape: point;"
+  * t/graphviz.t: reduce the number of unnec. calls to as_graphviz()
+  * as_html():
+    + use white-space: nowrap; (not "pre")
+    + add support for \l, \r, \c and don't include text-align twice
+  * Node:
+    + remove the unused and undocumented "noquote" param from as_html()
+  * Graph:
+    + add: add_edge_once(): add an edge from A to B only once
+      (Thanx to Florian Lindner for the suggestion!)
+
+2006-01-29 v0.40 Tels 1652 tests
+  * add attribute:
+    + "invisible" as edge style
+    + "minlen"	- for edges (minimum distance in cells)
+    + "align"	- alignment for graph, group, edge and node labels
+  * General:
+    + fix Makefile.PL to work with newer YAML
+    + avoid duplicate code when dealing with labels and dimensions
+    + empty attribute-parts on autosplit nodes work now:
+        [ A|B ] { class: |legend; }
+      will put B into class 'legend' and leave the class of A alone
+        [ A|B ] { class: legend|; }
+      will put A into class 'legend' and leave the class of B alone
+        [ A|B ] { class: legend; }
+      will put A *and* B into class 'legend'
+    + _class_styles(): use correct indent instead of hard-coded '  '
+  * Edge:
+    * start_port()/end_port(): + remove spaces to normalize result
+      + return list in list context
+  * Node:
+    + add nodes_sharing_end(), is_anon()
+    + remove place() from public API (is now _do_place())  
+    + allow spaces in set_attribute('size', '9 , 8')
+  * Node::Cell:
+    + add a group() method to make things like $cell->group() easier
+  * Group:
+    + is also a Graph::Easy, to inherit from it (for nesting)
+    + find right-most cell for label if "align: right"
+    + rename find_label_cell() to _find_label_cell() (is internal use only)
+  * Graph:
+    + add use_class(), and use it instead of hard-coded class names
+    + due to bad caching, one couldn't set the node size as class-attribute
+    + weaken() is costly and O(N), so avoid it whenever possible.
+      Graph creation and destroy are now O(1) again. Creating a graph with
+      N nodes and N-1 edges takes (bench/stress.pl):
+	N         0.39     0.39	   |  0.40    0.40
+                  Create   Destroy |  Create  Destroy
+       ----------------------------|------------------------
+	4000      0.35     0.23    |  0.31    0.12
+	8000      0.77     0.68    |  0.61    0.21
+	16000     1.91     2.26    |  1.19    0.48
+	32000     9.32     8.02    |  2.32    0.78
+  * Parser: 
+    + add use_class() to use user-provided classes for generated objects
+    + referencing an (empty) part of an autosplit node before the autosplit
+      node itself would create wrongly a stray node
+    + simplify group code ($graph->add_group() does everything nec. already)
+    + store labels for autosplit nodes not in the label attribute, but
+      seperately. This fixes the problem that you couldn't put a node
+      (resulting from an autosplit) into a class and set a label on the
+      class - the node would always show the part name as label. In addition
+      that fixes the long-standing bug that as_txt() would output stray labels
+      for autosplit nodes.
+    + parts in an autosplit node are relative to their preceding part, not
+      to the first part. This enables setting columns/rows/size on parts
+      and the other parts will flow/adjust properly.
+    + set the basename property on the first part in an autosplit node,
+      enabling proper as_txt() output of it.
+  * Layouter:
+    + implement the same spacing rules between nodes for end points as
+      0.39 did for start points: edges joining up to a node work now
+    + only use 3 cells space when there are more than one node sharing
+      the same port (was "more than zero")
+    + fix a problem when placing nodes without an edge object resulting in
+      a crash
+    + repair edges outside of groups, as well as edges that end at a corner
+    + multi-celled nodes in spliced layouts (e.g. with group fillers) 
+      did not preserve their filler-cells correctly
+  * as_txt():
+    + clean up nodes after output so that a following as_graphviz() does work
+  * as_graphviz(): 
+    + fix links involving groups: lhead/ltail were swapped 
+    + generate shorter invisible node names ("A,south,0" vs "A,south,0,0")
+    + do not create invisible joint-nodes when there is only one edge sharing
+      the start/end port
+    + make "shape: rounded" work (needs "style=rounded,...")
+    + support label alignments on groups
+  * as_ascii():
+    + round corners for shape: rounded (using ' ', instead
+      of using unicode characters by accident)
+    + support for aligned labels (left|right|center)
+  * as_boxart(): round corners for bold/wide/broad etc using spaces
+  * as_html():
+    + make space below edges smaller, to create more compact layout
+    + a color on a group was ignored, resulting always in black group labels
+    + finally align the vertical arrows with the edge lines. In Opera 8.5
+      under Linux the "v" now gets cut off, but this seems a browser bug.
+      Sorry, some of the Opera users!
+    + support label alignments (center|left|right)
+    + when a class attribute specified the font-size, don't include it at
+      at the td (node|edge|caption etc) again
+    + edge { arrow-style: none; } did not remove the arrows from edges
+    + group cells need '&nbsp;' for IE to show the border - I hate IE bugs :-(
+  * error() is now fatal by calling _croak() - no longer do errors in
+    attributes go undetected and cause havoc later on. You can use
+    $object->no_fatal_errors() (on any object) to supress this.
+
+2006-01-08 v0.39 Tels 1603 tests
+  * Graph: fix merge_nodes() to delete node B from group if part of one
+  * fix Group:
+    + del_edge(): delete edge on id, not non-existant name
+    + del_node() & del_member(): drop all edges mentioning the node
+    + optimize edges() and nodes() in scalar context
+  * Graph: improve handling of "|" in attributes (especially labels)
+  * Graph: del_node() and del_edge() also remove these from their group
+  * Edge: 
+    + add start_at(), start_port(), end_port()
+    + fix POD start
+  * Node: add nodes_sharing_start(), shared_edges(), has_predecessors()
+  * add source_nodes() and predecessorless_nodes() (Thanx to Florian Lindner
+     for the suggestion!)
+  * as_html(): add "white-space: pre" to the CSS to prevent wrapping of
+	       labels with spaces in them
+  * as_graphviz():
+    + implement edge joints (shared start/end port) via invisible joints
+    + handle attributes like labels with embedded newlines
+    + output edges from/to groups (subgraphs/clusters)
+  * Layouter:
+    + allow sharing of end ports (making edges join up on the way
+      to the target node)
+    + min distance between node is 3, not 2, when there are edges
+      that share a start point (to make room for the joints)
+    + Layouter: place nodes with a shared start point in the same column/row
+      than the others (to render tree-like layouts automatically)
+  * multiple attributes for autosplit nodes were broken, when:
+    + the attribute did not have a strict check (link, f.i.)
+    + there was a newline after the node ala "[A|B]\n { fill: red|green;}
+    + the attribute did have a fixed list of words (like "shape")
+    (Due to Ron Newmann's question I stumbled over these bugs - thanx!
+  * add support for "shape: img;" (Thanx to Ron Newmann for the suggestion!)
+    + as_html: use "<img...>" 
+    + as_graphviz: use "<<TABLE .. <IMG...>>" 
+
+2006-01-01 v0.38 Tels 1571 tests
+  * include the missing 4_flow.txt test files
+  * Group.pm: fix POD
+  * Parser: attributes on nodes in a node list apply to all nodes in the list
+	    up to this point. So:
+	[ Bonn ] { color: blue; }, [ Berlin ] { fill: black; }
+	    will fill both nodes black, but only color "Bonn" blue.
+  * remove unused arrow-code on hor-selfloops
+  * as_ascii: draw bidirectional self-loops with two arrows (Thanx Dan Horne!)
+  * Layout: fix bidirectional edges created by A* (multi-celled nodes) and
+	    the straigh-path shortcut (more than one cell distance)
+	    (Thanx to Dan Horne again)
+  * Layout: ignore links from/to groups, do them after splicing in group
+	    filler cells
+  * Attributes: remove direction() and add:
+    + _direction_as_number()
+    + _flow_as_number()    
+    + _flow_as_side()    
+    + _direction_as_side()    
+  * Graph: remove the unused and wrong angle() method
+  * Graph: allow add_edge('Node', 'Node2', 'edge label');
+  * Edge: add flow() and port()
+  * Node: add flow(), angle()
+  * check POD coverage of Graph::Easy::Attributes and As_ascii
+  * fix the flow model:
+      correctly handle absolut (south/180/east/90/down etc) and relative
+      (left/right/front/forward/back), as well as global and local flow
+      on a per node/edge basis
+  * as_txt(): output the original flow/start/end attribute instead of
+	      a converted value ('down' vs 180, 'left' vs XX)
+  * Base: add _croak() method
+  * Node: growing nodes with edge end/start point restrictions did make
+	  the node one to big on each restricted side
+  * use constant instead of home-grown "sub CONSTANT() { 1; }"
+  * as_graphviz(): output correctly nodes in a group w/o attributes and edges
+  * as_graphviz(): support correctly most node border and edge styles,
+		   even in combination with fillcolor. Thanx to Ryan Schmidt!
+
+2005-12-27 v0.37 Tels 1533 tests - Sing, sing, sing the birthday song...
+  * correctly handle '\\n' in labels/titles
+  * Node::Cell: allow 'x' and 'y' as arguments
+  * Layout: repair split multi-celled nodes after inserting group fillers
+  * Layout: insert short filler edge pieces on spliced edge for
+	    group layouts (fixes "holes" at the start and end of edges
+	    in ascii layouts with groups)
+  * Layout: set smaller minimum-size for group cells at non-corners
+  * Layout: grow group fillers to close gaps between nodes in things like:
+	    "( Group: [ A ] [ B ] )"
+  * Parser: handle "([A]->[B])" (allow empty group name)
+  * Parser: don't set group name of '0' to ''
+  * Parser: handle "] -> ( ..." (edge from node to group)
+  * Parser: handle ") -> ( ..." (edge from group to group)
+  * Parser: "...) -> [ A ]" is a group-to-node edge, not node to node
+  * add attribute "flow" for edges (per-edge flow)
+
+2005-12-18 v0.36 Tels 1516 tests
+  * Parser: add support for node lists on the right-hand side:
+    [ Bonn ], [ Berlin ] -> [ Potsdam ], [ Halle ]
+  * allow "inherit" for colors
+  * Node: fix edges_at_port() to skip edges not starting/ending here
+  * Group: fix add_member() and del_member() for edges
+  * Group: fix add_node()
+  * Node: fix background()
+  * Graph: fix default fill for groups in HTML
+  * Graph: add_group(): return $group, not $self
+  * Layouter:
+     + stop chain-tracker at nodes that are grandchildren of the current node
+     + grow nodes based on used/free ports (fixes shared ports)
+     + grow nodes only in one direction if they have 'rows' or 'columns'
+     + shuffle self-loop directions according to graph/node flow
+     + A*: no longer cross edges along their flow line (leading to corrupted
+	   layouts with multiple crossings in a row)
+     + convert edge joiners to joints for shared edges
+  * render joints in as_ascii, as_boxart and as_html
+  * as_ascii: render no arrows on undirected edges (esp. for selfloops, corners
+	      and cross sections)
+  * as_html: fix edge color if only "label-color" is set
+  * as_html: fix self-loop on east side
+  * as_html: render no arrows for undirected edges
+  * as_graphviz: output headport/tailport for edges with "start" or "end"
+		 (this doesn't seem to work in "dot" at all, sadly :-(
+  * as_graphviz: output groups as clusters (subgraphs)
+  * do multiple edges from A to B,C,D etc in the order of "B,C,D" instead
+    of pseudo-random order
+
+2005-12-10 v0.35 Tels 1483 tests
+  * Node: fix parent()
+  * allow "$graph->add_group('Name');"
+  * render group labels
+  * close edge gaps created by inserting group filler cells
+  * group label font-size defaults to 0.8
+  * fix doc about default font-size (0.8 for edge/group labels, not 0.75)
+  * as_html: fix borders of groups without a special class/border
+  * as_html: fix content and background of nodes with "shape: point;"
+  * as_html: fix group backgrounds (especially with edges and class/non-class
+	     attributes)
+  * as_html: don't need to put text/font attributes on empty (group) cells
+  * as_html: fix shapes like "circle" on nodes with a link
+  * remove relicts of old group handling code in Nodes/Group Cells
+  * use more isa() instead of ref() checks for class names 
+  * "class { label: ...; }" was ignored and did not change the label
+  * allow: "start: south , 1;" (space before ",")
+  * add directions "left", "right", "front" and "back for "start"/"end"
+    (these are flow-dependend, unlike "south" etc)
+  * add attribute 'autotitle: link;'
+  * add attribute 'autolabel: name;' and "autolabel: name, N;"
+  * make "autotitle: none;" work
+  * document and test that "autotitle: name" on edges will fall back to
+    the edge label
+  * document and test that a present title will override "autotitle"
+  * implement edge-joints:
+    + A* will use edges for start cells if they share the same port
+
+2005-12-04 v0.34 Tels 1437 tests
+  * as_html: align arrow heads better with the edge line
+	     (still breaks sometimes, espc. with edge labels)
+  * as_html: implement missing edge corner piece E->S
+  * as_html: implement selfloop edge pieces
+  * as_html: fix crossings of different edge styles
+  * as_html: putting a "fill" or "border" on an node with a link did put
+	     these styles on the link, not on the table cell.
+  * as_ascii()/as_boxart(): render group borders
+  * as_graphviz(): fix arrows on undirected/bidirectional edges
+  * A*: compute the working space and disregard cells outside this area
+	This prevents the run-away situation in case no path can be found.
+  * A*: did not close crossings on edges, getting it stuck in an add-del-add
+	cycle until it hit the hard limit of 10000 steps, thus never finding
+	the path.
+  * A*: find less bendy paths (no inward bend corners anymore)
+  * fix a bug in trying placements of nodes, where the node would be
+    registered on all potential places, instead of only the final selected
+    one. In HTML, the node would thus appear multiple times in the output.
+  * Graph: streamline sorted_nodes();
+  * Edge: keep edge cells in sorted order (from start to end), and allow 
+	  add_cell() to insert a cell into the list (to repair edge-splitting
+	  from the group-padding code). Also allows rendering cells in order.
+  * Edge: has_ports(): return true if start or ending port of the edge are
+	  restricted in some way (attributes 'start' and 'end')
+  * Nodes relative to multi-celled nodes did not take into account the size
+    of the origin node (when the offset was positive in X and/or Y dir.).
+  * add Graph:Easy::Base as base class for common code for all objects
+  * add Graph:Easy::Layout::Chain for internal use in the Layouter
+  * completely rewrite the chain-tracking code, and the code that generates
+    layouts based on the chain info. Handles now bidirectional edges,
+    forwad/backward loops and is generally more robust.
+  * Layouter: grow nodes by 2 in each direction, instead of 1. This fixes
+	      layouts with star-shaped auto-grown multi-celled nodes (try to
+	      say this three times fast...) where you have on node at
+	      the center. Since nodes are never placed next to each other,
+	      growing the node by 1 did not make enough space for all adjacent
+	      nodes.	
+  * use diag() instead of printing to STDERR in tests
+  * edge crossings with a start/end point had the type check wrong and
+    thus could lead to the styles being switched around (HOR vs. VER)
+  * Graph: add svg_information()
+  * add attribute "basename" to autosplit nodes to make referencing easier
+  * add edge attributes: 'start' and 'end' - node starting/ending port to
+     specific node ports for specific layouts
+  * create Empty nodes for autosplit nodes again (regression)
+  * trailing/leading empty parts on autosplit nodes are always removed, so
+    "[ |A|B| ]" equals [ A|B ]
+  * move _prepare_grid() to Graph::Easy::Layout::Grid and load it on demand
+  * autosplit nodes only get an unique ID when their basename doesn't already
+    exist, so this now works:
+
+	[ A|B ] { basename: one; } [ C|D ] { basename: two; }
+	[ one.1 ] -> [ two.0 ]
+
+2005-11-13 v0.33 Tels 1337 tests
+  * simplify group code: Nodes can only be in one group at a time
+  * Groups: edges with their to/from nodes in the same group are also
+	    added to that group
+  * as_html: put correct group class on edge cells, so that they
+	     inherit the background from the group  
+  * as_html: if nec., output CSS for anon nodes
+  * as_html: implement missing corner pieces (W->S, S->W etc)
+  * as_graphviz: use "setlinewidth()" to simulate bold, broad and wide borders
+  * Node: add size()
+  * add a few more examples to the attributes in the doc (for manual)
+  * A*: for each start point: calculate distance to each stop point and use
+        the lowest one. Fixes tricky layouts with multi-celled nodes.
+  * Layouter: implement direction shuffling for multi-celled nodes
+  * Layouter: fix code calculating edge end/start points to handle corners
+  * update the check for As_svg's VERSION in Makefile.PL
+  * Easy.pm: don't needlessy import non-existing GROUP_MAX (Thanx to PPI!)
+  * Layouter bugfixes:
+    + paths with one bend did not check the corner-cell for being already
+      occupied, leading to obscuring nodes/edges on that place
+    + failing to find a bend path horizontal->vertical, the code tried
+      next vertical->horizontal, but did not remove the already tested
+      parts, leading to stray edges pieces (poss. obscuring other parts)
+  * defining an "offset" and "origin" on an autosplit node caused an endless
+    loop in the layouter:
+    [ 1 ] --> [ 2|3 ] { origin: 1; offset: 2,3; }
+  * Layouter: autosplit nodes w/o edges, and chained nodes caused endless
+    loops when placing them. Examples that did hang the layouter:
+    + "[1]->[2] [3|4]"
+    + "[1]->[2] [3] [4] { origin: 3; offset: 1,0; }"
+    + "[1]->[2] [3|4|5]"
+  * Parser: referencing a part of an autosplit node before the autosplit node
+	    did result in endless loops or crashes. "[1] -> [23.0] [2|3]"
+	    works now correctly.
+  * Parser: accept "size: 1, 2;" as valid (spaces around ",")
+  * Parser: "[1],[2] --> [3]" should result in two edges to [3] (from 1 AND 2)
+  * as_txt: "size: X,Y" did make columns and rows appear swapped in output
+  * as_txt: output "size 1,2;" instead of "rows: 2; columns: 1;", except when
+	    only rows is defined
+  * as_txt: quote special chars [";%\x00-\x1f] in attributes on output
+  * Graph: added as_boxart_html_file(), _border_attributes_as_html(),
+	   anon_nodes()
+  * Graph: rename border_attributes() to split_border_attributes()
+  * added Edge styles: "broad" (0.5em), "wide" (1em), "bold-dash"
+  * added Node border-styles: "broad", "wide" and "bold-dash"
+  * better support for border-styles in HTML
+  * support borders on anon nodes ala "[ ] { border-style: dotted; }"
+  * Nodes with "shape: invisible;" are at least 3 chars wide (was: 5)
+  * use Carp::confess() instead of Carp::croak() to aid debugging
+  * setting "{ border: broad red; }" will set the style ("broad") and color
+    ("red"), but leave the width alone
+  * use isa('Graph::Easy::...') instead ref() to check for Node/Edge 
+  * Edge::Cell: add arrow_count()
+
+2005-11-06 v0.32 Tels 1291 tests
+  * as_boxart():
+    + use "v" and "^" instead of 0x2227 and 0x2228 for arrows
+      (because most fonts seem to not have these characters)
+    + border/edge styles "dot-dash" & "dot-dot-dash" use midot instead of "."
+    + fix horizontal pieces of dot-dash borders
+  * as_ascii()/as_boxart():
+    + align point-shaped nodes with edge lines
+    + edge-pieces with style "dot-dot-dash" must be at least 6 characters
+      wide to properly show the full "..-" style
+  * as_graphviz(): fix handling of special characters like [;"] in attributes
+  * Parser: accept "offset: 1, 2" (space around ",") as valid
+  * Graph: prevent adding of Nodes with no name
+  * Graph: can add nodes with name '0'
+  * Graph: added del_node(), del_edge(), merge_nodes()
+  * Graph: edge(X,Y) returns list of all edges from X to Y in list context
+  * Node: add incoming(), outgoing()
+  * Node/Edge: setting an attribute resets the size cache to force a re-calc
+               (the node should grow/shrink when you change the label)
+  * fix an undef warning in Edge/Cell line 713
+  * streamline printfb_line() and use it whenever possible
+  * Node: more rebust detection of class in set_attribute (no longer depends
+	  on blessed class name)  
+  * Node: add attribute "rotate"
+  * preserve cell sizes after as_ascii()/as_boxart() for next call
+    (multiple calls to as_ascii()/as_boxart() in a row did grow node-heights
+     by 3 every iteration)
+ 
+2005-10-30 v0.31 Tels 1171 tests
+  * require at least Perl 5.8.0 (we need proper Unicode support)
+  * Edge.pm: remove unnec. _formatted_label()
+  * fix examples in t/fun and t/syntax
+  * include newline before first =head1 (Thanx to Ivan Tubert-Brohman!)
+  * fix package name in As_ascii.pm
+  * As_ascii: add _u8() (for box-art)
+  * add: as_boxart(), as_boxart_file(), as_boxart_html()
+  * add examples/as_boxart
+  * examples/as_*: input utf8 from STDIN
+  * Parser: do a binmode ':utf8' on input files
+  * support "graph { output: boxart; }"
+  * add some X<> keywords for POD indexing
+  * Graph: you can call get_attribute('attribute'), too (the class is now
+    optional and defaults to 'graph' if missing)
+  * Graph: you can do set_attribute('attribute','value'), too.
+  * added attributes:
+    + edgeclass for groups
+    + font-size for graphs, groups, nodes and edges
+    + text-style for graphs, groups, nodes and edges
+    + arrow-style: none for edges
+  * clarify that "label-color" falls back to "color" if unspecified
+  * setting "edge { style: X; }" changes the style for all solid edges to X
+  * Node: add parent() - return parent object (group or graph)
+  * Parser: throw correct error message for unknown attribute names
+  * horizontal straight, non-short edges were missing their arrows
+  * as_txt(): fix output of undirected edges (" -- " vs. " -- <")
+  * as_txt(): "origin" and "offset" attributes were missing in output
+  * handle a label of "0" correctly
+  * as_html(): render edge cross sections with the correct styles and colors
+  * as_html(): do not output invalid CSS definitions for edges (style, label
+	       link, title etc)
+  * as_html(): setting a color on a node with a link works correctly now
+  * as_html(): 'autolink' and 'link' on edges correctly create links
+  * as_html(): 'title' on edges inserts a mouse-over title on the edge label
+  * as_html(): remove trailing empty <tr></tr> pairs
+  * as_html(): put the "empty-cells" definition inside table.graph
+  * as_html(): create links on graph label (caption) if requested
+  * as_html(): include the graph label into the table, this looks more
+		consistent than the <caption>, which placed it floating above
+		or below the graph
+  * as_html(): repaired the output of group cells (see t/fun/0131.txt)
+  * as_ascii(): do not draw border for nodes with "shape: none;"
+  * as_graphviz(): nodes with shape none work now correctly
+  * as_graphviz(): color of edge labels falls back to edge color if no
+		   label-color is specified (was formerly rendered black)
+  * _css_styles(): inplement $overlay support (add custom attributes) and
+                   skip the border-attribute generation if it matches $skip
+		   (both fixes are mainly for SVG output)
+  * setting attributes on Edges/Nodes/Groups invalidates a former layout
+
+2005-09-23 v0.30 Tels 1114 tests - Draw, draw, draw, draw the corners...
+  * ascii.t could fail on very slow machines
+  * fix pod/t. and pod_cov.t when the Pod::Test modules are not installed
+  * fix as_ascii_html() to end with "</pre>"
+  * as_html(): do not combine non-empty cells
+
+2005-09-18 v0.29 Tels 1113 tests - Draw, draw, draw, draw the corners...
+  * add attribute "label-pos" to class "graph"
+  * remove only quotation marks in attributes when they are both at the start
+    and end of the text. So "label: 2';" will work correctly now.
+  * as_html(): work-around for IE not displaying edge corner pieces
+  * as_html(): put caption below graph if label-pos: bottom
+  * as_html(): use remap_attributes()
+  * as_html(): correctly output nodes with "shape: none;"
+  * as_html(): encode ' in links to %27
+  * as_html(): do not combine cells with a set border (this produces incorrect
+	       output)
+  * as_html_file(): set correct document charset, and <title> tag
+  * as_ascii(): output graph label, below or above, according to label-pos
+  * as_graphviz(): remap border-styles, add support for border-style: double 
+  * as_graphviz(): handle attributes in node, edge and group classes, too
+  * as_graphviz(): handle graph attributes: label-pos, label
+  * as_graphviz(): skip over graph attributes: gid, autolink etc
+  * as_graphviz(): fix output of groups
+  * as_graphviz(): fix output of graph border and style: none
+  * as_txt(): do not list nodes twice in output of groups with 'nodeclass'
+  * Graph: set_attributes() also goes via set_attribute(), e.g. properly
+           checking arguments, handling "gid", decomposing "border" into
+	   border-(style|color|width) etc.
+  * default background attribute is ''
+  * drop node shapes:
+      egg (looks ugly, and impossible to support except in graphviz and SVG)
+      doubleoctagon (already done by "shape: octagon; border-style: double")
+  * optimize Graph::Easy::Group::Cell::_set_type, makes complex layouts with
+    groups about 10% faster overall
+  * remove unnec. routines in Graph::Easy::Group::Cell
+  * streamline $graph->groups() in list context
+  * Layout: Nodes are not placed next to each other (unless offset: is set)
+  * Layout: consider HOR and VER edge pieces running alongside a node as
+            potential start fields with penalty
+  * Edge/Cell: export EDGE_NO_M_MASK
+  * Node: add backgroud() routine that finds out the real background (for
+    groups etc)
+  * add POD tests via Test::POD (t/pod.t)
+  * add POD coverage tests via Test::POD::Coverage (t/pod_cov.t)
+  * 100% POD coverage for Nodes, Groups, Edges and Graph::Easy
+  * move build/ dir to Graph::Easy::Manual
+
+2005-09-05 v0.28 Tels 1058 tests - Offset, offset, offset, offset the position...
+  * fix LIMITATIONS section in POD
+  * fix POD in Graph::Easy::Attributes
+  * fix testsuite to match reality
+  * as_html(): fix output for groups
+  * as_html(): combine equal table cells to shorten output (by 10% or so)
+  * as_html(): remap "fill" to "background" for classes (especially "graph")
+  * as_html(): caption gets graph's background as background
+
+2005-09-04 v0.27 Tels 1058 tests - Offset, offset, offset, offset the position...
+  * remove Graph::Easy::Cluster, and overhaul relative-node position code
+    + use "[ B ] { origin: A; offset: 2,0 }" to position A relative to B
+      (no cluster needed anymore)
+    + can position C relative to B, which is relative to A, and so on
+    + works correctly with multi-celled nodes
+    + update doc for this feature
+  * remove "point-style: none" - "shape: invisible;" already does the same
+  * remove "point-style: ring" - is: "point-style: circle; fill: white;"
+  * add "point-style: diamond"
+  * add attribute arrow-style (open, closed, filled) for edges
+  * add attribute "fill" (color inside shape) and change notion of "background"
+    to the color outside the shape (important change for nodes)
+  * add attribute "label-color" for edges
+  * attribute "border-style" was accidentily allowed only as "border-shape"
+  * remove node styles: box, rectangle (were aliases for "rect"), plaintext
+     (was alias for "none")
+  * Save memory: Nodes use 638 (vs 770) bytes, Edges 631 (vs 683) Bytes, this
+		 makes a big graph use about 10% less memory (and it is
+		 generated in about 6% less time) (measured on 32 bit system)
+  * fix small nits in Graph::Easy::Attributes
+  * define possible values as lists in Graph::Easy::Attributes, removes double
+    definitions in both code and documentation that could get out of sync
+  * examples/common.pl was broken - thanx to Vagn Johansen for the report!
+  * disallow arguments to new(), leave only in:
+    * Node: "label" and "name" 
+    * Edge: "label", "name" and "style"
+    * Parser: "debug"
+    * Node::Cell: "node"
+  * remove useless subroutine contains() in Node.pm
+  * build/gen_manual: generate doc for group attributes, too
+  * build/gen_manual: generate color table from definitions in code
+  * build/gen_manual: split attributes into 4 sub pages and add an index
+  * build/gen_manual: include sample graphs
+  * as_graphviz(): quote reserved words: /(strict|(sub)?graph|node|edge)/i
+  * as_graphviz(): quote attribute values with non \w chars
+  * as_graphviz(): support for all flow directions (left, right, top, bottom)
+  * as_graphviz(): fix colors because dot et. al have a different idea on what
+		   color "grey" actually is. This is solved by making checks
+		   on attributes on Nodes etc. strict (it converts "red" to
+		   "#ff0000" on input) and then outputting the raw RGB colors
+  * as_graphviz(): support for bidirectional and arrow-less edges
+  * as_graphviz(): add support for different arrow styles (except filled with
+		   different fill color)
+  * as_graphviz(): support anon nodes properly (rendered invisible)
+  * as_graphviz(): correctly handle link, linkbase and autolink attributes
+  * as_graphviz(): use graph ID to construct graph name (usefull for imagemaps)
+  * as_html(): reimplement output for edges with 4x4 table cells, including
+               correct start/end points, label colors. Finally works in all
+	       major browsers and looks better than ever :)
+  * as_html(): generate graph-table caption from label attribute
+  * as_html(): correctly handle multi-celled nodes
+  * as_html(): generated links have class 'l'
+  * as_ascii(): handle multi-lined labels on edges correctly
+  * as_ascii(): invisible nodes are 3x3, not 5x3 in minimum size
+  * don't unnec. load "Heap" and "Heap::Fibonacci"
+  * Graph: add as_txt_file() as alias for as_txt()
+  * add weaken() in Edge::Cell to trigger early DESTROY of graphs
+  * move the ASCII code to Graph::Easy::As_ascii and load it on demand
+  * Parser: report wrong attribute names/values better
+  * Parser: allow '$graph = Graph::Easy::Parser->from_text("...")'
+  * Parser: fix parsing of undirected edges with following nodes/attributes
+  * Parser: parse "[ A ]\n { ... }" and "[ A ] { ...\n...}" properly
+  * Parser/Layout: support undirected (arrowless) edges properly
+  * Layout: set proper flags for bidirectional edges (so they are rendered
+            correctly (Thanx to Scott Beuker)
+  * Layout: stop an endless loop in the chain-backtracking code
+  * Layout: set correctly edge label cells on found A* paths
+  * setting the attribute 'origin' and 'offset' on a node works now correctly
+  * attribute are now strictly checked on Nodes, Edges etc, too
+  * fix unitialized warning in Graph::Easy::Layout::Scout
+  * fix broken link to EXAMPLES in POD (Thanx Scott Beuker)
+  * border_attribute(): return no width if style eq 'double'
+  * remap_attributes(): fix handling of 'all' entries for attributes
+  * remap_attributes(): add handling of 'undef' to force attributes
+
+2005-08-21 v0.26 Tels 1007 tests - Speed, speed, speed, speed up the code...
+Fixed:
+  * as_ascii(): render node labels centered, instead on top-left corner
+  * as_ascii(): on clustered nodes, collapse borders
+  * as_ascii(): output edge labels on VER edge pieces, too
+  * as_ascii(): render end/start points on CROSS edge pieces
+  * as_ascii(): multi-celled nodes only worked when layout was not completed
+  * as_ascii(): crossing between different line styles are rendered better
+                than simple '#':
+
+       |       |       |       |       :       H
+    ===+=== ###+### ...!... ~~~+~~~ ---+--- ---H---
+       |       |       |       |       :       H
+
+  * create shorter self-loops (block only 1 cell/1 port vs. 5 cells/2 ports)
+  * add_edge('A','A') works now, and creates only one node object
+  * make node attributes "size", "columns" and "rows" really work
+  * Node: make edges_to() work correctly with self-loops
+  * A*: only cross HOR/VER edges when they have no start/end points nor labels
+  * A*: use Heap::Binary (slightly faster) and inline $elem->fields() call
+  * Layouter: try to place nodes in chains first near their chain parent
+  * Layouter: better fallback strategy upon blocked paths
+  * edges with one bend now correctly have their label on HOR piece
+  * make attribute checks via Graph and Parser "strict", e.g. it will fail on
+    unknown attributes or invalid values
+  * fix parsing nodes after attributes like: "graph { color: red; } [ Bonn ]"
+  * we do not need to create filler cells unless there are groups, this makes
+    generating layouts w/o groups between 10 and 30% faster.
+Added:
+  * color attributes are now stored as '#ff0000' and output as 'red' or
+    '#ff0000', depending on output format.
+  * Graph: option "strict", on by default, this makes set_attribute() check
+           all attributes and their values strict
+  * add option "flow" to graphs and nodes: general flow of edges
+  * near_places(): takes list of edge types
+  * A*: allow last edge piece to cross a horizontal/vertical edge
+  * build/gen-manual: generate manual page with attribute descriptions from
+		      table in Graph::Easy::Attributes automatically
+
+2005-08-12 v0.25 Tels 885 tests - Speed, speed, speed, speed up the code...
+Added:
+  * $graph->add_edge('A','B') works now and is documented
+  * $graph->add_edge('A','B') in list context returns nodes and edge
+  * $graph->add_cluster('A') works and returns created cluster object
+  * Graph::Easy: timeout(): get/set timeout in seconds for layouter
+  * Layout: calculate chains-of-nodes, and lay out path along these chains
+	    longest one first. This greatly detangles many layouts.
+Fixed:
+  * as_ascii(): Drawing line crossings now works. Really! Believe me!
+  * as_ascii(): labels on horizontal edge pieces are now included
+  * rename "todo/" to "todos/" because case-insensitive OS have problems
+           with "TODO" and "todo/"...
+  * layout: move the alarm(0) to where it belongs and propagate
+            fatal errors to the outside
+  * Layout: calculating positions needs an int() to have nodes not fall
+            between the cell-grid
+  * Node: move the assignment to {id} into new(), so that subclasses
+          like Graph::Easy::Edge etc get a unique ID, too
+  * use Scalar::Util's weaken so that the Node's references back to their graph
+    do not prevent the graph from being freed
+  * Upon DESTROY, reset the appropriate fields in node/edge objects, so they
+    can be reused safely in other graphs
+  * A*: fixed an endless-loop in the path-backtracking code
+  * adding node clusters as well as managing them is now easier
+  * No longer uses Graph. We store nodes/edges in a hash in Graph::Easy object
+    as opposed to the Graph object. In addition we store per-node the edges
+    this node is involved in. This all results in less code, great speed and
+    memory improvements (see bench/no_graph.txt): v0.25 uses only about 50% of
+    the memory as 0.24!
+    Even the testsuite is much much faster, despite the new tests:
+     0.24: Files=23, Tests=820,  5 secs ( 4.37 cusr +  0.50 csys =  4.87 CPU)
+     0.25: Files=23, Tests=859,  4 secs ( 2.37 cusr +  0.31 csys =  2.68 CPU)
+    Loading Graph::Easy now takes less time & memory, too (output from top):
+           VIRT  RES  SHR 
+     0.24: 8252 5712 1444 
+     0.25: 5840 3376 1432 
+
+2005-08-07 v0.24 Tels 820 tests - Fix, fix, fix, fix the bugs...
+Added:
+  * node attribute: "point-style" - set style for nodes with "shape: point"
+  * remappig of attributes can take code-ref for special handling
+  * A*: create crossings, and proper edge end/start pieces, fix bias
+Fixed:
+  * Graph::Easy POD: add note to add_edge() about multi-edges
+  * correct POD in Graph::Easy::Node::Cell
+  * Graph::Easy::Edge->new( label => 'foo' ); did not work
+  * remap_attributes(): suppress empty attributes (fixes as_graphviz)
+  * as_graphviz: suppress "border-style" on edges and nodes
+  * as_graphviz: properly remap edge attribute "style"
+  * as_graphviz: do not include class as attribute in output
+  * as_graphviz: fix broken comment (graphviz uses //, not #)
+  * as_graphviz: default node settings are included in class "node"
+  * as_graphviz: escape '"' (double quoting char) to avoid issues with node
+		 names like '2"'. Also avoid quoting plain node names when
+		 possible.
+  * as_graphviz: output nodes with their name, not their label
+  * as_graphviz: multi-edged graphs work now correctly
+  * as_ascii: implement rendering of nodes with "shape: point"
+  * as_ascii: render edges with style 'bold'
+  * as_ascii: properly render edge pieces without gaps
+  * as_ascii: render edges seemless (".-.-.-.-" vs. ".-.--.-.-.-")
+  * as_ascii: render all combinations of edge pieces and start/end points
+  * as_svg_file: did not pass $self to _as_svg(), inducing a fatal failure
+  * Parser: drop support for parsing reversed edges ("<--"), this never
+	    worked reliable and made parsing of normal edges with labels
+	    much harder and error-prone due to ambigitous cases.
+  * Parser: fix parsing of bidirectional edges
+  * Parser: fix parsing of edges with labels containing "-", "[" etc
+	    (edges labels can now contain any character unescaped except ">",
+	    which must be escaped with "\" as "\>")
+  * Layouter: weed out positions for a node that are too close to a successor
+
+2005-07-31 v0.23 Tels 765 tests - Fix, fix, fix, fix the bugs...
+Fixed:
+  * update POD to reflect that the overall placement strategy is now better
+  * warn on broken Graph 0.66
+  * t/parser.t: sort edges on label to avoid hash key ordering tripping us up
+  * sorted_nodes(): use "name" as second field if a non-unique first field
+                    sorting was requested (like sorted_nodes("layer"))
+  * _near_places() works correctly on multi-cell nodes and add a
+    parameter $d to it, so that the distance can be adjusted by the caller.
+    It can also return direction of place from/to node via third paremeter.
+  * Layout/Scout: removed _find_path_u_shaped() (use A* instead)
+  * cleaned up path finding/scoring/handling code
+  * EDGE_SHORT_N vs EDGE_SHORT_S to be 0,1,2,3 in order E,S,W,N
+  * self-loop paths (from A to A) correctly set EDGE_LABEL_CELL on the HOR
+    edge pice
+  * finding paths is now slightly faster:
+      self-loop : 20,000 tries/s (vs. 15,000 tries/s)
+      short edge: 74,000 tries/s (vs. 21,000 tries/s)
+  * Paths with one bend now have always the correct edge piece.
+  * Placement of node with two predecessors in a straigght line was wrong
+    (instead of trying to place the node in the center, it placed it 1/2
+     the distance to the right/bottom - Thanx to Scott Beuker for providing
+     a testcase!)
+  * as_ascii(): align the different edges better
+  * as_ascii(): the border is now drawn into a framebuffer, this makes it
+                possible for collating borders or to have "border-top: none"
+  * Edge are nown drawn seemless, except these pieces:
+      CROSS
+      S_W
+      N_W
+    In addition, the seems break sometimes on edge styles "- ", "= ", ".-"
+    and "..-" due to non-alignment.
+  * move color checking/converting code to Graph::Easy::Attributes
+  * check border-styles against list of valid names
+  * as_ascii(): added the ability to have different pieces for corners
+  * as_ascii(): border styles 'wave' and 'dot-dot-dash' have now two different
+                vertical characters, rendering these borders now like:
+    *~~~~~~~~* +..-..-..+
+    {  Test  { |  Test  |
+    }  Node  } :  Node  :
+    *~~~~~~~~* +..-..-..+
+Added:
+  * border-style: double-dash:
+    #= = = = #
+    "  Test  "
+    "  Node  "
+    #= = = = #
+  * edge style: double-dash: "= = = >"
+  * Graph::Easy::Attributes and tests for it
+  * Node: is_multicelled()
+  * Graph: is_simple_graph(), debug()
+  * A* implementation to find arbitrary paths (even with multi-celled nodes)
+
+2005-07-13 v0.22 Tels 686 tests - Fix, fix, fix, fix the bugs...
+Fixed:
+  * Edge/Parser: edge style '~~' (wave)
+  * Layouter: assign layers, process nodes sorted by layers
+    (fixes the '"[B] [A]->[B]" being laid out different from "[A]->[B]"' bug)
+  * Edge.pm: remove needless new()
+  * Makefile.PL check for As_svg was borked
+Added:
+  * Node.pm: add columns(), rows(), grow(), connections()
+  * Layout.pm: add _assign_layers()
+  * Easy.pm: sorted_nodes() takes 1 or 2 optional field names to sort on
+  * _near_places() moved into Graph::Easy::Node, make it multi-cell aware
+  * started laying down the foundation for multi-celled nodes support
+    in Path.pm/Scout.pm
+
+2005-07-10 v0.21 Tels 605 tests - Fix, fix, fix, fix the bugs...
+  * As_graphviz: default nodes to filled, fontsize 11
+  * As_graphviz: quote attribute values if nec.
+  * As_graphviz: remap attribute names (background => fillcolor etc)
+  * As_graphviz: output edge attributes
+  * As_txt: use remap_attribute()
+  * Easy: add remap_attributes(), as_svg_file(), as_ascii_file()
+  * Easy: fix POD for add_node(), rem doc about add_vertex(), vertices()
+  * Easy: add_node() returns newly added node and copes with ("name")
+
+2005-06-25 v0.20 Tels 589 tests - Fix, fix, fix, fix the bugs...
+  * put SVG code into a seperate package, see there for CHANGES
+  * add some details to POD
+  * border-style "dotdashed" renamed to "dot-dash"
+  * added border and edge-styles: "dot-dot-dash", "wave"
+  * make "border" set the attributes border-width, border-style, border-color
+  * as_txt(): output "border" as it used to, even though only
+    /border-(style|width|color)/ exist now
+  * as_txt(): sort attributes by name on output to make it more predictable
+  * as_ascii(): render border styles: double, wave, dot-dash, dot-dot-dash
+  * as_ascii(): render edge styles: wave, dot-dash, dot-dot-dash
+  * as_html(): fix overly big circles on labels with line breaks
+  * as_html(): fix edge style on edges with labels
+  * Easy: add_edge() returns the newly added edge
+  * Parser: handle edge styles "~~" (wave), ".-" (dot-dash) and "..-" (dot-dot-dash)
+  * Parser: recognize all official W3C color names from SVG spec as input
+  * Parser: reject invalid colors and node shapes
+  * Parser: allow 'Graph::Easy::Parser->from_file(...);'
+  * Parser: improve POD
+  * Node: streamline attribute() and title()
+
+2005-06-12 v0.19 Tels 573 tests - Shape, shape, shape, shape the nodes...
+  * moved manual and Pod2HTML to Graph::Easy::Manual to avoid dependency
+    on Pod::Simple
+  * Graph/Easy.pm: add seed(), randomize(), as_ascii_html()
+  * Graph/Easy.pm: rem stray debug print in add_edge()
+  * fix POD about limitations, multi-edges are possible since v0.18
+  * Parser: allow GLOB and similiar things as file to from_file()
+  * Easy: add/del of clusters/groups invalidates the current layout
+  * as_ascii(): fix output of nodes with "border: none;"
+  * as_ascii(): implement border "dashed;", "dotdashed" and "bold"
+  * Easy: add _framebuffer(): generate empty framebuffer for as_ascii()
+  * Easy: make _framebuffer() twice as fast
+ 
+Renamed to Graph::Easy:
+
+2005-06-11 v0.18 Tels 573 tests - Shape, shape, shape, shape the nodes...
+  * renamed from Graph::Simple to Graph::Easy
+  * small cleanups (bumping $VERSIONS, remove unnec. error() routines etc)
+  * fix =begin graph/end graph in doc/manual/*
+  * Graph::Easy::Pod2HTML and examples/pod2html support outputformat,
+    especially "html" and "src,html"
+  * fix Graph::Easy::Pod2HTML to work almost (the graphs still appear
+    somewhat out-of-order in the output...)
+  * forgot to include doc/manual/index.pod
+  * add one more test for ASCII rendering of autosplit nodes (with hole)
+  * Parser: do not create empty nodes on autosplit clusters
+  * re-factor code to allow multi-edges (more than one edge from A to B)
+  * add tests for multiedges
+  * call "_correct_size_$format()" if possible
+  * As_svg: add _correct_size_svg() for Nodes and Edge/Cells
+  * As_svg: correctly center text for node labels
+  * As_svg: draw hor/ver lines for edges
+  * As_svg: draw arrow heads for edges
+  * As_svg: include a comment with edge type and source/target node
+  * As_svg: fix position/size for nodes with shape diamond/circle/ellipse
+  * _prepare_layout() expands cells sizes to maximum column/row size
+  * Node: add shape()
+
+2005-05-29 v0.17 Tels 559 tests - Edge, edge, edge, edge towards the node...
+  * rename examples/txt2ascii to examples/as_ascii
+  * fix examples/as_ascii to actually work
+  * add examples/as_html
+  * amend INSTALL, README
+  * add complete manual (doc/manual/*) and doc/gen_manual to generate HTML
+    version of the manual
+  * add Graph::Simple::Pod2HTML
+  * include tests for different node shapes
+  * suppress attribute "shape" in HTML output
+  * as_html: for "shape: invisible", output empty table cell
+  * as_html: for shape rounded and circle, use moz-rounded-border
+  * as_html: treat "\n" in edge labels properly
+  * as_svg: handle shape: invisible
+  * as_svg: fix output for "shape: rounded;"
+  * as_svg: fix general output to be valid
+  * as_txt: output [ name ], not wrongly [ label ]
+  * as_ascii: node size depends on label, not name
+  * as_ascii: handle multiline labels correctly
+  * as_ascii: avoid framebuffer underruns on certain layouts
+  * added Graph::Simple::Cluster - list of relatively positioned nodes
+  * Node  : added add_to_cluster(), origin(), cluster(), relpos(), place(),
+	    dimensions()
+  * Node  : allow label => 'label' to be passed to new()
+  * Node  : move as_graphviz() to As_graphviz.pm
+  * Node  : _correct_w() to _correct_size() and pass it the format name
+	    (ascii, svg etc)
+  * Simple: amended LIMITATIONS in pod
+  * Simple: added output_format(), output(), cluster(), clusters(),
+	    add_clusters()
+  * Parser: support clusters and autosplit nodes like "[ A |  | B || C ]"
+  * Parser: remove multiple spaces in node names to normalize them
+  * Parser: fix parse_error() and add tests for that
+  * Layout: make layouter more robust (better placement of nodes)
+  * Layout: finally find paths with one bend properly
+  * Layout: move pathfinding code to Graph::Simple::Layout::Scout
+  * Layout: move path management code to Graph::Simple::Layout::Path
+  * Layout: find path loops (from one node back to same node again)
+  * Layout: find U-shaped paths
+  * Edge  : add styles for EDGE_x_y (x = N/S, y = E/W)
+
+2005-05-17 v0.16 Tels 426 tests - Make, make, make, make the invisible nodes...
+  * forgot to include As_svg.pm
+  * Simple.pm: Note other formats in NAME and SYNOPSIS sections
+  * As_svg: small cleanups
+
+2005-05-16 v0.15 Tels 422 tests - Make, make, make, make the invisible nodes...
+  * load the As_*() modules on-demand
+  * fixed NAME in As_graphviz
+  * add basic support for node shapes
+  * Node: add del_attribute(), as_svg(), title()
+  * Parser: check attributes more closely
+  * Parser: support [] for anonymous, invisible nodes
+  * added Graph::Simple::Node::Anon
+  * Graph: move code to prepare layout from as_ascii() to _prepare_layout()
+    since it can be reused by as_svg()
+  * as_html: deal better with empty graphs
+  * as_graphviz: default node shape is rectangular
+  * Node: successor/predecessor did corrupt nodes w/o a graph
+  * Node: add _reset_id() for testsuite
+  * require Graph 0.65
+
+2005-04-11 v0.14 Tels 354 tests - Lay, lay, lay, lay out the edges...
+  * add experimental graphviz output
+  * require Graph 0.61
+
+2005-02-12 v0.13 Tels 345 tests - Group, group, group, group the nodes...
+  * shorten CSS considerable (especially for graphs with groups)
+  * fix CSS for Opera/Firefox for vertical edges
+  * fix node-borders for Firefox/Opera by inserting dummy cells at each row
+
+2005-02-07 v0.12 Tels 345 tests - Group, group, group, group the nodes...
+  * register groups with the graph when adding them
+  * Parser: parse attributes on groups like: "( Group [ Node ] ) { ... }"
+  * Parser: parse attributes on edges like: "[ 1 ] -> { ... } [ 2 ]"
+  * Group: handle attribute "nodeclass" - put nodes into that class
+  * Node: handle attribute "group" - puts node into that group
+  * Node: query "node.class" from graph before trying just "node"
+  * Node: convert literal "\n" in label/name to "<br>"
+  * Layout: padd around all cells with filler cells (to make group backgrounds
+    really work)
+  * Layout: cleanup on group output
+  * as_txt(): output attributes of a group
+  * add Graph::Simple::Node::Cell, Graph::Simple::Group::Cell
+  * moved Graph::Simple::Path to Graph::Simple::Edge::Cell
+  * Graph: shorten HTML output by combining table cells with colspan=X
+  * Graph: use CSS child selectors to shorten classnames (and remove
+    class='fill' or class='' from output)
+  * Graph: as_html(): fix IDs on labels, lines etc
+  * Graph: fix layout code for edges with labels: no longer needs position:
+    relative, allows better copy&paste and is not garbled on scrolling
+  * syntax.pl: support custom template name
+  * simplifiy and generalize t/simple.t
+  * always run test files under -w
+  * don't use warnings (for older perls)
+  * remove needless routines in subclasses of "Node"
+  * use Test::Differences if t/ascii.t fails
+
+2005-01-31 v0.11 Tels 294 tests - Close, close, close, close the ugly holes...
+  * Parser: add parsing of groups like in "( Groupname [ Node ] )"
+  * Parser: fix for "[1] -> [2] -> [3] { ... }" to not lose attributes on 3 
+  * Parser: can now handle "[1], [2], [3] -> [4]" correctly
+  * Parser: cut out rendundant parsing code
+  * Graph: add group(), add_group(), del_group(), groups()
+  * Graph: fix css(): 'link', 'label' and 'title' do not need to appear in CSS
+  * Graph: suppress default attributes from groups, too
+  * Graph: close "holes" in "arrows" (edges) with line-height & letter-spacing
+  * Graph: inherit background from page, no border as default
+  * Graph: as_html() - remove trailing empty tags for shorter output
+  * Node: add group(), groups(), add_to_groups()
+  * Node: rename as_txt_node() to as_pure_txt(), document it
+  * Node: add label() and the handling of the label-attribute
+  * Node: support "label" as property in autolink/autotitle
+  * Node: as_txt(): no need to quote ":" and " " in attribute values
+  * Node: as_html(): quote " " in URLs
+  * Move as_txt() to As_txt.pm to reduce code size
+  * Group: keep nodes indexed by their name
+  * Group: fix as_txt() to quote group name, and include nodes
+  * Group: fix: add_nodes() did include the group itself by accident
+  * include examples/base.css for output of syntax.pl
+  * fix examples/syntax.tpl to have a non-scrolling menu
+  * add command-line dirnames to syntax.pl
+  * include t/fun/ - fun with graph-examples
+  * added Graph::Simple::Path and refactored Edge code - an edge now only
+    knows as_txt(); The other two, as_html() and as_ascii() are handled by
+    Path.pm (for each element of the edge seperately)
+  * more syntax examples
+
+2005-01-24 v0.10 Tels 248 tests - Color, color, color, color the pretty graph...
+  * added more stress/syntax tests
+  * fix parser to not treat colors in attributes as comments (like in
+    "color: #808080")
+  * use a pre-compiled regexp to match edges (cut down code-duplication)
+  * parser now handles successfully node chains like:
+    [ Ulm ] -> [ Lahn ] -> [ Bonn ]
+    -> [ Trier ]
+    [ Stein ] -> [ Wahns ]
+  * Simple.pm: fix edges() in list context to actually work
+  * require Graph v0.55 (to be safe)
+  * Node: add attributes_as_txt(), as_txt_node() to allow $graph->as_txt() to
+    output node attributes only once
+  * Graph: as_txt(): output node attributes only once
+  * Graph: add set_attribute()
+  * examples/syntax.pl: generate headlines from comments in input, add footer
+  * Graph: support attributes: linkbase, autolink, autotitle, link, title
+  * Graph: as_html(): output title attributes, as well as links
+
+2005-01-12 v0.09 Tels 147 tests - Place, place, place, place the pesky nodes...
+  * Layout: try to place node with only one predecessor around the predecessor
+  * add a stress test with a star-shaped graph (5 nodes)
+  * add a syntax test with newlines and one without any spaces
+  * Parser: accumulate left-over fragments to parse examples broken by newlines
+  * Parser: use compiled regexps for nodes, attributes etc
+  * Parser: finally handle trailing attributes on nodes
+  * Node: add set_attributes() for setting multiple ones at once
+  * Node: setting attribute "class" will set subclass instead
+  * add tests for parsing:
+    [ node ] { attribute: value; }
+    [ node ] { attribute: value; } -> [ node2] { attribute: value }
+  * fix edges going to the left
+  * tests for quoting in node names
+
+2005-01-10 v0.08 Tels 133 tests - Fix, fix, fix, fix the stupid bugs...
+  * grapher tries to place nodes without any incoming edges into first column
+    (this fixes all the examples which have groups of not-connected nodes)
+  * in HTML, use monospaced font for edges (prepare for box-art)
+  * Layout: set error if layout stage fails
+  * Edge: add EDGE_N_E, EDGE_N_W, EDGE_N_E_W etc for corner pieces
+  * Edge: add clear_cells()
+  * make _trace_path() more general by having _trace_straight_path() creating
+    the edge types
+  * Node: as_html(): no longer outputs 'style="border: none"' for class="edge"
+  * Node: include attributes in as_txt() as well as classes (for subclasses)
+  * Node: add class()
+  * Graph: always register nodes/edges with the graph
+  * Graph: as_txt() includes attributes (unless they are the defaults)
+  * Node: postpone calculation of 'w' (called by as_ascii() from Graph)
+  * add a stress test with a bend edge
+
+2005-01-09 v0.07 Tels 124 tests
+  * Parser: ignore empty lines
+  * Parser: unquote all special chars, not only the first 
+  * Node: quote node name in as_txt()
+  * Parser: _parse_attributes();
+  * Graph: added attribute(), set_attributes()
+  * Graph: added id() to set/get a unique ID per graph
+  * Graph: default ID is '', CSS code contains ID in class names
+  * Parser: teach it to parse CSS and call $graph->set_attributes() 
+  * Edge: output name in as_txt()
+  * Layout: use strict, fix _trace_straight_path()
+  * t/layout.t: add tests for _trace_straight_path()
+  * Layout: simplify _trace_path() by using _trace_straight_path()
+  * Layout: can trace straight edges occupying multiple cells
+
+2005-01-08 v0.06 Tels 94 tests
+  * fix version in Layout
+  * Edge: add EDGE_START, EDGE_END, EDGE_HOR, EDGE_VER, EDGE_CROSS
+  * Edge: add cell_type(), add_cell()
+  * fix pod with "=end graph" (vs. "=end") sections
+  * fix error message in t/ascii.t when reading file fails
+  * fix parser: did not add edge if both nodes already existed
+  * Layout: add _trace_straight_path() - trace a path horizontal/vertical
+  * Layout: add _remove_path() - remove a traced path
+  * tests: add t/layout.t, t/syntax/*
+  * add examples/syntax.pl, examples/syntax.tpl to create automatic
+    syntax test page for website
+  * Parser: add reset() and call it from from_text()
+  * Parser: handle quoted characters in node names
+  * Parser: handle comments
+
+2005-01-03 v0.05 Tels 87 tests
+  * fix special paragraphs in pod to use =begin instead of =for
+  * typos in pod
+  * some more clarifications for LIMITATIONS
+  * move the layout code to Graph::Simple::Layout
+  * add a testcase with two not-connected node-pools in one graph
+  * amend README, INSTALL
+
+2005-01-03 v0.04 Tels 84 tests
+  * change code to work with Graph 0.50
+  * require Graph 0.50
+  * added: Group.pm -- a group of nodes
+  * added: examples/html.pl, examples/common.pl and TODO
+  * tests: use strict;, add t/edge.t
+  * Parser: document the different edge directions and styles
+  * Parser: construct edges with the proper style
+  * Parser: allow '..>' style
+  * Node: 
+    + document successorts()/predecessors(), as_txt(), as_html()
+    + implement as_html($tag)
+  * Graph:
+    + _trace_path() can also trace short, straight paths upwards
+    + as_txt() uses $edge->as_txt() to render edge
+    + as_ascii() generates proper output for edges with the right style
+    + as_ascii() no longer generates trailing whitespace on lines
+    + add css(), as_html_page(), html_page_footer(), html_page_header()
+    + extend documentation, fix typos, add list of limitations
+
+Renamed to Graph::Simple:
+
+2004-12-29 v0.03 Tels 52 tests
+  * is a subclass of Graph::Directed, so add it as prereq again :o)
+  * Graph::Layout::Simple::Parser - parse graph from text
+  * Graph::Layout::Simple::Edge - an edge between two nodes
+  * Graph: added node() -  find node by name
+  * Graph: add quite some more documentation
+  * Graph, Node: added as_txt()
+  * Node: added incoming(), and track incoming edges from other nodes
+  * added t/parser.t - test text parser
+  * added t/ascii.t - parse various text files to ascii
+
+2004-12-28 v0.02 Tels 20 tests
+  * added a stack-based, backtracking layout routine, that stuffs nodes and
+    paths between them into cells
+  * Simple.pm: as_ascii: deal with cell-layout and convert this to ASCII
+  * Simple.pm: add doc stub for METHODS
+  * Simple.pm: add score(), as_XXX() do layout if it hasn't done before
+  * Node.pm: revised code, and better parameter handling
+  * no longer needs Graph::Directed or Graph::Layout::Aesthetic as prereq
+  * added examples/ascii.pl
+  * forgot to add graph.t to MANIFEST
+
+2004-12-27 v0.01 Tels 18 tests
+  * original version; created by h2xs 1.23 with options
+    -A -X -n Graph::Layout::Simple -b 5.6.1 --skip-autoloader
+

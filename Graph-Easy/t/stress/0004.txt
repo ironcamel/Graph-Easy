@@ -1,0 +1,7 @@
+# star - 4 nodes around a center
+
+ [ Berlin ] -> [ Rostock ]
+ [ Berlin ] -> [ Dresden ]
+ [ Berlin ] -> [ Magdeburg ]
+ [ Berlin ] -> [ Frankfurt (Oder) ]
+

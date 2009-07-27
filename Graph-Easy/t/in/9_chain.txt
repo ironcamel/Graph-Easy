@@ -1,0 +1,11 @@
+# a chain with branches. Despite the branches defined first,
+# the output should create one chain with branches going up/down
+
+ [ Bonn ] --> [ Berlin ]
+ [ Berlin ] --> [ Koeln ]
+ [ Berlin ] --> [ Cottbus ]
+ [ Koeln ] --> [ Frankfurt ]
+ [ Frankfurt ] --> [ Chemnitz ]
+ [ Frankfurt ] --> [ Dresden ]
+ [ Frankfurt ] --> [ Hannover ]
+ [ Hannover ] --> [ Hamburg ]

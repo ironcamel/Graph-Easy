@@ -1,0 +1,10 @@
+# six nodes, and one long edge
+
+ [ Oranienburg ] -> [ Henningsdorf ]
+ [ Henningsdorf ] -> [ Strausberg ]
+ [ Oranienburg ] -> [ Wittenberge ]
+ [ Strausberg ] -> [ Herzberg ]
+ [ Strausberg ] -> [ Neuruppin ]
+ [ Wittenberge ] -> [ Herzberg ] 
+
+

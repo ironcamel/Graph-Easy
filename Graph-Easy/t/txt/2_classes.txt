@@ -1,0 +1,15 @@
+edge.blue { color: blue; }
+edge.green { color: blue; }
+edge.red { color: red; }
+group { color: blue; }
+group.blue { color: blue; }
+group.green { color: blue; }
+group.red { color: red; }
+node.blue { color: blue; }
+node.green { color: blue; }
+node.red { color: red; }
+
+[ Black ] { class: green; }
+[ Red ] { class: red; }
+
+[ Red ] -- red --> { class: red; } [ Black ]

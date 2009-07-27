@@ -1,0 +1,2 @@
+
+[ Berlin ] --> { minlen: 4; } [ Potsdam ], [ Cottbus ], [ Leipzig ]

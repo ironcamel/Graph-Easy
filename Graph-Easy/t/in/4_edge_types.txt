@@ -1,0 +1,2 @@
+[ Bingen ] <--> [ Mainz ]
+[ Bischofswerde ] -- test-text --> [ Finsterwalde ]

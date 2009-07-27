@@ -1,0 +1,10 @@
+# six nodes, and one edge with a bend
+
+ [ Oranienburg ] -> [ Henningsdorf ]
+ [ Oranienburg ] -> [ Herzberg ]
+ [ Henningsdorf ] -> [ Strausberg ]
+ [ Strausberg ] -> [ Herzberg ]
+ [ Strausberg ] -> [ Neuruppin ]
+ [ Oranienburg ] -> [ Potsdam ]
+ [ Neuruppin ] -> [ Herzberg ]
+

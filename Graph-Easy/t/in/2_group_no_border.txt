@@ -1,0 +1,5 @@
+( Test\n group
+
+ [ Bonn ] -> [ Berlin ]
+
+) { border: none; }

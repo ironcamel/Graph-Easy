@@ -1,0 +1,23 @@
+# Three non-overlapping groups
+
+group.dmz { background: #ffa070; }
+group.outer { background: #f07070; }
+
+( Internal Network
+  [ Workstation ]
+) { background: #70b070; }
+  
+[ Workstation ] --> [ Inner Firewall ]
+
+( DMZ
+[ Inner Firewall ] -> [ Proxy ]
+--> [ Outer Firewall ]
+) { class: dmz; }
+
+( Outer 
+  [ Internet ]
+) { class: outer }
+
+[ Outer Firewall ] --> [ Internet ]
+
+[ Proxy ] --> [ Database ]

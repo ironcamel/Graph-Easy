@@ -1,0 +1,11 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: G;
+}
+
+[ test | split ] { basename: node1; }
+[ record | test ] { basename: node2; }
+
+[ node1.0 ] --> [ node2.1 ]

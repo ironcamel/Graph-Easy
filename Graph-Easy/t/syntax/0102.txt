@@ -1,0 +1,4 @@
+ # node lists on both sides
+ [ Ulm ], [ Hahn ], [ Wismar ] => [ Frankfurt ]
+ [ Frankfurt ] => [ Stuttgart ], [ Trier ]
+ [ Potsdam ], [ Cuixhaven ] => [ Bremerhaven ], [ Wismut ]

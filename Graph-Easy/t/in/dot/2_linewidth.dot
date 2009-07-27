@@ -1,0 +1,3 @@
+digraph G {size="11,8.5"; ratio=fill; overlap=false; node[fontsize=10,shape=plaintext];edge[dir=none,style="setlinewidth(0.1)"];
+"123"->"foo"[];
+}

@@ -1,0 +1,5 @@
+
+( Some group: 
+[ Frankfurt a. Main\n (Flughafen) ] { size: 2,2; } -> [ Berlin ]
+
+)

@@ -1,0 +1,14 @@
+digraph G {
+
+  // test parsing of numbers as node names
+
+  0.99 -> 12.88
+
+  -100 -> 123.1230
+
+  00019.1001 -> 1000.
+
+  .99 -> 0.
+
+  .1 -> -1.
+}

@@ -1,0 +1,6 @@
+[ u ] --> [ a | b | c ]
+# putting the attributes on an extra line failed prior to v0.55 due to
+# the basename being wrong: 
+{ basename: pv; }
+
+[ pv.0 ]

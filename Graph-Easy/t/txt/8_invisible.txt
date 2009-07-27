@@ -1,0 +1,24 @@
+edge {
+  color: blue;
+  labelcolor: green;
+  style: invisible;
+}
+graph {
+  background: oldlace;
+  label: My sample graph;
+  border: solid  black;
+}
+
+[ Five ] { color: yellow; fill: maroon; }
+[ One ] { color: white; fill: seagreen; }
+[ Two ] { shape: triangle; }
+
+[ Five ] -  Test label - > { color: red; labelcolor: darkslategrey; } [ Seven ]
+[ Five ] --> [ Seven ]
+[ Five ] <==> [ Three ]
+[ Five ] --> [ Eight ]
+[ One ] ==> [ Three ]
+[ One ] .. Test\n label ..> [ Four ]
+[ One ] -- label --> [ Two ]
+[ Seven ] -- [ Eight ]
+[ Three ] <.. Test label ..> [ Six ]

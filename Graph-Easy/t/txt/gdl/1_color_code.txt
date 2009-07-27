@@ -1,0 +1,9 @@
+edge { arrowstyle: filled; }
+graph {
+  flow: south;
+  label: Graph of sub_105D40F;
+}
+node { align: left; }
+
+[ 0 ] { label: sub_105D40F:\nmov     edi, esi\npush    ebp\njz      short loc_105D27B; rank: 0; x-vcg-vertical_order: 0; }
+

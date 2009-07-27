@@ -1,0 +1,13 @@
+[ B ] { offset: 4,0; origin: A; }
+[ C ] { offset: 2,-2; origin: A; }
+[ D ] { offset: 2,2; origin: A; }
+
+( Cross:
+  [ A ]
+  [ B ]
+  [ C ]
+  [ D ]
+)
+
+[ A ] --> [ B ]
+[ C ] --> [ D ]

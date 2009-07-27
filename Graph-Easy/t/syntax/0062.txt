@@ -1,0 +1,2 @@
+# Override attributes of an edge
+[ Bonn ] -> { color: blue; label: Autobahn; } [ Berlin ]

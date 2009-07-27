@@ -1,0 +1,14 @@
+node { shape: circle; }
+
+[ compare ] { background: #c1b2ff; shape: rect; }
+[ main ] { shape: rect; }
+[ make_string ] { label: make a\n string; }
+
+[ main ] ..> [ init ]
+[ main ] --> [ parse ]
+[ main ] -- Testlabel --> [ cleanup ]
+[ main ] -  100 times - > { color: red; } [ printf ]
+[ init ] --> [ make_string ]
+[ parse ] --> [ execute ]
+[ execute ] --> { color: red; } [ compare ]
+[ execute ] --> [ make_string ]

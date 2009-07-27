@@ -1,0 +1,3 @@
+[ Hamburg ] { size: 2,2; } --> [ Altona ] { rows: 2; columns: 3; }
+[ Hamburg ] --> [ Altona ]
+[ Hamburg ] --> [ Altona ]

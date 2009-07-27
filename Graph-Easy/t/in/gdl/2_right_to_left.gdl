@@ -1,0 +1,7 @@
+graph: {
+  orientation: "right_to_left"
+
+  node: { title: "A" }
+  node: { title: "B" }
+  edge: { source: "A" target: "B" }
+}

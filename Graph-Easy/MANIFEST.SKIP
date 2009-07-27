@@ -1,0 +1,13 @@
+.*\.tar\.gz
+^blib.*
+^[\w\._-]+\.(html|txt|png|gif|dot|pl|svg|old|bak|org|vcg|gdl|ps|graphml)
+^Makefile\z
+^Makefile.(old|bak)\z
+^fun\z
+^[^\\\/]*\.pl
+^gdl
+^Graph-Easy-[0-9]
+pm_to_blib
+tmon.out
+^wikicrawl
+^todos[\\\/]

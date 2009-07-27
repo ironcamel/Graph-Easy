@@ -1,0 +1,9 @@
+edge { arrowstyle: none; }
+
+[ C ] { offset: 0,2; origin: B; }
+[ D ] { offset: 0,2; origin: C; }
+[ E ] { offset: -2,-2; origin: B; }
+
+[ B ] <--> { end: south, 0; start: west; } [ E ]
+[ C ] <--> { end: south, 0; start: west; } [ E ]
+[ D ] <--> { end: south, 0; start: west; } [ E ]

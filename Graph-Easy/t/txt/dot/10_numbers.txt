@@ -1,0 +1,12 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: G;
+}
+
+[ -100 ] --> [ 123.1230 ]
+[ .1 ] --> [ -1. ]
+[ .99 ] --> [ 0. ]
+[ 0.99 ] --> [ 12.88 ]
+[ 00019.1001 ] --> [ 1000. ]

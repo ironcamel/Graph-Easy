@@ -1,0 +1,13 @@
+# Example from: http://wiki.debian.org.hk/w/Generate_SSL_cert
+# http://wiki.debian.org.hk/w/Generate_SSL_cert
+
+[ Start ] { shape: rounded; }
+-- openssl\n genrsa --> [ key ]
+-- openssl\n req --> [ Certificate\n Signing\n Request\n (CSR) ]
+-> [ CA ] { label: "Certificate\n Authority\n (CA)"; shape: circle; }
+-> [ Certificate\n (CRT) ]
+
+[ CA ] -> [ Certificate\n Revocation\n List\n (CRL) ]
+
+[ CA Key ] -> [ CA ]
+

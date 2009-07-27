@@ -1,0 +1,3 @@
+digraph ports {
+  north -> south [ headport=west tailport=east ]
+}

@@ -1,0 +1,6 @@
+[ Default Page ] --> [ Sign Up ]
+[ Sign Up ] --> [ Main Page ]
+[ Default Page ] .-> [ Main Page ]
+[ Default Page ] = > [ Main Page ]
+[ Default Page ] - > [ Main Page ]
+

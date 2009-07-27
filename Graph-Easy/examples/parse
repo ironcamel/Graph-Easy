@@ -1,0 +1,39 @@
+#!/usr/bin/perl -w
+
+BEGIN { $|++; }
+
+use strict;
+use lib 'lib';
+use Graph::Easy::Parser;
+
+print "# Graph::Easy v$Graph::Easy::VERSION\n";
+
+my $file = shift;
+$file = \*STDIN unless defined $file;
+my $id = shift || '';
+my $debug = shift || 0;
+
+my $parser = Graph::Easy::Parser->new( debug => $debug );
+
+my $graph = $parser->from_file( $file );
+
+print "# input: '$file'\n";
+
+die ($parser->error()) unless defined $graph;
+
+print "# Graph has ", scalar $graph->nodes(),
+      " nodes and ", scalar $graph->edges()," edges.\n";
+
+$graph->id($id);
+$graph->timeout(240);
+$graph->layout();
+
+warn ($graph->error()) if $graph->error();
+
+print $graph->as_txt();
+
+print $graph->as_ascii(), "\n";
+
+print "<style type='text/css'>\n<!--\n", 
+      $graph->css(), "--></style>\n", $graph->as_html();
+

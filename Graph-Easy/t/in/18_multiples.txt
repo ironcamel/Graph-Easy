@@ -1,0 +1,19 @@
+node { background: yellow; }
+
+
+ [ Bonn ] ..> [ Berlin ] -> [ Kassel ]
+ [ Bonn ] .-> [ Koblenz ]
+ [ Bonn ] -> [ Ulm ] -> [ Koblenz ]
+ [ Ulm ] -> [ Bautzen ] -> [ Berlin ]
+
+ [ 1Bonn ] ..> [ 1Berlin ] -> [ 1Kassel ]
+ [ 1Bonn ] .-> [ 1Koblenz ]
+ [ 1Bonn ] -> [ 1Ulm ] -> [ 1Koblenz ]
+ [ 1Ulm ] -> [ 1Bautzen ] -> [ 1Berlin ]
+
+
+ [ 2Bonn ] ..> [ 2Berlin ] -> [ 2Kassel ]
+ [ 2Bonn ] .-> [ 2Koblenz ]
+ [ 2Bonn ] -> [ 2Ulm ] -> [ 2Koblenz ]
+ [ 2Ulm ] -> [ 2Bautzen ] -> [ 2Berlin ]
+

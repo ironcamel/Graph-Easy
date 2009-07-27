@@ -1,0 +1,13 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  label: \G;
+  title: Graphname;
+}
+
+[ 0 ] { label: \G \N; }
+[ 1 ] { label: \G \N; }
+[ 2 ] { label: Name: \N \G; }
+
+[ 0 ] -- \E \G \T \H --> [ 1 ]

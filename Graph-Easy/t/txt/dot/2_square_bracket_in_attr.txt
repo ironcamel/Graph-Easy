@@ -1,0 +1,10 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: G;
+}
+
+[ a ] { label:  ] ; }
+
+[ a ] --> [ b ]

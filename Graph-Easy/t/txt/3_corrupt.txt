@@ -1,0 +1,6 @@
+[ A ] { label: AB; }
+[ B ] { label: ABCB; }
+[ C ] { label: AB; }
+
+[ A ] --> [ B ]
+[ B ] --> [ C ]

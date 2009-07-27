@@ -1,0 +1,5 @@
+# Elan and Roy on Teamwork
+# http://www.cafepress.com/orderofthestick.10272636?zoom=yes#zoom
+
+[ Teamwork ] { fill: yellow; title: Elan; } 
+-- is the key to --> [ Victory ] { fill: red; title: Roy; }

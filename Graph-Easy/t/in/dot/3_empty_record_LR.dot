@@ -1,0 +1,4 @@
+digraph G {
+  rankdir=LR;
+  "Compositor"  [shape="record", label="{Compositor||Compose()}"]
+}

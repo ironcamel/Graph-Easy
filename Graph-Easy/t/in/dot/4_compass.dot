@@ -1,0 +1,11 @@
+// Test compass directions and port names
+// Note: This graph does not have a name, as the ID is optional
+digraph {
+
+  bonn [ label="<N> bonn N | <S> S" shape=record]
+  berlin [ label="<N> berlin N | <w> w" shape=record]
+
+  bonn:S -> berlin:w
+  bonn:s -> berlin:N:w
+
+}

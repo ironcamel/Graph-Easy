@@ -1,0 +1,16 @@
+# Different node shapes
+
+node { shape: ellipse; }
+node.lilac { background: #deadff; }
+
+[ Bergheim ] { shape: diamond; } ->
+[ Kirchheim ] { shape: triangle; } ->
+[ Weilheim ] { shape: house; } 
+
+[ Wilhelmshaven ] { shape: invisible; } ->
+[ Cuxhaven ] { shape: rounded; } ->
+[ Zeven ] { class: lilac; }
+
+[ Bremerhaven ] { shape: circle; } ->
+[ Templin ] { shape: triangle; }
+

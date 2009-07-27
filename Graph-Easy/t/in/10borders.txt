@@ -1,0 +1,7 @@
+# Different border styles
+[ Solid ] ..> [ Dotted ] { border: dotted; }
+[ Dashed ] { border: dashed; } ==> [ none ] { border: none; }
+[ dot-dash ] { border: dot-dash; } - > [ Bold ] { border: bold; } 
+[ dot-dot-dash ] { border: dot-dot-dash; } .-> [ wave ] { border: wave; } 
+[ double-dash ] { border: double-dash; } ~~> [ Double ] { border: double; }
+

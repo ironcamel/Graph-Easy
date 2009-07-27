@@ -1,0 +1,30 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: G;
+}
+group {
+  align: center;
+  fill: inherit;
+}
+
+( cluster_first
+  [ a ]
+  [ b ]
+) { label: first; }
+
+( cluster_second
+  [ p ]
+  [ q ]
+  [ r ]
+  [ s ]
+) { label: second; }
+
+[ a ] --> [ b ]
+[ b ] --> [ q ]
+[ q ] --> [ r ]
+[ r ] --> { style: bold; } [ a ]
+[ r ] --> [ s ]
+[ s ] --> [ p ]
+[ p ] --> [ q ]

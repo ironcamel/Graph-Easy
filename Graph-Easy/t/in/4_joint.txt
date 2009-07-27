@@ -1,0 +1,4 @@
+
+[ B ] { offset: 2,0; origin: A; size: 2,1; }, [ A ] --> { start: south; end: south, 0; } [ C ] { offset: 2,-2; origin: B; }
+
+[ B ] --> [ U ]

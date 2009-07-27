@@ -1,0 +1,6 @@
+node.second { border: double; }
+
+[ A ] { class: second; }
+[ B ] { class: second; }
+
+[ A ] --> [ B ]

@@ -1,0 +1,5 @@
+[ A   B   C ] - A  B   C   D -> [ X Z Y ]
+
+node.i { label: "S   P   A   C   Y"; }
+
+[ A ] { label: "S  P  A  C  E"; } --> { label: "S  P  A  C  E"; } [ B ] { class: i; }

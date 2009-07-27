@@ -1,0 +1,22 @@
+# Example from Graphviz extension
+# http://www.wickle.com/wiki/index.php/Graphviz_extension
+
+node.red { background: red; }
+
+ [ ns ] { class: red } -> [ addons ]
+ -> [ metamod ] { class: red }
+ -> [ dlls2 ] { label: dlls }
+
+ [ metamod ] -> [ doc ] -> [html ]
+
+ [ ns ] -> [ logs ]
+ [ ns ] -> [ gfx ] -> [ vgui ]
+ [ addons ] -> [ amxmodx ] -> [ configs ] { class: red }
+ 
+ [ amxmodx ] -> [ data ] -> [ lang ]
+ [ amxmodx ] -> [ dlls ]
+ [ amxmodx ] -> [ plugins ] { class: red }
+
+ [ doc ] -> [ txt ]
+
+

@@ -1,0 +1,4 @@
+ [ Terminal \#1 ] -> [ Terminal \#2 ]
+ [ Terminal ( \#3 ) \|-\| ]
+ [ Neustadt & Neudorf ] -> [ 3 < 4 ]
+

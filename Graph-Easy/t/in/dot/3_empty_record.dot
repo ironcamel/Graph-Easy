@@ -1,0 +1,3 @@
+digraph G {
+  "Compositor"  [shape="record", label="{Compositor||Compose()}"]
+}

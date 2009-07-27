@@ -1,0 +1,6 @@
+[ B ] { offset: 40,0; origin: A; }
+[ C ] { offset: 20,-20; origin: A; }
+[ D ] { offset: 0,40; origin: C; }
+
+[ A ] --> { style: invisible; } [ B ]
+[ C ] - > [ D ]

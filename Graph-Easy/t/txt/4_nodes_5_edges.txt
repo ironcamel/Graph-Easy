@@ -1,0 +1,5 @@
+[ Default Page ] --> [ Sign Up ]
+[ Default Page ] --> [ Test Search ]
+[ Default Page ] ..> [ Main Page ]
+[ Sign Up ] --> [ Main Page ]
+[ Test Search ] --> [ Sign Up ]

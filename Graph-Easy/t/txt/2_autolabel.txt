@@ -1,0 +1,8 @@
+graph {
+  autolabel: name, 20;
+  autotitle: name;
+}
+
+[ Bonn ] { label: Bonn (ehemalige Bundeshauptstadt); }
+
+[ Bonn ] -- Acme Travels Incorporated --> [ Frankfurt (Main) / Flughafen ]

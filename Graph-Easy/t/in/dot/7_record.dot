@@ -1,0 +1,10 @@
+digraph gaph {
+  graph [ labeljust=l, label="Left aligned label" ]
+
+  "<f1> Aa | <f2> Bb | Cc" [ shape=rect ];
+
+  node [ shape=record ]
+
+  a [ label = "<f1> AA | <f2> BB | CC" ]
+  "<f1> A | <f2> B | C";
+}

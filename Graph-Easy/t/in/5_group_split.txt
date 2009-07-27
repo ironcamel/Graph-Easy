@@ -1,0 +1,9 @@
+
+( test:
+
+ [ Bonn ] -> [ Berlin ] -> [ Frankfurt ] { flow: down; } -> [ Hagen ]
+
+)
+
+[ Bonn ] -> [ Ulm ] { origin: Bonn; offset: 6,2; }
+

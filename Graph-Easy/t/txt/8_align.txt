@@ -1,0 +1,26 @@
+edge { align: right; }
+graph {
+  fontsize: 2em;
+  label: My Graph;
+}
+node.left {
+  align: left;
+  fontsize: 1.5em;
+}
+
+[ Left\n align\n no border ] { align: left; border: none; }
+[ Left\naligned ] { class: left; }
+[ Right\nAligned ] { align: right; }
+[ Rightmost ] { align: right; }
+[ center\n align\n no border ] { align: center; border: none; }
+
+( Nodes:
+  [ Left\naligned ]
+  [ Right\nAligned ]
+) { align: right; }
+
+[ B ] --> [ Left\n align\n no border ]
+[ Center\n aligned text ] -- aligned\n left --> { align: left; } [ Rightmost ]
+[ Right\nAligned ] -- label\n text --> { align: right; } [ Left\naligned ]
+[ Left\n align\n no border ] --> [ center\n align\n no border ]
+[ center\n align\n no border ] --> [ A ]

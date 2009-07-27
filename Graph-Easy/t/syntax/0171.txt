@@ -1,0 +1,17 @@
+# edges with attributes like title/link/label
+# set the base link
+graph { linkbase: http%3a//de.wikipedia.org/wiki/; }
+# if nothing specified, generate a link from the label
+# or none if no label set
+edge { autolink: label; }
+# these edges always link to "Intercity" regardless of the label
+edge.intercity { link: Intercity; }
+
+ # autolinks the edge to "Auto"
+ [ Emden ] - Auto -> [ Schortens ]
+ # autolinks this edge to "Bahn"
+ [ Schortens ] --> { label: Bahn; } [ Oldenburg ]
+ # no link (since no label)
+ [ Schortens ] --> [ Cuxhaven ]
+ # links to "Intercity"
+ [ Oldenburg ] - IC -> { class: intercity; } [ Bremerhaven ]

@@ -1,0 +1,11 @@
+node { shape: point; }
+
+[ A ] 
+ -> [ B ] { point-style: square; }
+ -> [ C ] { point-style: dot; }
+ -> [ D ] { point-style: circle; }
+ -> [ E ] { point-style: diamond; }
+ -> [ F ] { point-style: cross; }
+ -> [ G ] { shape: invisible; }
+ -> [ H ] { point-style: star; }
+

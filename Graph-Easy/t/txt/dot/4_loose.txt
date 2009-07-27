@@ -1,0 +1,12 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: unnamed;
+  type: undirected;
+}
+
+[ A ] -- [ B ]
+[ B ] -- [ C ]
+[ C ] -- [ D ]
+[ D ] -- [ A ]

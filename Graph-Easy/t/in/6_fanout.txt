@@ -1,0 +1,2 @@
+[ Hello World ] --> [ middle ] { label: /dev/fanout; fill: #ccccff; } 
+ --> { start: front,0; } [ A ], [ B ], [ C ], [ D ] { label: Hello World!; }

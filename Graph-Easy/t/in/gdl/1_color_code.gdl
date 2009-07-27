@@ -1,0 +1,8 @@
+graph: {
+title: "Graph of sub_105D40F"
+// contains ^M as line-ends and ^L[0-9]+ as color codes
+node: { title: "0" label: "58sub_105D40F31:
+mov     edi, esi
+push    ebp
+jz      short loc_105D27B" vertical_order: 0 }
+}

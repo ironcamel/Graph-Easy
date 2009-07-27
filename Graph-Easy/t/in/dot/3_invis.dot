@@ -1,0 +1,7 @@
+digraph G {
+  node [ style=invis ]
+
+  { node [ style=filled ] a; c; }
+
+  a -> b -> c;
+}

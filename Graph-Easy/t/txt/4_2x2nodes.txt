@@ -1,0 +1,2 @@
+[ Frankfurt ] --> [ Hof ]
+[ Hamburg ] --> [ Altona ]

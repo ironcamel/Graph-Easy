@@ -1,0 +1,5 @@
+edge { arrowstyle: filled; }
+graph { flow: north; }
+node { align: left; }
+
+[ A ] --> [ B ]

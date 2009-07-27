@@ -1,0 +1,14 @@
+[ Frankfurt ] { flow: down; }
+[ Ulm ] { offset: 6,2; origin: Bonn; }
+
+( test:
+  [ Berlin ]
+  [ Bonn ]
+  [ Frankfurt ]
+  [ Hagen ]
+)
+
+[ Bonn ] --> [ Berlin ]
+[ Bonn ] --> [ Ulm ]
+[ Berlin ] --> [ Frankfurt ]
+[ Frankfurt ] --> [ Hagen ]

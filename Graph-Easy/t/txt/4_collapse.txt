@@ -1,0 +1,7 @@
+node.i { label: S P A C Y; }
+
+[ A ] { label: S P A C E; }
+[ B ] { class: i; }
+
+[ A ] -- S P A C E --> [ B ]
+[ A B C ] -- A B C D --> [ X Z Y ]

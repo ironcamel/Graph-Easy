@@ -1,0 +1,6 @@
+# gid, "long" edge, comments and color codes
+graph { gid: 123; color: #308030 }
+node { color: #f06020 } #this is a comment
+node.cities { color: #1460b0; fill: lightgrey; } # this too
+
+[ Leipzig ] { class: cities }  ----> [ Oschatz ] # comment

@@ -1,0 +1,11 @@
+[ B ] { offset: 2,0; origin: Wide; }
+[ C ] { offset: -2,0; origin: Wide; }
+[ D ] { offset: 0,2; origin: High; }
+[ E ] { offset: 0,-2; origin: High; }
+[ High ] { size: 1,4; }
+[ Wide ] { size: 4,1; }
+
+[ High ] --> [ D ]
+[ High ] --> [ E ]
+[ Wide ] --> [ B ]
+[ Wide ] --> [ C ]

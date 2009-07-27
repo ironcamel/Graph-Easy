@@ -1,0 +1,5 @@
+graph { textwrap: 6; }
+
+[ Small city near a beautyfull river ] { align: right; textwrap: 10; }
+
+[ Frankfurt Oder\n Flughafen-Terminal ] -- Drive a car to the destination --> [ Small city near a beautyfull river ]

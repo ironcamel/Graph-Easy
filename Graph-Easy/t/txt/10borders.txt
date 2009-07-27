@@ -1,0 +1,15 @@
+[ Bold ] { border: bold; }
+[ Dashed ] { border: dashed; }
+[ Dotted ] { border: dotted; }
+[ Double ] { border: double; }
+[ dot-dash ] { border: dot-dash; }
+[ dot-dot-dash ] { border: dot-dot-dash; }
+[ double-dash ] { border: double-dash; }
+[ none ] { border: none; }
+[ wave ] { border: wave; }
+
+[ Dashed ] ==> [ none ]
+[ Solid ] ..> [ Dotted ]
+[ dot-dash ] - > [ Bold ]
+[ dot-dot-dash ] .-> [ wave ]
+[ double-dash ] ~~> [ Double ]

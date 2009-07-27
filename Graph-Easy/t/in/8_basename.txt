@@ -1,0 +1,2 @@
+[ A|B|C ] { basename: A } [ 1 ] -> [ A.2 ] 
+[ A|B|C ] [ 2 ] -> [ ABC.2 ]

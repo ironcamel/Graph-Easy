@@ -1,0 +1,2 @@
+# A node-cluster (autosplit into three single nodes)
+[ Waren | Mirow | Bergen ]

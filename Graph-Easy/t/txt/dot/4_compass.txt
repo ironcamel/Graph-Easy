@@ -1,0 +1,12 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: unnamed;
+}
+
+[ berlin N | w ] { basename: berlin; }
+[ bonn N | S ] { basename: bonn; }
+
+[ bonn.0 ] --> { end: west; start: south; } [ berlin.0 ]
+[ bonn.1 ] --> [ berlin.1 ]

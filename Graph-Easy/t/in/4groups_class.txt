@@ -1,0 +1,7 @@
+node.city { color: #801010; }
+
+ ( German Cities
+  [ Cuxhaven ] -> [ Bremen ]
+  [ Hamburg ], [ Flensburg ]
+ ) { nodeclass: city; border-style: dot-dash; }
+

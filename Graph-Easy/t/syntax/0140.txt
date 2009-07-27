@@ -1,0 +1,7 @@
+# some nodes in a group, and one edge coming in
+
+ ( German Cities 
+  [ Augsburg ] -> [ Hof ]
+ )
+ [ Wien ] -> [ Augsburg ] 
+

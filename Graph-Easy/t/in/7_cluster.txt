@@ -1,0 +1,3 @@
+# 6-node cluster
+[ A | BCD | E | F ||
+  G |     | H ]

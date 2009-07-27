@@ -1,0 +1,6 @@
+[ Dachau ] --> [ Berlin ]
+[ Dachau ] --> [ Chemnitz ]
+[ Dachau ] --> [ Frankfurt ]
+[ Dachau ] --> [ Kiel ]
+[ Dachau ] --> [ Ulm ]
+[ Dachau ] --> [ Weimar ]

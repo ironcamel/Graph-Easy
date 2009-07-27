@@ -1,0 +1,5 @@
+# Edges can have labels, too:
+ [ Kempten ] -- Bahn --> [ Schongau ]			# normal edge
+ [ Schongau ] -- Fahrrad --> [ Regensburg ]		# ditto
+ [ Regensburg ] .. Auto ..> [ Roth ]			# dashed
+ [ Regensburg ] == Motorradkolonne ==> [ Straubing ]	# double

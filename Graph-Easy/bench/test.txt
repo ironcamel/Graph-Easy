@@ -1,0 +1,2 @@
+graph { autolink: name; }
+[ Bonn ] -> [ Berlin ]

@@ -1,0 +1,18 @@
+( Center:
+  [ E ]
+  [ F ]
+) { align: center; }
+
+( Left:
+  [ A ]
+  [ B ]
+) { align: left; }
+
+( Right:
+  [ C ]
+  [ D ]
+) { align: right; }
+
+[ A ] --> [ B ]
+[ C ] --> [ D ]
+[ E ] --> [ F ]

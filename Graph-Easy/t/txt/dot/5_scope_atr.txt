@@ -1,0 +1,15 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: GRAPH_0;
+}
+
+[ b ] { shape: rounded; }
+[ c ] { shape: none; }
+[ d ] { shape: none; }
+
+[ a ]
+[ b ] --> [ u ]
+[ c ] --> [ u ]
+[ d ] --> [ u ]

@@ -1,0 +1,27 @@
+digraph G {
+  node [ center 
+  compound
+  concentrate
+  constraint
+  decorate
+  diredgeconstraints
+  fixedsize
+  headclip
+  labelfloat
+  landscape
+  mosek
+  nojustify
+  normalize
+  overlap
+  pack
+  pin
+  regular
+  remincross
+  root
+  splines
+  tailclip
+  truecolor
+  ]
+  "Bonn" -> "Berlin"
+
+}

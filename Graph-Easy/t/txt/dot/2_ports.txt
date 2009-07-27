@@ -1,0 +1,8 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: ports;
+}
+
+[ north ] --> { end: west; start: east; } [ south ]

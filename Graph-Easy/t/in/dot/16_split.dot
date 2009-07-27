@@ -1,0 +1,12 @@
+digraph SPLIT {
+
+  0 [ shape=record, label="<f1>nil| | | <f2> 0" ]
+  1 [ shape=record, label="<f1>nil| | | <f2> 1" ]
+  2 [ shape=record, label="<f1>nil| | | <f2> 2" ]
+  3 [ shape=record, label="<f1>nil| | | <f2> 3" ]
+
+  "0":f1 -> "1":f2;
+  "0":"f2" -> "1":"f1";
+  2:"f1" -> 3:"f2";
+  2:f2 -> 3:f1;
+}

@@ -1,0 +1,9 @@
+# these are all invalid HTML-like labels. The should not result
+# in errors and the "<>" should be stripped, leaving only the inner
+# text as the label text:
+digraph G {
+  first [ label = <> ]
+  second [ label =<> ]
+  third [ label =< > ]
+  fourth [ label = <a> ]
+}

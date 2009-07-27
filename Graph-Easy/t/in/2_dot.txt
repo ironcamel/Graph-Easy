@@ -1,0 +1,12 @@
+
+# the following should not confuse the parser
+#digraph G {
+# a -> b
+#}
+
+# neither should this
+graph { label:
+// digraph G {
+}
+
+[ Kummersbach ] -> [ Düsburg ]

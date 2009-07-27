@@ -1,0 +1,3 @@
+[ Bonn ] --> [ Berlin ]
+[ Essen ] --> [ Berlin ]
+[ Berlin ] --> [ Koeln ]

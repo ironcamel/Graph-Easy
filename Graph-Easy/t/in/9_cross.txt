@@ -1,0 +1,13 @@
+
+[ U ] -->
+[ A ] { origin: U; offset: 4,0; } --> [ B|I] { origin: A; offset: 32, 0; } 
+
+[ BI.1] --> [ I ] -> [ Z ]
+
+
+[ C | D||E ] { origin: A; offset: 0,1; }
+
+#[ CDE.0 ] --> [ BI.0 ] 
+
+[ U ] --> { start: north; } [ I ]
+ 

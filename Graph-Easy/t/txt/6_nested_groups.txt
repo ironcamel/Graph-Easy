@@ -1,0 +1,18 @@
+( Inner 1
+  [ A ]
+  [ B ]
+) { group: Outer; }
+
+( Inner 2
+  [ C ]
+  [ D ]
+) { group: Outer; }
+
+( Outer
+  [ E ]
+  [ F ]
+)
+
+[ A ] --> [ B ]
+[ C ] --> [ D ]
+[ E ] --> [ F ]

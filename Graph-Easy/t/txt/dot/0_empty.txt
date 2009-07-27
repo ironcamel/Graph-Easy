@@ -1,0 +1,7 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: unnamed;
+}
+

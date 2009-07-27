@@ -1,0 +1,5 @@
+digraph GRAPH_0 {
+
+  a -> { b c d }
+  { b c d } -> u
+}

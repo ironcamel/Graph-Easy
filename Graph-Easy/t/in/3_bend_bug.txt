@@ -1,0 +1,4 @@
+[ Berlin ] { offset: 2,0; origin: Bonn; }
+[ Frankfurt ] { offset: 2,2; origin: Bonn; }
+
+[ Bonn ] --> [ Frankfurt ]

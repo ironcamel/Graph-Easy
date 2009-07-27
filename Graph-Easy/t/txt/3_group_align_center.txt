@@ -1,0 +1,21 @@
+edge { align: right; }
+graph {
+  fontsize: 2em;
+  label: My Graph;
+}
+node.left {
+  align: left;
+  fontsize: 1.5em;
+}
+
+[ Left\naligned ] { class: left; }
+[ Right\nAligned ] { align: right; }
+
+( Nodes:
+  [ Center\n aligned ]
+  [ Left\naligned ]
+  [ Right\nAligned ]
+) { align: center; border: none; }
+
+[ Right\nAligned ] -- label\n text --> { align: right; } [ Left\naligned ]
+[ Left\naligned ] --> [ Center\n aligned ]

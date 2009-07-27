@@ -1,0 +1,11 @@
+[ A ] { label: Hello World!; }
+[ B ] { label: Hello World!; }
+[ C ] { label: Hello World!; }
+[ D ] { label: Hello World!; }
+[ middle ] { fill: #ccccff; label: /dev/fanout; }
+
+[ Hello World ] --> [ middle ]
+[ middle ] --> { start: front,0; } [ A ]
+[ middle ] --> { start: front,0; } [ B ]
+[ middle ] --> { start: front,0; } [ C ]
+[ middle ] --> { start: front,0; } [ D ]

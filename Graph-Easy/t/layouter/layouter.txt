@@ -1,0 +1,4 @@
+[ Bonn ] -> [ Berlin ] -> [ Kassel ]
+[ Bonn ] -> [ Koblenz ]
+[ Bonn ] -> [ Ulm ] -> [ Koblenz ]
+[ Ulm ] -> [ Bautzen ] -> [ Berlin ]

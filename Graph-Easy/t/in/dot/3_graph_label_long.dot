@@ -1,0 +1,4 @@
+digraph GRAPH_0 {
+  graph [ labelloc=b, label="Deutsche Städte am Rhein" ]
+  "Köln" -> "Bonn" -> "Koblenz"
+}

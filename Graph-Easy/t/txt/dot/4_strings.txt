@@ -1,0 +1,14 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: graph0;
+}
+
+[ Cottbus ] { label: Cottbus; }
+[ berlin ] { label: Berlin Ost; }
+[ bonn ] { label: Bonn am Rhein; }
+[ bonntest ] { label: Bonn (Rhei  n); }
+
+[ bonn ] -- train (ICE) --> [ berlin ]
+[ bonntest ] --> [ Cottbus ]

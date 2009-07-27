@@ -1,0 +1,15 @@
+graph { label: My Graph; font-size: 2em; }
+node.left  { align: left; font-size: 1.5em; }
+edge  { align: right; }
+
+ ( Nodes:
+ [ Right\nAligned ] { align: right; } -- label\n text -->
+ { align: right; }
+ [ Left\naligned ] { class: left; }) { align: right; }
+
+ [ Center\n aligned text] -- aligned\n left --> { align: left; } [ Rightmost ] { align: right; }
+  [ B ]
+  --> [ Left\n align\n no border ] { border: none; align: left; }
+  --> [ center\n align\n no border ] { border: none; align: center; }
+  --> [ A ]
+

@@ -1,0 +1,8 @@
+# Testcase courtesy of Scott Beuker:
+
+[ Default Page ] -> [ Test Search ]
+[ Test Search ] -> [ Sign Up ]
+[ Default Page ] -> [ Sign Up ]
+[ Default Page ] ..> [ Main Page ]
+[ Sign Up ] -> [ Main Page ]
+

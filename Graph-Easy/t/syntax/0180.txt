@@ -1,0 +1,7 @@
+# inserted newlines
+ [ 
+  Kempten
+ ] ->
+ [ 
+  Schongau
+ ] # normal edge

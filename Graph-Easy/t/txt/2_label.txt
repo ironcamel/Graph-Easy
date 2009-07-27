@@ -1,0 +1,5 @@
+node { label: A; }
+
+[ C ] { link: http://bloodgate.com; }
+
+[ B ] --> [ C ]

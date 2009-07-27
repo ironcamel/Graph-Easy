@@ -1,0 +1,12 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: G;
+}
+
+[ first ] { label:  ; }
+[ fourth ] { label: a; }
+[ second ] { label:  ; }
+[ third ] { label:  ; }
+

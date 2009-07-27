@@ -1,0 +1,227 @@
+Graph-Easy
+==========
+
+See Graph::Easy under LIMITATIONS for some hot topics. In addition:
+
+Important short-term TODO:
+
+* sort_sub is no longer used in Heap, but the Layouter uses it (find out why)
+
+* add for edges:
+  + weight,
+  + taillabel, taillink, tailtitle, headlabel, headlink, headtitle
+    (or should these be startlabel, endlabel etc.?)
+  + a method to set the direction to bidirectional/undirected
+* graphviz parsing roundtrip:
+  + anon nodes lose their " " label
+  + border-width is wrongly dropped
+  + t/in/dot/9_edge_styles.dot is wrong
+  + nodes with HTML-like labels lose their outer shape (the label itself
+    can have a border on the TABLE, as well as the node outside
+    as well as the individual TD elements)
+* Combining table cells goes wrong if there is a "hole" in a row
+  of cells. We need to gather them with their coordinates and only
+  combine cells that are next to each other.
+* setting "size" as class attribute doesn't work
+* setting "offset: -2,0;" causes problems for multi-row nodes because
+  the offset is taken into effect before growing the node
+* [ a ] { label: a; } - remove the superflous label upon parsing
+
+* VCG/GDL
+  + debug, finish the attribute remapping and add more test cases
+  + implement support for \fn \fb \fI \fu \fB (bold underline etc.)
+  + implement support for \f03 (colors)
+  + implement support for \f- (hor line)
+  + implement full color-remapping support (in both directions)
+  + support subgraphs
+  + support regions
+  + support "nearedges:no" 
+  + generally handle all attribute names without "_", too
+  + add support for "anchor"
+  + GDL has portsharing only as attributes for the top graph, while
+    in Graph::Easy this attribute can be set for each edge
+
+* layouter:
+  + head/tail label/title and link are currently ignored
+  + implement autosplit and autojoin for edges
+  + don't build chains across groups
+  + route multiple edges to/from a node in the proper order (shortest first)
+  + edges without a specific start/end port should not block ports that
+    are reserved for edges with a start/end port number
+  + placing a node with an origin/offset inside another node results in
+    endless loops as this condition is not checked and the placement
+    of the grandparent node will thus always fail
+  + last-resort placing of node should first try to place it more near
+    to where the edge(s) are connected
+  + allow end/start without specifying a side: "[ A ]--> { end: 0; } [ B ]"
+  + t/in/5_joint.txt - the rendering order is C,A,B, so that the edge
+    from A to Z comes before B to Z. And since the layouter "knows" it
+    should not block the last port on B, it makes a bend. In this case, tho,
+    it could just go along B, because the edges join each other anyway.
+  + handle the special case where a node relative to another belongs to
+    a different group than the parent/child  
+
+Recursive layouter:
+  + an empty group should consist of one cell (with the label and border)
+  + lay out all groups first, then interlink them together
+
+* as_graphviz():
+  + links to/from empty groups fail
+  + attributes should be always checked against the default attribute and
+    output if necessary, to make setting attributes in classes work -
+    currently doing edge { color: blue; } will be ignored
+  + finish HTML-like labels (esp. with borders)
+ These things seem to be actually not possible in Graphviz:
+  + border-styles: wave, dot-dot-dash and dot-dash
+  + edge-styles: wave, dot-dot-dash and dot-dash
+  + text-styles: underline, overline, strike-through, italic and bold
+
+* Parser/Graphviz:
+  + see also the section CAVEATS in Graph::Easy::Parser::Graphviz
+  + style=filled should result in color => fillcolor, not color => fontcolor
+  + parse input in Latin1 charset
+  + parse "A|{ B|C }" (record shape with hor/ver nesting)
+  + nodes with shape record, but an edge going from the aggregate node have
+    the edges rendered in dot starting/ending *somewhere* on the node with the
+    record shape. We always (re-)connect these edges to the first part of the
+    autosplit node. Maybe we should balance them to use parts with as little
+    edges as possible. (The entire feature is quite bogus, since it is not
+    clear from the resulting image where the edge really starts/ends, at the
+    aggregate node or at the specific part where the arrow/line ends up
+    pointing to/from...:-/
+  + attributes unknown to dot, but valid under Graph::Easy (like "labelpos")
+    cause an error instead of a warning
+  + autosplit nodes (record) lose their attributes, these need to
+    be carried over from the temp. node.  
+  + parse nested tables
+
+* as_ascii:
+  + better support for different shapes (circle, box, polygon etc)
+  + implement pod-formatted labels (*bold*, /italic/,
+    _underline_, -l-i-n-e-t-h-r-o-u-g-h-, ~overline~, "code")
+  + rendering of "(group)" is empty (need a recursive layouter for that,
+    since the current layouter doesn't add any group cells if a group doesn't
+    have any node or edge at all)
+
+* as_html: 
+  + fill on edges
+  + v-- and --^ edges (mis-aligned arrows)
+    (complete edge-arrow alignment in HTML)
+  + shift arrows on hor edge end/starts (non-short) left/right, too
+  + output of node-clusters is slightly wrong
+  + there is no space between two nodes placed next (with filler
+    cell) to each other. Make filler cells output a &nbsp;?
+  + bidir. self-loops are rendered with only one arrow: [A] <--> [A]
+  + define missing HTML edge pieces: CROSS sections with end/start points
+  + define JOINTs with start/end pieces (6 for each joints, making 24 types)
+  + implement HTML nodes as triangles, house, etc. using slanted edges
+
+* fix nesting with pod-formatted labels
+
+* edges between groups (ala "( 1 [A ]) -> ( 2 [B] )") or between a node
+  and a group are missing in HTML, ASCII, BOXART and SVG.
+
+* It would be good if we could remove Node::Empty (it blocks a cell
+  just to draw the right/bottom border pieces)
+  (we might put these "invisible" nodes into a different "cells" field,
+   which will be rendered, but not queried for path finding etc)
+
+Output:
+
+* selfloop edges should counter the general flow:
+
+                     Until done
+                   +------------+
+                   v            |
+   +-------+     +----------------+     +-----+
+   | Start | --> |      Main      | --> | End |
+   +-------+     +----------------+     +-----+
+
+  versus (loop still going left):
+
+                   Until done
+                 +------------+
+                 v            |
+   +-----+     +----------------+     +-------+
+   | End | <-- |      Main      | <-- | Start |
+   +-----+     +----------------+     +-------+
+
+* support two different arrow shapes on bidirectional edges
+
+* as_txt(): 
+  + output of node clusters and node chains is not optimal
+  + links between groups are missing
+* as_ascii() and others: grow cells around point-shaped nodes to intrude:
+
+	...........................
+        :      :  |   :     :     :
+	:      :  |   :     :     :
+	:      :  v   :     :     :
+	...........................
+        :       :   :       :     :
+	:-----> : * : <---- :     :
+        :       :   :       :     :
+	...........................
+  (at least the edge pieces could omit their left/right spacer in ASCII)
+
+* as_boxart has some incorrect corner pieces:
+   echo "[A|B|C||D]" | perl examples/as_boxart
+   ┌───┐───┐───┐
+   │ A │ B │ C │
+   └───┘───┘───┘
+   │ D │
+   └───┘
+   echo "[A| |C||D| |E]" |perl examples/as_boxart
+   ┌───┐   ┌───┐
+   │ A │   │ C │
+   └───┘   └───┘
+   │   │   │   │
+   │ D │   │ E │
+   └───┘   └───┘
+
+Layout:
+
+* allow user to specify max graph width (in cells) to avoid overly wide graphs
+* auto-grow nodes to be multicelled depending on the dimensions of their label
+  ("main page" gets 2x1, while "a \nb \nc \nd \ne \n" gets 1x2 cells)
+  This currently causes problems and wierd layouts.
+* Use the seed to generate randomized layouts
+
+Rendering/Layout:
+
+* allow "align: center, middle|top|bottom" for vertical alignment of labels.
+* add padding attributes (especially usefull for HTML/SVG output)
+* add "shape" for groups:
+  + rect
+  + compact (the default, what it is now)
+  + none (no background, no border, no label)
+* add attribute "opacity" to set alpha channel on entire objects more easily
+* add attribute "shrink" (yes, no) to nodes to make them as compact as poss.
+
+General:
+
+* allow multiple subclasses ala CSS:
+
+	node.red { color: red; }
+	node.green { color: green; }
+
+	[ Red ] { class: red green; } -> [ Green ] { class: green red; }
+
+* Implement more class selectors:
+  + #id (object with ID id)
+
+* implement pseudo-class "step" for animations (see POD)
+
+* add some possibility to have different fonts, sizes and colors inside one
+  label ala (when labelstyle=pod):
+  FG<red|red text> BG<red|red background> FS<2em|big text>
+
+Optimizing:
+
+* put framebuffer related routines into own package (Graph::Easy::As_ascii)
+  to avoid the dilemma that we need them from both Node and Graph.
+  Likewise, some routines used by objects (e.g. graph, node etc) should
+  be in a super-package and inherited)
+* improve the after-layout optimizer
+* less memory: store border and edge styles as ints instead of "solid" etc
+

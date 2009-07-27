@@ -1,0 +1,7 @@
+# all nodes in one group
+ 
+( German Cities
+  [ Cuxhaven ] -> [ Bremen ]
+  [ Hamburg ], [ Flensburg ]
+ )
+

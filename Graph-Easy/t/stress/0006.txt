@@ -1,0 +1,7 @@
+# 5 nodes linked in a circle
+
+ [ Oberammergau ] -> [ Regensburg ]
+ [ Regensburg ] -> [ Wasserburg ]
+ [ Wasserburg ] -> [ Bremen ]
+ [ Bremen ] -> [ Oberammergau ]
+

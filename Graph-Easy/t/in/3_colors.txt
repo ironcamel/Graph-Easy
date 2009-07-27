@@ -1,0 +1,13 @@
+graph
+  {
+  fill: rgb(0.1, 100, 10%);
+  color: 3;			# mention color "3" before colorscheme
+  colorscheme: paired12;
+  }
+
+[ Colors ] { fill: w3c/grey; }
+[ Preserve ] { color: cornflowerblue; }
+[ The ] { color: #ff00ff; }
+
+[ Preserve ] --> { color: rgb(33,44,55); } [ The ]
+[ The ] --> { color: hsv(1.0,1.0,0.5); } [ Colors ] { color: hsl(300, 1.0, 1.0); }

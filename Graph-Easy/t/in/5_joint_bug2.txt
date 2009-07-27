@@ -1,0 +1,10 @@
+
+[ A ] { flow: south; size: 5,1; } <--> [ B ], [ C ], [ D ] { origin: A; }
+
+
+<--> { start: south; end: south, 0; } [ E ] { origin: A; offset: 2,0; }
+
+[ B ] { offset: 0,2; }
+[ C ] { origin: B; offset: 2,0; }
+[ D ] { origin: C; offset: 2,0; }
+

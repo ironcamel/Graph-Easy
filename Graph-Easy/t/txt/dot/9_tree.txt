@@ -1,0 +1,14 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: G;
+}
+
+[ | A| ] { basename: node0; }
+[ | B| ] { basename: node1; }
+[ | C| ] { basename: node2; }
+
+[ node0.0 ] --> [ node1.1 ]
+[ node0.2 ] --> [ node2.2 ]
+[ node1.0 ] --> [ node2.1 ]

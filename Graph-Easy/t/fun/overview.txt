@@ -1,0 +1,21 @@
+graph { flow: south; }
+
+node.input { fill: lime; }
+node.output { fill: darkorange; }
+node.dot { fill: gold; }
+
+[ Text ], [ Graphviz ] { class: input; } -> [ Parser ]
+
+[ Perl ] { class: input; }, [ Parser ] -> [ Graph::Easy ]  -> { start: front; } 
+  [ Text2 ] { label: Text; }, [ Graphviz2 ] { class: output }
+
+[ Graph::Easy ] -> [ Layouter ]
+
+[ Graphviz2 ] { label: Graphviz; }
+
+ -> { minlen: 1; } [ dot ] { fill: #8080ff; } -> { start: front; }
+  [ .pdf ], [ .png ], [ .ps ] { class: dot; }
+
+ [ Layouter ] { offset: 2,0; origin: Graph::Easy; } -> { start: front; } 
+  [ ASCII /\nUnicode ], [ HTML ], [ SVG ] { class: output }
+

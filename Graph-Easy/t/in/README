@@ -1,0 +1,5 @@
+These files are used as input by t/ascii.t, and the ASCII output is compared to
+the files in t/out.
+
+The subdirectories t/dot, t/in/dot, t/out/dot and t/txt/dot contain input
+files for t/gv.t. 

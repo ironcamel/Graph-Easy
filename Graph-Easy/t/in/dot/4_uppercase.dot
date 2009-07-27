@@ -1,0 +1,8 @@
+STRICT DIGRAPH "graph" {
+	EDGE [ label=foo ]
+	NODE [ style=dotted ]
+	SUBGRAPH cluster_me {
+		a -> b
+	}
+	c -> d
+}

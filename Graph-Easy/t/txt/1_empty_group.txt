@@ -1,0 +1,3 @@
+( Group ) { background: yellow; }
+
+[ Outside ]

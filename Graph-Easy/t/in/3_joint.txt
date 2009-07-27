@@ -1,0 +1,4 @@
+
+ [ Potsdam ], [ Mannheim ] --> { end: back,0; } [ Weimar ]
+
+# [ Weimar ] --> { start: front,0; } [ Finsterwalde ], [ Aschersleben ]

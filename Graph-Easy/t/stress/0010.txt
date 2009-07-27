@@ -1,0 +1,12 @@
+# placement near other nodes
+
+ [ Oberammergau ] -> [ Regensburg ]
+ [ Regensburg ] -> [ Wasserburg ]
+ [ Wasserburg ] -> [ Bremen ]
+ [ Regensburg ] -> [ Siegburg ]
+
+# to be placed around Bremen and Oberammergau
+ [ Oberammergau ] -> [ Kiel ]
+ [ Bremen ] -> [ Kiel ]
+ [ Siegburg ] -> [ Kiel ]
+

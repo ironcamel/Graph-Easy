@@ -1,0 +1,3 @@
+[ Bad Schandau ] { offset: 3,0; origin: Erfurt; }
+
+[ Erfurt ] <--> [ Bad Schandau ]

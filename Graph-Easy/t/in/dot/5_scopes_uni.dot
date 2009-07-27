@@ -1,0 +1,3 @@
+digraph GRAPH_0 {
+  a -- { b c d } -- o
+}

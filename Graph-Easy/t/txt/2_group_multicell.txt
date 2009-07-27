@@ -1,0 +1,8 @@
+[ Frankfurt a. Main\n (Flughafen) ] { size: 2,2; }
+
+( Some group:
+  [ Berlin ]
+  [ Frankfurt a. Main\n (Flughafen) ]
+)
+
+[ Frankfurt a. Main\n (Flughafen) ] --> [ Berlin ]

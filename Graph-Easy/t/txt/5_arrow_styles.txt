@@ -1,0 +1,11 @@
+edge { arrowstyle: none; }
+
+[ Hagnau ] { flow: down; }
+[ Unteruhlingen ] { border: dotted; }
+
+[ Hagnau ] <--> [ Oberuhlingen ]
+[ Hagnau ] <--> [ Uhlingen ]
+[ Mainau ] --> [ Unteruhlingen ]
+[ Mainau ] -- { arrowstyle: closed; } [ Unteruhlingen ]
+[ Oberuhlingen ] <--> { arrowstyle: closed; } [ Unteruhlingen ]
+[ Uhlingen ] <--> { arrowstyle: filled; } [ Oberuhlingen ]

@@ -1,0 +1,8 @@
+( German Cities
+  [ Bremen ]
+  [ Cuxhaven ]
+  [ Flensburg ]
+  [ Hamburg ]
+)
+
+[ Cuxhaven ] --> [ Bremen ]

@@ -1,0 +1,6 @@
+# 2 nodes, one pointing back to itself
+
+ [ Ruhleben ] -> [ Aschersleben ]
+ [ Aschersleben ] -> [ Ruhleben ]
+ [ Ruhleben ] -> [ Ruhleben ]
+

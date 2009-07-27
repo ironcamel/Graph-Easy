@@ -1,0 +1,39 @@
+# The famous 1999 geek dating flow char from userfriendly.org
+# http://www.userfriendly.org/cartoons/archives/99mar/19990314.html
+
+graph { label: GEEK DATING FLOWCHART; font-size: 3em; color: red; font: serif; }
+node { text-wrap: auto; color: black; font-size: 0.8em; }
+edge { color: black; }
+edge.yes { label: Yes; }
+edge.no { label: No; }
+
+[ Start ] { label: Do you have someone in mind? } --> { class: no; flow: forward; } [ GPF ] { fill: #00b0ff; }
+
+[ Start ] --> { class: yes; } 
+  [ Available ] { label: Are they available? } --> { class: yes; } [ Exist ] { label: Do they know you exist? }
+
+  --> { class: yes; } [ Truly remararkable. They're available and they know you exist. Will wonders never cease. ]
+   { origin: Exist; offset: 0,4; }
+  --> { end: back, 0; } [ Askout ] { label: So now you just need to ask them out on a date. What do they say? }
+  --> { class: yes; } [ Hahahaha! Yeah. Right. ]
+  --> { start: front,0; end: right, 0; } [ End ] { label: Well, you can still have a date with your Palm S<Pilot>; format: pod; }
+
+  [ Available ] --> { class: no; } [ GPF ]
+
+  [ Exist ] --> { class: no; } 
+  [ Ask them if they like Computers: ]
+  --> { class: no; } [ Ask them if they like 'Star Wars': ]
+  --> { class: no; } [ Ask them if they like the "Hitchhiker's Guide': ]
+  --> { class: no; } [ Qualities ] { label: Ask them if they have any redeeming qualities at all: }
+  
+  [ Ask them if they like Computers: ],
+  [ Ask them if they like 'Star Wars': ]
+  [ Ask them if they like the "Hitchhiker's Guide': ],
+  [ Qualities ] --> { class: yes; end: back, 0; } [ Lying ] { label: They're lying. Ditch them; }
+ 
+  [ Qualities ] --> { class: no; } [ Smell ] { label: At least they're honest. Ask them if you smell bad: }
+  --> { class: no; } [ Lying ]
+  --> [ End ]
+  
+  [ Smell ] --> { class: yes;} [ Yup, they're honest all right. But now you know they think you smell bad. Ditch them. ] --> [ End ]
+

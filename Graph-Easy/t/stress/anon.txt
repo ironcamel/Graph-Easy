@@ -1,0 +1,8 @@
+node.anon { fill: #ffe0e0; }
+
+[ ]
+--> [ ] { border-style: bold; } 
+--> [ ] { border-color: blue; border-style: solid; } 
+--> [ ] { border-color: blue; }
+--> [ 1 ] { label: " "; border: none; } 
+--> [ 2 ] { shape: invisible; }

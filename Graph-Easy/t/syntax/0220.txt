@@ -1,0 +1,6 @@
+# different chains of nodes
+    [ Ulm ] -> [ Lahn ] -> [ Bonn ]
+    -> [ Trier ]
+    [ Stein ] -> [ Wahns ]
+    -> [ Lind ] 
+    -> [ Burg ] -> [ Buch ] 

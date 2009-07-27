@@ -1,0 +1,10 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  label: Deutsche Städte;
+  labelpos: bottom;
+  title: GRAPH_0;
+}
+
+[ Köln ] --> [ Stralsund ]

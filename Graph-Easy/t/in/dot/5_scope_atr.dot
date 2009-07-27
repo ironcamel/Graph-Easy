@@ -1,0 +1,7 @@
+digraph GRAPH_0 {
+
+  b [ style=rounded ]
+
+  a -> { node [ shape=plaintext ] b c d }
+  { b c d } -> u
+}

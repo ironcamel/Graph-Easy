@@ -1,0 +1,5 @@
+
+[ Bonn ] --> [ Berlin ] --> [ Frankfurt ]
+[ Bonn ] --> [ Berlin ] --> [ Bonn ]
+[ Ulm ] --> [ Berlin ] --> [ Berlin ]
+[ Mainz ] --> [ Bonn ]

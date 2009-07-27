@@ -1,0 +1,4 @@
+.red { color: red; }
+.green, .blue, group { color: blue; }
+
+[ Red ] { class: red; } -- red --> { class: red; } [ Black ] { class: green; }

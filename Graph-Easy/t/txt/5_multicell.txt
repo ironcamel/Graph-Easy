@@ -1,0 +1,12 @@
+graph { flow: up; }
+
+[ Client ] { offset: 0,2; origin: Proxy; }
+[ Client1 ] { offset: 0,-2; origin: Proxy; }
+[ Client2 ] { offset: 2,0; origin: Proxy; }
+[ Client3 ] { offset: -2,0; origin: Proxy; }
+[ Proxy ] { size: 3,2; }
+
+[ Client ] <--> [ Proxy ]
+[ Client1 ] <--> [ Proxy ]
+[ Client2 ] <--> [ Proxy ]
+[ Client3 ] <--> [ Proxy ]

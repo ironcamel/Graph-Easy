@@ -1,0 +1,8 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: mike;
+}
+
+[ mike ] --> [ michael ]

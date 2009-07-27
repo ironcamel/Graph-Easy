@@ -1,0 +1,15 @@
+# Differen ways to write colors, all of them should result in "red",
+# except "/accent4/4":
+digraph G {
+  subgraph cluster_1 {
+    pencolor="#ff 00 00";
+# "//" means empty color scheme and is equivalen to ""
+    node [ color=red fontcolor="//red" ]
+
+    A -> B [ color="#ff0000ff" ]
+  }
+  C [ color="0 1.0 1.0" fontcolor="/x11/red" ]
+  B -> C [ color="1.0,1.0,1.0" ]
+  // results in "#ffff99"
+  B [ color="/accent4/4" ]
+}

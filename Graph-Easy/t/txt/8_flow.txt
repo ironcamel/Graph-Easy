@@ -1,0 +1,9 @@
+[ South ] { flow: south; }
+
+[ East ] --> [ South ]
+[ South ] --> [ West ]
+[ West ] --> { flow: west; } [ South Too ]
+[ South Too ] --> { flow: down; } [ right (west) ]
+[ right (west) ] --> { flow: right; } [ left (south) ]
+[ left (south) ] --> { flow: left; } [ east (default) ]
+[ east (default) ] --> [ final ]

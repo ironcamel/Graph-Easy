@@ -1,0 +1,7 @@
+node { shape: rounded; }
+
+   [ Pullach ]			{ border: dotted; }
+-> [ Parsing ]			{ border: dashed; }
+-> [ Pankow\n (Berlin) ]		{ border: double; }
+-> [ Pullheim ]			{ border: bold; }
+-> [ Paderborn ]

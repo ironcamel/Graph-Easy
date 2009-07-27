@@ -1,0 +1,14 @@
+[ A ] { origin: B; offset: 2,1; }
+
+[ B ] { origin: C; offset: 1,1; }
+[ C ] { origin: D; offset: 1,1; }
+[ D ] 
+
+[ E ] --> [ D ] --> [ C ]
+[ B ] --> [ A ]
+
+[ D ] --> [ C ]
+[ B ] --> [ C ]
+[ B ] --> [ C ]
+[ A ] --> [ B ]
+

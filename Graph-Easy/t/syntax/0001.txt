@@ -1,0 +1,4 @@
+# A node pointing back to itself
+
+ [ Bonn ] -> [ Bonn ]
+

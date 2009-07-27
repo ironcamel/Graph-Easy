@@ -1,0 +1,10 @@
+ node { color: silver; }
+
+ [ Some      ||
+  Autosplit  ||  
+  Node       ]
+
+ {
+
+ basename: u; border: dashed|; color: red|blue;
+  }

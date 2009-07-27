@@ -1,0 +1,3 @@
+
+[ A ] { label: AB%00%0d%0a } --> [ B ] { label: AB%0aCB; }
+-> [ C ] { label: AB%be%f7%01%7f%91; }

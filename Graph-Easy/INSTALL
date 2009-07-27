@@ -1,0 +1,83 @@
+
+=pod
+
+=head1 Graph-Easy
+
+I<Note:> This package was formerly known as Graph::Simple.
+
+=head1 INSTALLATION
+
+=head2 Linux, Unix, and similiar systems:
+
+To install this module type the following:
+
+Untar the package:
+
+	tar -xzf Graph-Easy-x.xx.tar.gz
+
+where x.xx is the current revision. Then change into the directory:
+
+	chdir Graph-Easy-x.xx/
+
+Verify the package:
+
+	cpansign --verify
+
+If the package fails to verify, do NOT run Makefile.pl nor install it and
+notify me immidiately.
+
+B<< YOUR SYSTEM MIGHT GET COMPROMISED! >>
+
+When the package verified okay, then proceed with creating the make file
+and running the testsuite:
+
+        perl Makefile.PL
+        make test
+
+If all tests pass, install the package as root user:
+
+        sudo make install
+
+=head2 Windows
+
+You need two things under Windows:
+
+=over 2
+
+=item Perl
+
+You can get it from ActiveState:
+
+http://activestate.com/store/activeperl/download
+
+=item nmake
+
+See here for how to get and install nmake:
+
+http://johnbokma.com/perl/make-for-windows.html
+
+=back
+
+After installing C<Perl> and C<nmake>, you can install Graph::Easy normally, just replacing
+C<make> with C<nmake> in the install instructions above:
+
+	perl Makefile.PL
+	nmake
+	nmake test
+	nmake install
+
+=head1 SEE ALSO
+
+You also might want to install the following packages from CPAN:
+
+	Graph::Easy::As_svg	provide SVG (Scalable Vector Graphics) output
+	Graph::Easy::Manual	comprehensive manual in POD and HTML
+
+=head1 AUTHOR
+
+Copyright (C) 2004 - 2007 by Tels L<http://bloodgate.com/perl/>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms of the GPL version 2.
+
+=cut

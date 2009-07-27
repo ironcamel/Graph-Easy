@@ -1,0 +1,7 @@
+( Router:
+  [ Input ]
+  [ Output ]
+)
+
+[ Input ] --> [ Output ]
+[ Output ] ==> { end: north; start: south; } [ Network ]

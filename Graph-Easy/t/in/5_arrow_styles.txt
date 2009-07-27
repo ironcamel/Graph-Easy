@@ -1,0 +1,15 @@
+edge { arrow-style: none; }
+
+# the arrow is not drawn
+[ Mainau ] --> [ Unteruhlingen ] { border-style: dotted; }
+# there is no arrow, so the style is ignored
+[ Mainau ] -- { arrow-style: closed; } [ Unteruhlingen ]
+
+# these override the class default:
+[ Oberuhlingen ] <--> { arrow-style: closed; } [ Unteruhlingen ]
+[ Uhlingen ] <--> { arrow-style: filled; } [ Oberuhlingen ]
+
+# arrows are again not rendered
+[ Hagnau ] { flow: down; } <--> [ Uhlingen ]
+[ Hagnau ] <--> [ Oberuhlingen ]
+

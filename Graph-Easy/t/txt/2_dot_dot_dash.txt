@@ -1,0 +1,4 @@
+[ B ] { border: dot-dash; }
+[ Test\n Test\n Test test test\n test ] { border: dot-dot-dash; }
+
+[ Test\n Test\n Test test test\n test ] ..-> [ B ]

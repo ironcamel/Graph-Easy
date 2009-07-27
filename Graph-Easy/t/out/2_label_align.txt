@@ -1,0 +1,6 @@
++-----------------+               +---+
+| Long Node Label |  A            |   |
+| left            |        long   | B |
+|           right |  edge label   |   |
+|     center      | ------------> |   |
++-----------------+               +---+

@@ -1,0 +1,10 @@
+graph { flow: down; }
+node { align: left; }
+node.right { align: right; }
+
+[ Left ] { class: none; }
+[ Lefty, too ] { class: none; }
+[ Right ] { class: right; }
+
+[ Left ] --> [ Lefty, too ]
+[ Lefty, too ] --> [ Right ]

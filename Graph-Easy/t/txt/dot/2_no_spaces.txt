@@ -1,0 +1,9 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: unnamed;
+  type: undirected;
+}
+
+[ bonn ] -- [ berlin ]

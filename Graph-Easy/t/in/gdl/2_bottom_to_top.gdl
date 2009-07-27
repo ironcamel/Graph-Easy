@@ -1,0 +1,7 @@
+graph: {
+  orientation: "bottom_to_top"
+
+  node: { title: "A" }
+  node: { title: "B" }
+  edge: { source: "A" target: "B" }
+}

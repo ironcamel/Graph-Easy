@@ -1,0 +1,6 @@
+graph { flow: down; }
+
+[ Enschede ] { flow: left; }
+
+[ Enschede ] --> [ Bielefeld ]
+[ Bielefeld ] --> [ Wolfsburg ]

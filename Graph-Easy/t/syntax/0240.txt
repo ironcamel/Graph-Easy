@@ -1,0 +1,16 @@
+# Clickable links and mouse-over titles:
+graph { linkbase: http://de.wikipedia.org/wiki/ }
+node { autolink: label; autotitle: label; }
+
+ [ Bonn ]
+ [ Berlin ] { title: "Berlin (Capital)" }
+ [ Kassel ] { autolink: none; }
+ [ Ulm ] { link: "Stuttgart"; }
+ [ Lahn ] { label: Ulm; }
+
+# link         link, title overriden      only title
+  [ Bonn ]  -> [ Berlin ]              -> [ Kassel ]
+#              link overriden
+  [ Bonn ]  -> [ Ulm ]
+#              link goes to "Ulm" (label!)
+  [ Ulm ]  -> [ Lahn ]

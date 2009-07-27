@@ -1,0 +1,14 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: GRAPH_0;
+}
+
+[ a ] --> [ b ]
+[ a ] --> [ c ]
+[ a ] --> [ d ]
+[ my node /* not a comment */ ] --> [ b ]
+[ b ] --> [ u ]
+[ c ] --> [ u ]
+[ d ] --> [ u ]

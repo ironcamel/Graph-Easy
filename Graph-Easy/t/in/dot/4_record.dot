@@ -1,0 +1,7 @@
+digraph G {
+
+  node1 [ label = "<a1> test | <a2> split", shape=record ]
+  node2 [ label = "<b1> record | <b2> test", shape=record ]
+
+  node1:a1 -> node2:b2
+}

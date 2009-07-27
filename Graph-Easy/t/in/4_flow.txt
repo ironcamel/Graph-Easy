@@ -1,0 +1,5 @@
+[ Passau ] 
+  -> { flow: down; } [ Siegen ]
+  -> { flow: right; } [ Regensburg ]
+
+[ Siegen ] -> { flow: left; } [ Aschaffenburg ]

@@ -1,0 +1,10 @@
+# six nodes, possible to do without a bend
+
+ [ Oranienburg ] -> [ Henningsdorf ]
+ [ Oranienburg ] -> [ Herzberg ]
+ [ Henningsdorf ] -> [ Strausberg ]
+ [ Strausberg ] -> [ Herzberg ]
+ [ Strausberg ] -> [ Neuruppin ]
+ [ Oranienburg ] -> [ Postdam ]
+
+

@@ -1,0 +1,17 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: GRAPH_0;
+}
+group {
+  align: center;
+  fill: inherit;
+}
+
+( cluster0
+  [ Wasserkuppe ]
+  [ Zugspitze ]
+) { align: left; label: Bergtour:; labelpos: bottom; border: dashed  black; }
+
+[ Zugspitze ] --> [ Wasserkuppe ]

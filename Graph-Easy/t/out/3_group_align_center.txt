@@ -1,0 +1,9 @@
+
+                   My Graph
+
+                       Nodes:
+
++---------+  label   +---------+     +---------+
+|   Right |   text   | Left    |     | Center  |
+| Aligned | -------> | aligned | --> | aligned |
++---------+          +---------+     +---------+

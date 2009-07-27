@@ -1,0 +1,35 @@
+#!/usr/bin/perl -w
+
+#############################################################################
+# This example is a bit outdated, please use the new bin/graph-easy script -
+# which is after "make install" available on any command line in your system.
+
+# Convert an input file containing a Graph::Easy description to
+# graphviz output that can be feed to dot etc.
+
+# Example usage:
+#  examples/as_graphviz t/in/2nodes.txt | dot -Tpng >test.png
+#  echo "[ A ] -> [ B ]" | examples/as_graphviz | dot -Tpng >test.png
+
+BEGIN { $|++; }
+
+use strict;
+use lib 'lib';
+use Graph::Easy::Parser;
+
+my $file = shift;
+
+my $parser = Graph::Easy::Parser->new( debug => 0 );
+
+if (!defined $file)
+  {
+  $file = \*STDIN;
+  binmode STDIN, ':utf8' or die ("binmode STDIN, ':utf8' failed: $!");
+  }
+binmode STDERR, ':utf8' or die ("binmode STDERR, ':utf8' failed: $!");
+my $graph = $parser->from_file( $file );
+
+die ($parser->error()) unless defined $graph;
+binmode STDOUT, ':utf8' or die ("binmode STDOUT, ':utf8' failed: $!");
+print $graph->as_graphviz();
+

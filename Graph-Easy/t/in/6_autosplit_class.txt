@@ -1,0 +1,12 @@
+# test that columns on a class works, also test that B is
+# properly offset from A (A with the label is 2 columns
+# wide!) and displays "D" as label.
+
+node.red { color: red; label: D; columns: 2; }
+
+[ A|B|C ] { basename: A; }
+
+[ 1 ] -> [ A.0 ] { class: red; }
+[ 2 ] -> [ A.0 ]
+[ 2 ] -> [ 3 ]
+

@@ -1,0 +1,14 @@
+digraph G {
+  subgraph cluster_0 {
+    aaaaaaaaaaaaaaaaaaa -> b;
+
+    labeljust=r;
+    label="Right aligned";
+  }
+  subgraph cluster_1 {
+    c -> ddddddddddddddd;
+
+    labeljust=l;
+    label="Left aligned";
+  }
+}

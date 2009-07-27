@@ -1,0 +1,22 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: G;
+}
+group {
+  align: center;
+  fill: inherit;
+}
+
+[ A ] { color: red; }
+[ B ] { color: #ffff99; }
+[ C ] { color: #ff0000; }
+
+( cluster_1
+  [ A ]
+  [ B ]
+) { border: dashed  #ff0000; }
+
+[ A ] --> { color: #ff0000ff; } [ B ]
+[ B ] --> { color: hsv(1.0,1.0,1.0); } [ C ]

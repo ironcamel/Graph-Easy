@@ -1,0 +1,5 @@
+( Bergtour:
+
+  [ Zugspitze ] --> [ Wasserkuppe ]
+
+) { labelpos: bottom; }

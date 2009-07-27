@@ -1,0 +1,8 @@
+[ A ] { flow: east; }
+[ B ] { offset: 2,2; origin: A; }
+
+(G
+  [ A ]
+)
+[ A ] -- C --> { start: east; end: north; } [ B ] -> [ ]
+

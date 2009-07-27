@@ -1,0 +1,4 @@
+[ Bad Schandau ] { offset: 3,0; origin: Erfurt; }
+[ Erfurt ] { size: 2,3; }
+
+[ Erfurt ] <--> [ Bad Schandau ]

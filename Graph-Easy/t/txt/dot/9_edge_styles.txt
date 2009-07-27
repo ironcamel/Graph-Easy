@@ -1,0 +1,30 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: G;
+  x-dot-clusterrank: local;
+  x-dot-margin: 0;
+  x-dot-nodesep: 0.2;
+  x-dot-ranksep: 0.2;
+  x-dot-ratio: auto;
+}
+
+[ A ] { color: lightsalmon; font: Helvetica; fontsize: 14px; shape: rect; }
+[ B ] { color: lightsalmon; font: Helvetica; fontsize: 14px; shape: rect; }
+[ C ] { color: lightsalmon; font: Helvetica; fontsize: 14px; shape: rect; }
+[ D ] { color: lightsalmon; font: Helvetica; fontsize: 14px; shape: rect; }
+[ E ] { color: lightsalmon; font: Helvetica; fontsize: 14px; shape: rect; }
+[ F ] { color: lightsalmon; font: Helvetica; fontsize: 14px; shape: rect; }
+[ G ] { color: lightsalmon; font: Helvetica; fontsize: 14px; shape: rect; }
+[ H ] { color: lightsalmon; font: Helvetica; fontsize: 14px; shape: rect; }
+[ I ] { color: lightsalmon; font: Helvetica; fontsize: 14px; shape: rect; }
+
+[ A ] --> { style: bold; } [ B ]
+[ A ] --> { style: bold; } [ F ]
+[ B ] --> { style: bold; } [ C ]
+[ F ] --> { style: bold; } [ G ]
+[ C ] --> { style: bold; } [ D ]
+[ G ] --> { style: bold; } [ H ]
+[ D ] --> { style: bold; } [ E ]
+[ H ] --> { style: bold; } [ I ]

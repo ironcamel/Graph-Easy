@@ -1,0 +1,7 @@
+# override defaults for nodes, edges, groups and graph
+ node { color: brown; }
+ graph { fill: #990066; border: 1px solid black; }
+ group { fill: grey; }
+ edge { color: white; }
+
+ [ Wismar ] -> [ Neustadt ]

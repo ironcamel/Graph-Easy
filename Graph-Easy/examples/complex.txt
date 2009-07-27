@@ -1,0 +1,22 @@
+graph {
+  border: 1px solid black;
+  fill: oldlace;
+  background: goldenrod;
+  label: My sample graph;
+  }
+edge { label-color: green; color: blue; }
+
+[ One ] { fill: seagreen; color: white; } -- label --> [ Two ] { shape: triangle; }
+[ One ] => { arrow-style: closed; } [ Three ]
+[ Five ] { fill: maroon; color: yellow; } <=> [ Three ]
+[ One ] .. Test\n label ..> [ Four ]
+[ Three ] { border-style: dashed; } 
+.. Test\n label ..> { arrow-style: closed; } [ Six ] { label: Sixty\n Six\nand\nsix; }
+[ Five ] -  Test label - > { label-color: darkslategrey; color: red; } [ Seven ]
+[ Seven ] -- [ Eight ]
+[ Five ] --> [ Eight ]
+[ Five ] --> [ Seven ]
+[ Two ] -> [ Four ]
+[ Three ] <-- Test label --> { arrow-style: closed; } [ Six ]
+[ Eight ] .. [ None ] { shape: none; fill: red; color: brown; }
+

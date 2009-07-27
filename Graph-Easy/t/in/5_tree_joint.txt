@@ -1,0 +1,6 @@
+
+ [ A ]
+ [ A ] -> { start: south, 0; } [ A1 ] { origin: A; offset: 2,1; }
+ [ A ] -> { start: south, 0; } [ A2 ] { origin: A; offset: 2,2; }
+ [ A ] -> { start: south, 0; } [ A3 ] { origin: A; offset: 2,3; }
+ [ A ] -> { start: south, 0; } [ A4 ] { origin: A; offset: 2,4; }

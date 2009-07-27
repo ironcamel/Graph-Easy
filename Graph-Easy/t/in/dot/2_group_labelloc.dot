@@ -1,0 +1,11 @@
+digraph GRAPH_0 {
+  subgraph "cluster0" {
+    label="Bergtour:";
+    style="filled,dashed";
+    labelloc=bottom;
+    labeljust=l;
+
+    Zugspitze -> Wasserkuppe
+  }
+
+}

@@ -1,0 +1,7 @@
+[ A ] --> [ B ]
+[ B ] --> [ C ]
+[ C ] --> { start: front, 0; } [ X ]
+[ C ] --> { start: front, 0; } [ Y ]
+[ X ] --> { end: back, 0; } [ I ]
+[ Y ] --> { end: back, 0; } [ I ]
+[ I ] --> [ A ]

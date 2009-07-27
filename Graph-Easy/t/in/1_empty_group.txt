@@ -1,0 +1,4 @@
+( Group
+) { background: yellow; }
+
+[ Outside ]

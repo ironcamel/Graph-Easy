@@ -1,0 +1,30 @@
+( DMZ:
+  [ Backend ]
+  [ Database ]
+  [ Proxy ]
+  [ Server ]
+)
+
+[ Proxy ] --> [ Check ]
+[ Proxy ] --> { flow: south; } [ Database ]
+[ Proxy ] --> [ Server ]
+[ Check ] --> [ Backend ]
+[ Database ] --> [ Backend ]
+
+( DMZ1:
+  [ 1Backend ]
+  [ 1Database ]
+  [ 1Proxy ]
+  [ 1Server ]
+)
+
+[ 1Proxy ] --> [ 1Check ]
+[ 1Proxy ] --> { flow: south; } [ 1Database ]
+[ 1Proxy ] --> [ 1Server ]
+[ 1Check ] --> [ 1Backend ]
+[ 1Database ] --> [ 1Backend ]
+[ 1Proxy ] --> [ 1Check ]
+[ 1Proxy ] --> { flow: south; } [ 1Database ]
+[ 1Proxy ] --> [ 1Server ]
+[ 1Check ] --> [ 1Backend ]
+[ 1Database ] --> [ 1Backend ]

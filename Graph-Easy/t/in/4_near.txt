@@ -1,0 +1,5 @@
+# near placement
+
+ [ Bonn ] --> [ Berlin ]
+ [ Berlin ] --> [ Koeln ]
+ [ Essen ] --> [ Berlin ]

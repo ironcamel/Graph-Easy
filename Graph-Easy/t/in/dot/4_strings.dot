@@ -1,0 +1,22 @@
+strict digraph graph0 {
+
+  // test continuation lines (ending in \)
+  berlin [ label="Berlin\
+  Ost" ]
+
+  bonn [ label="Bonn\
+  am\
+  Rhein" ]
+
+  // test double quoted string continuation "foo" + "bar" in attributes
+  bonn -> berlin [ label="train" + " (ICE)" ]
+
+  // and nodes
+  "bonn" + "test" [ label="Bonn" + " (Rhei \
+   n)" ]
+ 
+  // test more than one concat, more than one space plus empty parts 
+  "Cottbus" [ label= "Cot"  + "" + "tb" +"" +"" +  "us" ]
+
+  "bonntest" -> "Cottbus"
+}

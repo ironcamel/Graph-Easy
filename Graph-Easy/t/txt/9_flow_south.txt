@@ -1,0 +1,11 @@
+edge { start: south; }
+graph { flow: down; }
+
+[ A ] --> [ A1 ]
+[ A ] --> [ A2 ]
+[ A ] --> [ A3 ]
+[ A ] --> [ A4 ]
+[ A ] --> [ A5 ]
+[ A ] --> [ A6 ]
+[ A ] --> [ A7 ]
+[ A ] --> [ A8 ]

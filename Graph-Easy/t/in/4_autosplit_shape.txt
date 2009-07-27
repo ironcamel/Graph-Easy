@@ -1,0 +1,2 @@
+[ A|B ] { shape: |none; }
+[ C|D ] { shape: none|; }

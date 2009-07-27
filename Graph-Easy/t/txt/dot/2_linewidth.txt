@@ -1,0 +1,14 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: G;
+  x-dot-overlap: false;
+  x-dot-ratio: fill;
+  x-dot-size: 11,8.5;
+}
+
+[ 123 ] { fontsize: 10px; shape: none; }
+[ foo ] { fontsize: 10px; shape: none; }
+
+[ 123 ] --> [ foo ]

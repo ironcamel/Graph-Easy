@@ -1,0 +1,5 @@
+ ( German Cities
+  [ Augsburg ] -> [ Hof ]
+ )
+ [ Wien ] -> [ German Cities ] 
+

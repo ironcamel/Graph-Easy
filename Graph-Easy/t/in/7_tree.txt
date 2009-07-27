@@ -1,0 +1,10 @@
+edge { start: south, 0; } 
+
+ [ A ]
+ [ A ] -> [ A1 ] { origin: A; offset: 2,1; }
+ [ A ] -> [ A2 ]
+ [ A ] -> [ A3 ]
+
+ [ A2 ] -> [ A23 ] { origin: A2; offset: 2,1 }
+ [ A2 ] -> [ A22 ]
+ [ A2 ] -> [ A21 ]

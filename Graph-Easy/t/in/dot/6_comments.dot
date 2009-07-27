@@ -1,0 +1,10 @@
+/* this is a
+ * multi line
+ * comment
+*/
+/* comment */ digraph /* one comment */ GRAPH_0 /* another */ /* comment */ { // comment
+  // comment
+  a -> /* comment */ { b c /* comment */ d }
+  { b /* comment */ c d } /* comment */ -> u
+  " my node /* not a comment */ " -> b
+}

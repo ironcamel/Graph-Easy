@@ -1,0 +1,7 @@
+digraph {
+  "Bonn" [ style="setlinewidth(4)" ]
+  "Berlin" [ style="filled, setlinewidth(5)" ]
+
+  "Bonn" -> "Berlin"
+
+}

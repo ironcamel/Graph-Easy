@@ -1,0 +1,21 @@
+# Three non-overlapping groups
+
+group.nrw { fill: #ffa070; }
+group.sachsen { fill: #f07070; }
+
+( Bayern
+  [ Augsburg ]
+) { fill: #70b070; }
+  
+[ Augsburg ] --> [ Dortmund ]
+
+( Nordrhein-Westfalen
+[ Dortmund ] -> [ Olpe ]
+--> [ Hamm ]
+) { class: nrw; }
+
+( Sachsen 
+  [ Leipzig ]
+) { class: sachsen }
+
+[ Hamm ] --> [ Leipzig ]

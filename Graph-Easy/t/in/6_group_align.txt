@@ -1,0 +1,3 @@
+( Left:  [ A ]  -> [ B ]) { align: left; }
+( Right: [ C ] -> [ D ]) { align: right; }
+( Center: [ E ] -> [ F ]) { align: center; }

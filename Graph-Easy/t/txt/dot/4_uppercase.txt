@@ -1,0 +1,23 @@
+edge { arrowstyle: filled; }
+graph {
+  colorscheme: x11;
+  flow: south;
+  title: graph;
+}
+group {
+  align: center;
+  fill: inherit;
+}
+
+[ a ] { border: dotted  black; }
+[ b ] { border: dotted  black; }
+[ c ] { border: dotted  black; }
+[ d ] { border: dotted  black; }
+
+( cluster_me
+  [ a ]
+  [ b ]
+)
+
+[ a ] -- foo --> [ b ]
+[ c ] -- foo --> [ d ]
