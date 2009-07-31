@@ -2273,16 +2273,28 @@ that routine is defined L<Graph::Easy::As_svg.pm>.
 
 =head2 as_graphviz()
 
-	my $txt = $node->as_graphviz_txt();
+B<For internal use> mostly - use at your own risk.
+
+	my $txt = $node->as_graphviz();
 
 Returns the node as graphviz compatible text which can be fed
 to dot etc to create images.
-  
+
+One needs to load L<Graph::Easy::As_graphviz> first before this method
+can be called.
+
+
 =head2 as_graphviz_txt()
+
+B<For internal use> mostly - use at your own risk.
 
 	my $txt = $node->as_graphviz_txt();
 
-Return only the node itself (without attributes) as graphviz representation.
+Return only the node itself (without attributes) as a graphviz representation.
+
+One needs to load L<Graph::Easy::As_graphviz> first before this method
+can be called.
+
 
 =head2 as_pure_txt()
 

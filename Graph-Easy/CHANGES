@@ -1,5 +1,11 @@
 Revision history for Graph::Easy (formerly known as Graph::Simple):
 
+  * Partial fix to bug #27663
+    + Fix the name of the function in the code excerpt of as_graphviz()
+    + Mark as_graphviz() and as_graphviz() as for internal use.
+    + Make sure to indicate that one needs to load Graph::Easy::As_graphviz
+      beforehand.
+
 2008-08-10 v0.64 Tels 2933 tests
   * fix bug #37534 - overwrites input without warning (Thanx C. Khan!)
   * fix bug #37566 - Graphviz (v2.16) output broken (Thanx C. Khan!)
