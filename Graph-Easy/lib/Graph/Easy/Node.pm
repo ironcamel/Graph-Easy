@@ -2275,7 +2275,7 @@ that routine is defined L<Graph::Easy::As_svg.pm>.
 
 	my $txt = $node->as_graphviz_txt();
 
-Returns the node as graphviz compatible text which can be feed
+Returns the node as graphviz compatible text which can be fed
 to dot etc to create images.
   
 =head2 as_graphviz_txt()
