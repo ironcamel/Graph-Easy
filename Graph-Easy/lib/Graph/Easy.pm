@@ -3246,8 +3246,10 @@ set with the 'root' attribute.
 	print $graph->timeout(), " seconds timeout for layouts.\n";
 	$graph->timeout(12);
 
-Get/set the timeut for layouts in seconds. If the layout process did not
+Get/set the timeout for layouts in seconds. If the layout process did not
 finish after that time, it will be stopped and a warning will be printed.
+
+The default timeout is 5 seconds.
 
 =head2 strict()
 
