@@ -342,8 +342,8 @@ Create a new object, and call C<_init()> on it.
 
 Returns the last error message, or '' for no error.
 
-When setting a new error message, C<$self->_croak($error)> will be called
-unless C<$object->no_fatal_errors()> is true.
+When setting a new error message, C<< $self->_croak($error) >> will be called
+unless C<< $object->no_fatal_errors() >> is true.
 
 =head2 error_as_html()
 

@@ -8,6 +8,8 @@ Revision history for Graph::Easy (formerly known as Graph::Simple):
   * Fix for https://rt.cpan.org/Ticket/Display.html?id=48657
     + Specify what the default timeout is in the POD of Graph::Easy.
     + Thanks to MTHURN for reporting it.
+  * Fix for https://rt.cpan.org/Ticket/Display.html?id=51820
+    + Changed C<..> to C<< ... >>> for correct POD rendering.
 
 2008-08-10 v0.64 Tels 2933 tests
   * fix bug #37534 - overwrites input without warning (Thanx C. Khan!)
