@@ -1,5 +1,9 @@
 Revision history for Graph::Easy (formerly known as Graph::Simple):
 
+2010-05-23 v0.66 Shlomi Fish 2933 tests
+  * Removed the leftover .orig files by request of a Debian maintainer (by
+  private E-mail).
+
 2010-05-23 v0.65 Shlomi Fish 2933 tests
   * Partial fix to bug #27663
     + Fix the name of the function in the code excerpt of as_graphviz()
