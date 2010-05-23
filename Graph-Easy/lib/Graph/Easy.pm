@@ -2475,7 +2475,7 @@ It can read and write graphs in a varity of formats, as well as render
 them via its own grid-based layouter.
 
 Since the layouter works on a grid (manhattan layout), the output is
-most usefull for flow charts, network diagrams, or hierarchy trees.
+most useful for flow charts, network diagrams, or hierarchy trees.
 
 X<graph>
 X<drawing>
@@ -2592,7 +2592,7 @@ Creates a Scalable Vector Graphics output.
 
 =item Graphviz
 
-Creates graphviz code that can be feed to 'dot', 'neato' or similiar programs.
+Creates graphviz code that can be feed to 'dot', 'neato' or similar programs.
 
 =item GraphML
 
@@ -2650,7 +2650,7 @@ A graph consisting of three nodes, showing that you can chain connections togeth
 
 =head2 Two not connected graphs
 
-A graph consisting of two seperate parts, both of them not connected
+A graph consisting of two separate parts, both of them not connected
 to each other:
 
 	[ Bonn ] -> [ Berlin ]
@@ -4001,7 +4001,7 @@ for examples and details.
 	print $graph_2->as_ascii();
 
 Returns the animation of C<$graph> as a graph describing the flow of the
-animation. Usefull for debugging animation flows.
+animation. Useful for debugging animation flows.
 
 =head2 add_cycle()
 
@@ -4076,7 +4076,7 @@ L<Graph::Easy::Parser>.
 
 L<Graph::Layout::Aesthetic>, L<Graph> and L<Text::Flowchart>.
 
-There is also an very old, unrelated project from ca. 1995, which does something similiar.
+There is also an very old, unrelated project from ca. 1995, which does something similar.
 See L<http://rw4.cs.uni-sb.de/users/sander/html/gsvcg1.html>.
 
 Testcases and more examples under:

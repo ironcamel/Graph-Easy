@@ -20,7 +20,7 @@ use constant isa_cell => 0;
 
 sub _init
   {
-  # Generic init routine, to be overriden in subclasses.
+  # Generic init routine, to be overridden in subclasses.
   my ($self,$args) = @_;
   
   $self->{name} = 'Node #' . $self->{id};
@@ -1278,7 +1278,7 @@ sub _grow
       $need->{$side} += 2 * $cnt->{$side} - $free->{$side} - 1;
       }
     }
-  # now $need contains for each side the absolut min. number of ports we need
+  # now $need contains for each side the absolute min. number of ports we need
 
 #  use Data::Dumper; 
 #  print STDERR "# port contraints for $self->{name}:\n";
@@ -2733,14 +2733,14 @@ with another edge.
 	my @nodes = $node->nodes_sharing_start($side, $port);
 
 Return a list of unique nodes that share a start point with an edge
-from this node, on the specified side (absolut) and port number.
+from this node, on the specified side (absolute) and port number.
 
 =head2 nodes_sharing_end()
 
 	my @nodes = $node->nodes_sharing_end($side, $port);
 
 Return a list of unique nodes that share an end point with an edge
-from this node, on the specified side (absolut) and port number.
+from this node, on the specified side (absolute) and port number.
 
 =head2 edges_at_port()
 
@@ -2822,10 +2822,10 @@ default) and the flow attribute of this node.
 
 The return value of that method is added as extra params to the
 HTML tag for a node when as_html() is called. Returns the empty
-string by default, and can be overriden in subclasses. See also
+string by default, and can be overridden in subclasses. See also
 L<use_class()>.
 
-Overriden method should return a text with a leading space, or the
+Overridden method should return a text with a leading space, or the
 empty string.
 
 Example:

@@ -485,7 +485,7 @@ Return the length of the chain, in nodes.
 
 	my $len = $chain->length( $node );
 
-Given an optional C<$node> as argument, returns the lenght
+Given an optional C<$node> as argument, returns the length
 from that node onwards. For the chain with the three nodes
 A, B and C would return 3, 2, and 1 for A, B and C, respectively.
 

@@ -490,7 +490,7 @@ It understands the following formats as input:
     GDL		 http://www.aisee.com/
 
 The formats are automatically detected, regardless of the input file name,
-but you can also explicitely declare your input to be in one specific
+but you can also explicitly declare your input to be in one specific
 format.
 
 The output can be a dump of the graph in one of the following formats:
