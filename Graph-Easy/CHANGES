@@ -1,5 +1,10 @@
 Revision history for Graph::Easy (formerly known as Graph::Simple):
 
+2010-05-28 v0.67 Shlomi Fish 2933 tests
+  * Fix the as_vcg() vs. as_vcg_file() test that sometimes failed due
+  to timestamp offsets in both files.
+    - See: http://www.cpantesters.org/cpan/report/07338331-b19f-3f77-b713-d32bba55d77f
+
 2010-05-23 v0.66 Shlomi Fish 2933 tests
   * Removed the leftover .orig files by request of a Debian maintainer (by
   private E-mail).
