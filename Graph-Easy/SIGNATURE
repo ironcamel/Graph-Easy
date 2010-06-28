@@ -14,7 +14,7 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 00cf5babc29dcdafd7a481e5d14eafe32307a015 CHANGES
+SHA1 07e554160debe7bdfc158eebfec31f7211e84a44 CHANGES
 SHA1 675c8474714bc9255f090cbe07828886ff5342cb INSTALL
 SHA1 902547f45944e2121ef06ce5823e3630b1e69bb2 LICENSE
 SHA1 1a20cc16a8bea67bc8e95e97cff7f8c470e7ea3d MANIFEST
@@ -56,7 +56,7 @@ SHA1 38c657de4d91f5a60ff8e6c6f6a5547daf7c4ab2 inc/Module/Install/Metadata.pm
 SHA1 f74fc88b2820caf7c3e50a1108b377aa4abdb275 inc/Module/Install/Scripts.pm
 SHA1 5c25f1104c0038041e3b93e0660c39171e4caf2b inc/Module/Install/Win32.pm
 SHA1 94d47349c803c4bd2a9230d25e4db0b6aaf1acd8 inc/Module/Install/WriteAll.pm
-SHA1 085a14e2f4ee3eebcc62b67c9b38cbd141b748a6 lib/Graph/Easy.pm
+SHA1 153539911325ff7250e68c44ba03bc6d051a8595 lib/Graph/Easy.pm
 SHA1 9eee7aec78486e812031b5573e8f319a448a3015 lib/Graph/Easy/As_ascii.pm
 SHA1 4d58a63060fca8fbf00acd56c0489f3779a83e72 lib/Graph/Easy/As_graphml.pm
 SHA1 f699c3bc7da381b6f4c486f3027483878ef193d6 lib/Graph/Easy/As_graphviz.pm
@@ -772,7 +772,7 @@ SHA1 7ce7d29772b819c79a247ba7f4bdd03c1d9c33c5 t/vcg.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iEYEARECAAYFAkwoSd0ACgkQz3l/NN3wsUmN9gCfW4WnAi0/4ISDHGJUl9nE+y9a
-lmkAn3c4bgy7FxeKowag0qVmOKqJXIyF
-=QnTZ
+iEYEARECAAYFAkwoTF4ACgkQz3l/NN3wsUmZmQCcCWSCava+ByBe2o3BMSpXtfgP
+9acAn1qSdurKxQRbowu1gy7ufOxo3HEZ
+=qZkR
 -----END PGP SIGNATURE-----

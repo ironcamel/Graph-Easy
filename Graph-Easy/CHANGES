@@ -1,5 +1,11 @@
 Revision history for Graph::Easy (formerly known as Graph::Simple):
 
+2010-06-28 v0.68 Shlomi Fish 2933 tests
+  * Add .*\.swp to the MANIFEST.SKIP in order to skip vim temporary files.
+  * Fixed the signature file.
+    - https://rt.cpan.org/Ticket/Display.html?id=58892
+    - Thanks to Andreas Koenig (ANDK).
+
 2010-05-28 v0.67 Shlomi Fish 2933 tests
   * Fix the as_vcg() vs. as_vcg_file() test that sometimes failed due
   to timestamp offsets in both files.
