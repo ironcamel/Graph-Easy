@@ -13,3 +13,4 @@ tmon.out
 ^[\w\._-]+\.(html|txt|png|gif|dot|pl|svg|old|bak|org|vcg|gdl|ps|graphml)
 ^wikicrawl
 ~\z
+.*\.swp
