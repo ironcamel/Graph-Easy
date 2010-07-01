@@ -721,6 +721,91 @@ sub _generate_edge
   $txt . "$indent$first $self->{_edge_type} $other$edge_att\n";		# return edge text
   }
 
+sub _order_group 
+  {
+  my ($self,$group) = @_;
+  $group->{_order}++;
+  for my $sg (values %{$group->{groups}})
+	{
+		$self->_order_group($sg);
+	}
+  }
+
+
+sub _as_graphviz_group 
+  {
+  my ($self,$group) = @_;
+
+  my $txt = '';
+    # quote special chars in group name
+    my $name = $group->{name}; $name =~ s/([\[\]\(\)\{\}\#"])/\\$1/g;
+
+   return if $group->{_p};
+    # output group attributes first
+    my $indent = '  ' x ($group->{_order});
+    $txt .= $indent."subgraph \"cluster$group->{id}\" {\n${indent}label=\"$name\";\n";
+
+	for my $sg (values %{$group->{groups}})
+	{
+		#print '--'.$sg->{name}."\n";
+		$txt .= $self->_as_graphviz_group($sg,$indent);
+		$sg->{_p} = 1;
+	}
+    # Make a copy of the attributes, including our class attributes:
+    my $copy = {};
+    my $attribs = $group->get_attributes();
+
+    for my $a (keys %$attribs)
+      {
+      $copy->{$a} = $attribs->{$a};
+      }
+    # set some defaults
+    $copy->{'borderstyle'} = 'solid' unless defined $copy->{'borderstyle'};
+
+    my $out = $self->_remap_attributes( $group->class(), $copy, $remap, 'noquote');
+
+    # Set some defaults:
+    $out->{fillcolor} = '#a0d0ff' unless defined $out->{fillcolor};
+    $out->{labeljust} = 'l' unless defined $out->{labeljust};
+
+    my $att = '';
+    # we need to output style first ("filled" and "color" need come later)
+    for my $atr (reverse sort keys %$out)
+      {
+      my $v = $out->{$atr};
+      $v = '"' . $v . '"' if $v !~ /^[a-z0-9A-Z]+\z/;	# quote if nec.
+
+      # convert "x-dot-foo" to "foo". Special case "K":
+      my $name = $atr; $name =~ s/^x-dot-//; $name = 'K' if $name eq 'k';
+
+      $att .= $indent."$name=$v;\n";
+      }
+    $txt .= $att . "\n" if $att ne '';
+ 
+    # output nodes (w/ or w/o attributes) in that group
+    for my $n ($group->sorted_nodes())
+      {
+      # skip nodes that are relativ to others (these are done as part
+      # of the HTML-like label of their parent)
+      next if $n->{origin};
+
+      my $att = $n->attributes_as_graphviz();
+      $n->{_p} = undef;			# mark as processed
+      $txt .= $indent . $n->as_graphviz_txt() . $att . "\n";
+      }
+
+    # output node connections in this group
+    for my $e (values %{$group->{edges}})
+      {
+      next if exists $e->{_p};
+      $txt .= $self->_generate_edge($e, $indent);
+      }
+
+    $txt .= $indent."}\n";
+   
+   return $txt;
+  }
+
 sub _as_graphviz
   {
   my ($self) = @_;
@@ -801,67 +886,14 @@ sub _as_graphviz
   $self->_edges_into_groups() if $groups > 0;
 
   # output the groups (aka subclusters)
-  my $indent = '    ';
-  for my $group (sort { $a->{name} cmp $b->{name} } values %{$self->{groups}})
-    {
-    # quote special chars in group name
-    my $name = $group->{name}; $name =~ s/([\[\]\(\)\{\}\#"])/\\$1/g;
-
-    # output group attributes first
-    $txt .= "  subgraph \"cluster$group->{id}\" {\n${indent}label=\"$name\";\n";
-   
-    # Make a copy of the attributes, including our class attributes:
-    my $copy = {};
-    my $attribs = $group->get_attributes();
-
-    for my $a (keys %$attribs)
-      {
-      $copy->{$a} = $attribs->{$a};
-      }
-    # set some defaults
-    $copy->{'borderstyle'} = 'solid' unless defined $copy->{'borderstyle'};
-
-    my $out = $self->_remap_attributes( $group->class(), $copy, $remap, 'noquote');
-
-    # Set some defaults:
-    $out->{fillcolor} = '#a0d0ff' unless defined $out->{fillcolor};
-    $out->{labeljust} = 'l' unless defined $out->{labeljust};
-
-    my $att = '';
-    # we need to output style first ("filled" and "color" need come later)
-    for my $atr (reverse sort keys %$out)
-      {
-      my $v = $out->{$atr};
-      $v = '"' . $v . '"' if $v !~ /^[a-z0-9A-Z]+\z/;	# quote if nec.
-
-      # convert "x-dot-foo" to "foo". Special case "K":
-      my $name = $atr; $name =~ s/^x-dot-//; $name = 'K' if $name eq 'k';
-
-      $att .= "    $name=$v;\n";
-      }
-    $txt .= $att . "\n" if $att ne '';
- 
-    # output nodes (w/ or w/o attributes) in that group
-    for my $n ($group->sorted_nodes())
-      {
-      # skip nodes that are relativ to others (these are done as part
-      # of the HTML-like label of their parent)
-      next if $n->{origin};
-
-      my $att = $n->attributes_as_graphviz();
-      $n->{_p} = undef;			# mark as processed
-      $txt .= $indent . $n->as_graphviz_txt() . $att . "\n";
-      }
-
-    # output node connections in this group
-    for my $e (values %{$group->{edges}})
-      {
-      next if exists $e->{_p};
-      $txt .= $self->_generate_edge($e, $indent);
-      }
-
-    $txt .= "  }\n";
-    }
+  for my $group (values %{$self->{groups}})
+  {
+   $self->_order_group($group);
+  }
+  for my $group (sort { $a->{_order} cmp $b->{_order} } values %{$self->{groups}})
+  {
+    $txt .= $self->_as_graphviz_group($group) || '';
+  }
 
   my $root = $self->attribute('root');
   $root = '' unless defined $root;

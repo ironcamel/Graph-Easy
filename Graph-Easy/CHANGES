@@ -1,5 +1,8 @@
 Revision history for Graph::Easy (formerly known as Graph::Simple):
 
+  * Add support for GraphViz subgraphs.
+    - Thanks to a patch by Yves Agostini ( http://www.crium.univ-metz.fr/ )
+
 2010-06-28 v0.68 Shlomi Fish 2933 tests
   * Add .*\.swp to the MANIFEST.SKIP in order to skip vim temporary files.
   * Fixed the signature file.
