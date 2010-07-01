@@ -1,5 +1,6 @@
 Revision history for Graph::Easy (formerly known as Graph::Simple):
 
+2010-07-01 v0.69 Shlomi Fish 2938 tests
   * Add support for GraphViz subgraphs.
     - Thanks to a patch by Yves Agostini ( http://www.crium.univ-metz.fr/ )
 
