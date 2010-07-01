@@ -679,8 +679,8 @@ unlike ($grviz, qr/peripheries/, "no peripheries in output");
 
 #$graph = Graph::Easy->new();
 my $g  = Graph::Easy->new;
-my $a  = $g->add_group('A');
-my $b  = $g->add_group('B');
+my $a_  = $g->add_group('A');
+my $b_  = $g->add_group('B');
 my $c  = $g->add_group('C');
 my $d  = $g->add_group('D');
 my $n1 = $g->add_node('one');
@@ -688,16 +688,16 @@ my $n2 = $g->add_node('two');
 my $n3 = $g->add_node('three');
 my $n4 = $g->add_node('four');
 
-$a->add_member($n1);
-$b->add_member($c);
-$b->add_member($n2);
-$a->add_member($b);
+$a_->add_member($n1);
+$b_->add_member($c);
+$b_->add_member($n2);
+$a_->add_member($b_);
 $c->add_member($n3);
 $d->add_member($n4);
 
 $grviz = $g->as_graphviz();
-is($a->{_order},1,'subgraph A is level 1');
+is($a_->{_order},1,'subgraph A is level 1');
 is($d->{_order},1,'subgraph D is level 1');
-is($b->{_order},2,'subgraph B is level 2');
+is($b_->{_order},2,'subgraph B is level 2');
 is($c->{_order},3,'subgraph C is level 3');
 like($grviz,qr/subgraph "cluster\d+" {\n  label="A";\n    subgraph "cluster\d+" {/,'subgraph indent');
