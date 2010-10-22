@@ -63,12 +63,15 @@ my $result = <<EOT
   </key>
 
   <graph id="G" edgedefault="directed">
-    <node id="A"/>
+    <node id="A">
       <data key="d0">red</data>
-    <node id="B"/>
+    </node>
+    <node id="B">
+    </node>
 
-    <edge source="A" target="B"/>
+    <edge source="A" target="B">
       <data key="d1">blue</data>
+    </edge>
   </graph>
 </graphml>
 EOT
@@ -93,13 +96,16 @@ $result = <<EOT2
   <key id="d2" for="edge" attr.name="label" attr.type="string"/>
 
   <graph id="G" edgedefault="directed">
-    <node id="A"/>
+    <node id="A">
       <data key="d0">red</data>
-    <node id="B"/>
+    </node>
+    <node id="B">
+    </node>
 
-    <edge source="A" target="B"/>
+    <edge source="A" target="B">
       <data key="d1">blue</data>
       <data key="d2">train-station &amp; &lt;Überlingen &quot;Süd&quot;&gt;</data>
+    </edge>
   </graph>
 </graphml>
 EOT2
@@ -122,13 +128,16 @@ $result = <<EOT3
   <key id="d2" for="edge" attr.name="label" attr.type="string"/>
 
   <graph id="G" edgedefault="directed">
-    <node id="&lt;&amp;&apos;&quot;&gt;"/>
+    <node id="&lt;&amp;&apos;&quot;&gt;">
       <data key="d0">red</data>
-    <node id="B"/>
+    </node>
+    <node id="B">
+    </node>
 
-    <edge source="&lt;&amp;&apos;&quot;&gt;" target="B"/>
+    <edge source="&lt;&amp;&apos;&quot;&gt;" target="B">
       <data key="d1">blue</data>
       <data key="d2">train-station &amp; &lt;Überlingen &quot;Süd&quot;&gt;</data>
+    </edge>
   </graph>
 </graphml>
 EOT3
@@ -150,14 +159,19 @@ $result = <<EOT4
   <key id="d0" for="edge" attr.name="label" attr.type="string"/>
 
   <graph id="G" edgedefault="directed">
-    <node id="A"/>
-    <node id="B"/>
-    <node id="C"/>
+    <node id="A">
+    </node>
+    <node id="B">
+    </node>
+    <node id="C">
+    </node>
 
-    <edge source="A" target="B"/>
+    <edge source="A" target="B">
       <data key="d0">car</data>
-    <edge source="A" target="C"/>
+    </edge>
+    <edge source="A" target="C">
       <data key="d0">train</data>
+    </edge>
   </graph>
 </graphml>
 EOT4
@@ -176,7 +190,8 @@ $cities->add_nodes($bonn);
 $result = <<EOT5
   <graph id="G" edgedefault="directed">
     <graph id="Cities&quot;" edgedefault="directed">
-      <node id="Bonn"/>
+      <node id="Bonn">
+      </node>
     </graph>
   </graph>
 </graphml>
@@ -199,9 +214,9 @@ sub _compare
 
   $result = <<EOR
 <?xml version="1.0" encoding="UTF-8"?>
-<graphml xmlns="http://graphml.graphdrawing.org/xmlns/graphml"
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns/graphml
+    xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
      http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
 
 EOR

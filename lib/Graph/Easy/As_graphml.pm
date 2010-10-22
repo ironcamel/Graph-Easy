@@ -111,9 +111,9 @@ sub _as_graphml
 
   my $txt = <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<graphml xmlns="http://graphml.graphdrawing.org/xmlns/graphml"
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"##Y##
-    xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns/graphml
+    xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
      ##SCHEMA##">
 
   <!-- Created by Graph::Easy v##VERSION## at ##DATE## -->
@@ -313,11 +313,13 @@ sub as_graphml
   my ($self, $indent, $ids) = @_;
 
   my $g = $self->{graph};
-  my $txt = $indent . '<node id="' . $g->_safe_xml($self->{name}) . "\"/>\n";
+  my $txt = $indent . '<node id="' . $g->_safe_xml($self->{name}) . "\">\n";
 
   $txt .= $g->_attributes_as_graphml($self, $indent, $ids->{node});
 
-  $txt;
+  $txt .= "$indent</node>\n";
+
+  return $txt;
   }
 
 #############################################################################
@@ -332,9 +334,11 @@ sub as_graphml
 
   my $g = $self->{graph};
   my $txt = $indent . '<edge source="' . $g->_safe_xml($self->{from}->{name}) . 
-		     '" target="' . $g->_safe_xml($self->{to}->{name}) . "\"/>\n";
+		     '" target="' . $g->_safe_xml($self->{to}->{name}) . "\">\n";
 
   $txt .= $g->_attributes_as_graphml($self, $indent, $ids->{edge});
+
+  $txt .= "$indent</edge>\n";
 
   $txt;
   }

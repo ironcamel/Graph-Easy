@@ -634,13 +634,18 @@ GraphML is XML:
 	  <key id="d0" for="edge" attr.name="label" attr.type="string"/>
 	
 	  <graph id="G" edgedefault="directed">
-	    <node id="Berlin"/>
-	    <node id="Bonn"/>
-	    <node id="Ulm"/>
-	    <edge source="Bonn" target="Berlin"/>
+	    <node id="Berlin">
+        </node>
+	    <node id="Bonn">
+        </node>
+	    <node id="Ulm">
+        </node>
+	    <edge source="Bonn" target="Berlin">
 	      <data key="d0">car</data>
-	    <edge source="Bonn" target="Ulm"/>
+        </edge>
+	    <edge source="Bonn" target="Ulm">
 	      <data key="d0">car</data>
+        </edge>
 	  </graph>
 	<graphml>
 
